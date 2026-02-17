@@ -20,7 +20,7 @@ typedef enum SkillsetID {
     NONE=0,
     Attack=1,
     Defend=2,
-    EquimentChange=3,
+    EquipmentChange=3,
     DEPRECATED=4,
     BasicSkill=5,
     Item=6,
@@ -2991,8 +2991,8 @@ typedef enum AbilityID {
     5=419,
     4=420,
     3=421,
-    ASave=422,
-    MASave=423,
+    AttackSave=422,
+    MagicAttackSave=423,
     SpeedSave=424,
     SunkenState=425,
     Caution=426,
@@ -3275,6 +3275,11 @@ typedef enum JobID {
     Treasure=158
 } JobID;
 
+typedef enum birthZod_Data {
+    Birthday=31,
+    Zodiac=224
+} birthZod_Data;
+
 struct PartyUnit {
     byte SpriteSet;
     byte PartyID;
@@ -3287,8 +3292,7 @@ struct PartyUnit {
     int Monster:1;
     int Female:1;
     int Male:1;
-    int Birthday:9;
-    int ZodiacSign:4;
+    enum birthZod_Data birthday_zodiac;
     enum SkillsetID SecondarySkillset;
     enum AbilityID Reaction;
     enum AbilityID Support;
@@ -3373,53 +3377,53 @@ struct PartyUnit {
     char UnitName[16];
     short UnitNameID;
     byte Proposition;
-    undefined field97_0xd1;
+    undefined field96_0xd1;
     byte EggStage;
-    undefined field99_0xd3;
-    undefined field100_0xd4;
-    undefined field101_0xd5;
-    undefined field102_0xd6;
-    undefined field103_0xd7;
-    undefined field104_0xd8;
-    undefined field105_0xd9;
-    undefined field106_0xda;
-    undefined field107_0xdb;
-    undefined field108_0xdc;
-    undefined field109_0xdd;
-    undefined field110_0xde;
-    undefined field111_0xdf;
-    undefined field112_0xe0;
-    undefined field113_0xe1;
-    undefined field114_0xe2;
-    undefined field115_0xe3;
-    undefined field116_0xe4;
-    undefined field117_0xe5;
-    undefined field118_0xe6;
-    undefined field119_0xe7;
-    undefined field120_0xe8;
-    undefined field121_0xe9;
-    undefined field122_0xea;
-    undefined field123_0xeb;
-    undefined field124_0xec;
-    undefined field125_0xed;
-    undefined field126_0xee;
-    undefined field127_0xef;
-    undefined field128_0xf0;
-    undefined field129_0xf1;
-    undefined field130_0xf2;
-    undefined field131_0xf3;
-    undefined field132_0xf4;
-    undefined field133_0xf5;
-    undefined field134_0xf6;
-    undefined field135_0xf7;
-    undefined field136_0xf8;
-    undefined field137_0xf9;
-    undefined field138_0xfa;
-    undefined field139_0xfb;
-    undefined field140_0xfc;
-    undefined field141_0xfd;
-    undefined field142_0xfe;
-    undefined field143_0xff;
+    undefined field98_0xd3;
+    undefined field99_0xd4;
+    undefined field100_0xd5;
+    undefined field101_0xd6;
+    undefined field102_0xd7;
+    undefined field103_0xd8;
+    undefined field104_0xd9;
+    undefined field105_0xda;
+    undefined field106_0xdb;
+    undefined field107_0xdc;
+    undefined field108_0xdd;
+    undefined field109_0xde;
+    undefined field110_0xdf;
+    undefined field111_0xe0;
+    undefined field112_0xe1;
+    undefined field113_0xe2;
+    undefined field114_0xe3;
+    undefined field115_0xe4;
+    undefined field116_0xe5;
+    undefined field117_0xe6;
+    undefined field118_0xe7;
+    undefined field119_0xe8;
+    undefined field120_0xe9;
+    undefined field121_0xea;
+    undefined field122_0xeb;
+    undefined field123_0xec;
+    undefined field124_0xed;
+    undefined field125_0xee;
+    undefined field126_0xef;
+    undefined field127_0xf0;
+    undefined field128_0xf1;
+    undefined field129_0xf2;
+    undefined field130_0xf3;
+    undefined field131_0xf4;
+    undefined field132_0xf5;
+    undefined field133_0xf6;
+    undefined field134_0xf7;
+    undefined field135_0xf8;
+    undefined field136_0xf9;
+    undefined field137_0xfa;
+    undefined field138_0xfb;
+    undefined field139_0xfc;
+    undefined field140_0xfd;
+    undefined field141_0xfe;
+    undefined field142_0xff;
 };
 
 typedef struct ArmorSecondary ArmorSecondary, *PArmorSecondary;
@@ -3428,6 +3432,522 @@ struct ArmorSecondary {
     byte HP;
     byte MP;
 };
+
+typedef enum AbilityIDWord { // Copy of enum AbilityID
+    None=0,
+    Cure=1,
+    Cure2=2,
+    Cure3=3,
+    Cure4=4,
+    Raise=5,
+    Raise2=6,
+    Reraise=7,
+    Regen=8,
+    Protect=9,
+    Protect2=10,
+    Shell=11,
+    Shell2=12,
+    Wall=13,
+    Esuna=14,
+    Holy=15,
+    Fire=16,
+    Fire2=17,
+    Fire3=18,
+    Fire4=19,
+    Bolt=20,
+    Bolt2=21,
+    Bolt3=22,
+    Bolt4=23,
+    Ice=24,
+    Ice2=25,
+    Ice3=26,
+    Ice4=27,
+    Poison=28,
+    Frog=29,
+    Death=30,
+    Flare=31,
+    Haste=32,
+    Haste2=33,
+    Slow=34,
+    Slow2=35,
+    Stop=36,
+    DontMove=37,
+    Float=38,
+    Reflect=39,
+    KANZENTeleportArrive=40,
+    Quick=41,
+    Demi=42,
+    Demi2=43,
+    Meteor=44,
+    2d=45,
+    Blind=46,
+    SpellAbsorb=47,
+    LifeDrain=48,
+    PrayFaith=49,
+    DoubtFaith=50,
+    Zombie=51,
+    SilenceSong=52,
+    BlindRage=53,
+    Foxbird=54,
+    ConfusionSong=55,
+    DispelMagic=56,
+    Paralyze=57,
+    Sleep=58,
+    Petrify=59,
+    Moogle=60,
+    Shiva=61,
+    Ramuh=62,
+    Ifrit=63,
+    Titan=64,
+    Golem=65,
+    Carbunkle=66,
+    Bahamut=67,
+    Odin=68,
+    Leviathan=69,
+    Salamander=70,
+    Silf=71,
+    Fairy=72,
+    Lich=73,
+    Cyclops=74,
+    Zodiac=75,
+    Asura=76,
+    Koutetsu=77,
+    BizenBoat=78,
+    Murasame=79,
+    HeavensCloud=80,
+    Kiyomori=81,
+    Muramasa=82,
+    Kikuichimoji=83,
+    Masamune=84,
+    Chirijiraden=85,
+    AngelSong=86,
+    LifeSong=87,
+    CheerSong=88,
+    BattleSong=89,
+    MagicSong=90,
+    NamelessSong=91,
+    LastSong=92,
+    WitchHunt=93,
+    Wiznaibus=94,
+    SlowDance=95,
+    PolkaPolka=96,
+    Disillusion=97,
+    NamelessDance=98,
+    LastDance=99,
+    SpinFist=100,
+    RepeatingFist=101,
+    WaveFist=102,
+    EarthSlash=103,
+    SecretFist=104,
+    StigmaMagic=105,
+    Chakra=106,
+    Revive=107,
+    GilTaking=108,
+    StealHeart=109,
+    StealHelmet=110,
+    StealArmor=111,
+    StealShield=112,
+    StealWeapon=113,
+    StealAccessory=114,
+    StealEXP=115,
+    Invitation=116,
+    Persuade=117,
+    Praise=118,
+    Threaten=119,
+    Preach=120,
+    Solution=121,
+    DeathSentence=122,
+    Negotiate=123,
+    Insult=124,
+    MimicDaravon=125,
+    Pitfall=126,
+    WaterBall=127,
+    HellIvy=128,
+    CarveModel=129,
+    LocalQuake=130,
+    Kamaitachi=131,
+    DemonFire=132,
+    Quicksand=133,
+    SandStorm=134,
+    Blizzard=135,
+    GustyWind=136,
+    LavaBall=137,
+    HeadBreak=138,
+    ArmorBreak=139,
+    ShieldBreak=140,
+    WeaponBreak=141,
+    MagicBreak=142,
+    SpeedBreak=143,
+    PowerBreak=144,
+    MindBreak=145,
+    Accumulate=146,
+    Dash=147,
+    ThrowStone=148,
+    Heal=149,
+    Yell=150,
+    CheerUp=151,
+    Wish=152,
+    Scream=153,
+    Ultima=154,
+    StasisSword=155,
+    SplitPunch=156,
+    CrushPunch=157,
+    LightningStab=158,
+    HolyExplosion=159,
+    ShellburstStab=160,
+    BlastarPunch=161,
+    HellcryPunch=162,
+    IcewolfBite=163,
+    DarkSword=164,
+    NightSword=165,
+    DarkHoly=166,
+    Deathspell2=167,
+    GalaxyStop=168,
+    HeavenThunder=169,
+    Asura(Truth)=170,
+    DiamondSword=171,
+    HydragonPit=172,
+    SpaceStorage=173,
+    SkyDemon=174,
+    HeavenBoltBack=175,
+    AsuraBack=176,
+    DiamondSwordBack=177,
+    HydragonPitBack=178,
+    SpaceStorageBack=179,
+    SkyDemonback=180,
+    Seal(UseHand)=181,
+    ShadowStitch=182,
+    StopBracelet=183,
+    ARUTETeleportArrive=184,
+    Shock=185,
+    Difference=186,
+    Seal(Fear)=187,
+    ChickenRace=188,
+    HoldTight=189,
+    Darkness=190,
+    LoseVoice=191,
+    Loss=192,
+    Spell=193,
+    Nightmare=194,
+    DeathCold=195,
+    MagicRuin=196,
+    SpeedRuin=197,
+    PowerRuin=198,
+    MindRuin=199,
+    BloodSuck=200,
+    Allure=201,
+    Bio(ca)=202,
+    Bio(cb)=203,
+    Bio(cc)=204,
+    Bio2(cd)=205,
+    Bio2(ce)=206,
+    Bio2(cf)=207,
+    Bio2(d0)=208,
+    Bio3(d1)=209,
+    Bio3(d2)=210,
+    Bio3(d3)=211,
+    MagicBarrier=212,
+    LegAim=213,
+    ArmAim=214,
+    SealEvil=215,
+    Melt=216,
+    Tornado=217,
+    Quake=218,
+    ARUTETeleportSend=219,
+    KANZENTeleportSend=220,
+    Toad2=221,
+    Gravi2=222,
+    Flare2=223,
+    Blind2=224,
+    SmallBomb(Blue)=225,
+    SmallBomb(Black)=226,
+    Confuse2=227,
+    Sleep2=228,
+    Ultima(ARUTE)=229,
+    All-Ultima=230,
+    Mute=231,
+    Despair2=232,
+    Return2=233,
+    Blind(MagicSword)=234,
+    Aspel=235,
+    Drain=236,
+    Faith=237,
+    Innocent=238,
+    Zombie(MagicSword)=239,
+    Silence=240,
+    Berserk=241,
+    Chicken=242,
+    Confuse=243,
+    Despair=244,
+    DontAct=245,
+    Sleep(MagicSword)=246,
+    Break=247,
+    IceBracelet=248,
+    FireBracelet=249,
+    ThunderBracelet=250,
+    DragonTame=251,
+    DragonCare=252,
+    DragonPowerUp=253,
+    DragonLevelUp=254,
+    HolyBracelet=255,
+    Shock!=256,
+    Braver=257,
+    Cross-slash=258,
+    BladeBeam=259,
+    Climhazzard=260,
+    Meteorain=261,
+    FinishTouch=262,
+    Omnislash=263,
+    CherryBlossom=264,
+    ChocoAttack=265,
+    ChocoBall=266,
+    ChocoMeteor=267,
+    ChocoEsuna=268,
+    ChocoCure=269,
+    Tackle=270,
+    GoblinPunch=271,
+    TurnPunch=272,
+    EyeGouge=273,
+    Mutilate=274,
+    Bite=275,
+    SmallBomb(red)=276,
+    SelfDestruct=277,
+    FlameAttack=278,
+    Spark=279,
+    Scratch=280,
+    CatKick=281,
+    Blastar=282,
+    PoisonNail=283,
+    BloodSuck(Panther)=284,
+    Tentacle(PiscoDemon)=285,
+    BlackInk=286,
+    OddSoundwave=287,
+    MindBlast=288,
+    LevelBlast=289,
+    KnifeHand=290,
+    ThunderSoul=291,
+    AquaSoul=292,
+    IceSoul=293,
+    WindSoul=294,
+    ThrowSpirit=295,
+    ZombieTouch=296,
+    SleepTouch=297,
+    DrainTouch=298,
+    GreaseTouch=299,
+    WingAttack=300,
+    LookofDevil=301,
+    LookofFright=302,
+    Circle=303,
+    DeathSentence(Flotibol)=304,
+    ScratchUp=305,
+    Beak=306,
+    ShineLover=307,
+    FeatherBomb=308,
+    Beaking=309,
+    StraightDash=310,
+    NoseBracelet=311,
+    Oink=312,
+    Pooh-=313,
+    PleaseEat=314,
+    LeafDance=315,
+    ProtectSpirit=316,
+    ClamSpirit=317,
+    SpiritofLife=318,
+    MagicSpirit=319,
+    ShakeOff=320,
+    WaveAround=321,
+    MimicTitan=322,
+    GatherPower=323,
+    BlowFire=324,
+    Tentacle(Marlboro)=325,
+    Lick=326,
+    Goo=327,
+    BadBracelet=328,
+    MoldballVirus=329,
+    StabUp=330,
+    SuddenCry=331,
+    Hurricane=332,
+    Ulmaguest=333,
+    GigaFlare=334,
+    Dash(Dragon)=335,
+    TailSwing=336,
+    IceBracelet(Dragon)=337,
+    FireBracelet(Dragon)=338,
+    ThunderBracelet(Dragon)=339,
+    TripleAttack=340,
+    TripleBracelet=341,
+    TripleThunder=342,
+    TripleFlame=343,
+    DarkWhisper=344,
+    SnakeCarrier=345,
+    PoisonFrog=346,
+    MidgarSwarm=347,
+    Lifebreak=348,
+    Nanoflare=349,
+    GrandCross=350,
+    Destroy=351,
+    Compress=352,
+    Dispose=353,
+    Crush=354,
+    Energy=355,
+    Parasite=356,
+    165=357,
+    166=358,
+    167=359,
+    168=360,
+    169=361,
+    16a=362,
+    16b=363,
+    16c=364,
+    16d=365,
+    16e=366,
+    FrogAttack=367,
+    Potion=368,
+    HiPotion=369,
+    XPotion=370,
+    Ether=371,
+    HiEther=372,
+    Elixir=373,
+    Antidote=374,
+    EyeDrop=375,
+    EchoGrass=376,
+    MaidensKiss=377,
+    Soft=378,
+    HolyWater=379,
+    Remedy=380,
+    PhoenixDown=381,
+    Shuriken=382,
+    Knife=383,
+    Sword=384,
+    Hammer=385,
+    Katana=386,
+    NinjaSword=387,
+    Axe=388,
+    Spear=389,
+    Stick=390,
+    KnightSword=391,
+    Dictionary=392,
+    Ball=393,
+    LevelJump2=394,
+    LevelJump3=395,
+    LevelJump4=396,
+    LevelJump5=397,
+    LevelJump8=398,
+    VerticalJump2=399,
+    VerticalJump3=400,
+    VerticalJump4=401,
+    VerticalJump5=402,
+    VerticalJump6=403,
+    VerticalJump7=404,
+    VerticalJump8=405,
+    Charge+1=406,
+    Charge+2=407,
+    Charge+3=408,
+    Charge+4=409,
+    Charge+5=410,
+    Charge+7=411,
+    Charge+10=412,
+    Charge+20=413,
+    CT=414,
+    Level=415,
+    Exp=416,
+    Height=417,
+    PrimeNumber=418,
+    5=419,
+    4=420,
+    3=421,
+    ASave=422,
+    MASave=423,
+    SpeedSave=424,
+    SunkenState=425,
+    Caution=426,
+    DragonSpirit=427,
+    Regenerator=428,
+    BraveUp=429,
+    FaceUp=430,
+    HPRestore=431,
+    MPRestore=432,
+    CriticalQuick=433,
+    MeatboneSlash=434,
+    CounterMagic=435,
+    CounterTackle=436,
+    CounterFlood=437,
+    AbsorbUsedMP=438,
+    GilgameHeart=439,
+    Reflect(Reaction)=440,
+    AutoPotion=441,
+    Counter=442,
+    1bb=443,
+    Distribute=444,
+    MPSwitch=445,
+    DamageSplit=446,
+    WeaponGuard=447,
+    FingerGuard=448,
+    Abandon=449,
+    Catch=450,
+    BladeGrasp=451,
+    ArrowGuard=452,
+    Hamedo=453,
+    EquipArmor=454,
+    EquipShield=455,
+    EquipSword=456,
+    EquipKnife=457,
+    EquipCrossbow=458,
+    EquipSpear=459,
+    EquipAxe=460,
+    EquipGun=461,
+    HalfofMP=462,
+    GainedJpUP=463,
+    GainedExpUP=464,
+    AttackUP=465,
+    DefenseUP=466,
+    MagicAttackUP=467,
+    MagicDefendUP=468,
+    Concentrate=469,
+    Train=470,
+    SecretHunt=471,
+    MartialArts=472,
+    MonsterTalk=473,
+    ThrowItem=474,
+    Maintenance=475,
+    TwoHands=476,
+    TwoSwords=477,
+    MonsterSkill=478,
+    Defend=479,
+    EquipChange=480,
+    1e1=481,
+    ShortCharge=482,
+    NonCharge=483,
+    1e4=484,
+    1e5=485,
+    Move+1=486,
+    Move+2=487,
+    Move+3=488,
+    Jump+1=489,
+    Jump+2=490,
+    Jump+3=491,
+    IgnoreHeight=492,
+    MoveHPUp=493,
+    MoveMPUp=494,
+    MoveGetExp=495,
+    MoveGetJp=496,
+    CannotEnterWater=497,
+    Teleport=498,
+    Teleport2=499,
+    AnyWeather=500,
+    AnyGround=501,
+    WalkonWater=502,
+    MoveinWater=503,
+    MoveonLava=504,
+    MoveUnderwater=505,
+    Float(Movement)=506,
+    Fly=507,
+    SilentWalk=508,
+    MoveFindItem=509,
+    1fe=510,
+    1ff=511,
+    FallDamage=512
+} AbilityIDWord;
 
 typedef struct SecondaryAbilityItem SecondaryAbilityItem, *PSecondaryAbilityItem;
 
@@ -3711,7 +4231,8 @@ typedef enum EventVar { // https://ffhacktics.com/wiki/Variables
     SaveToFormationVar=85,
     TotalCharPrintNum=87,
     DeepDungeonListID=92,
-    NumInjured=98,
+    NumInjured=97,
+    NumCasualties=98,
     NumDeaths=99,
     NewScenario=100,
     DeepDungeonListLength=101,
@@ -5797,6 +6318,7 @@ typedef enum ENTDAutoBattleAction { // https://ffhacktics.com/wiki/Miscellaneous
     AIUnitWillMove=0,
     AIUnitWillAct=1,
     AIEndOfTurn=2,
+    ExecutingAttack=14 // from IdlingActionMenus state handler,
     maybeAIUnitIsMoving=25
 } ENTDAutoBattleAction;
 
@@ -5817,6 +6339,43 @@ typedef struct AllActionUnitData AllActionUnitData, *PAllActionUnitData;
 typedef struct CurActionTargetData CurActionTargetData, *PCurActionTargetData;
 
 typedef struct CurActionUnitData CurActionUnitData, *PCurActionUnitData;
+
+typedef enum ENTDCurrentActionDisplayFlags { // this is mostly wrong - https://ffhacktics.com/wiki/Miscellaneous_Unit_Data
+    HPDamage=0,
+    HPHealing=1,
+    MPDamage=2,
+    MPHealing=3,
+    SPDamage=4,
+    SPBonus=5,
+    CTDamage=6,
+    CTBonus=7,
+    BraveDamage=8,
+    BraveBonus=9,
+    FaithDamage=10,
+    FaithBonus=11,
+    PADamage=12,
+    PABonus=13,
+    MADamage=14,
+    MABonus=15,
+    Missed=16,
+    Guarded=32,
+    Caught=48,
+    StatusInflict=96,
+    StatusRemove=112,
+    LevelDown=128,
+    LevelUp=144,
+    EquipStolen=160,
+    EquipBroken=176,
+    Quick=192,
+    CT0=208,
+    NoTarget=224,
+    Silenced=240,
+    NoMP=256,
+    Use0x18eList=512,
+    DisplayType=702,
+    GainedEXP=33554432,
+    GainedJP=67108864
+} ENTDCurrentActionDisplayFlags;
 
 typedef struct BodyPartSpriteData BodyPartSpriteData, *PBodyPartSpriteData;
 
@@ -6366,7 +6925,7 @@ struct ENTDCurrentActionData {
     short LastUsedAttack;
     undefined field6_0x16;
     undefined field7_0x17;
-    undefined field8_0x18;
+    byte ContinueAttack; // Comment in ResumeAttackPhaseControl state handler
     byte CurrentHitNo;
     byte ReactionID;
     undefined field11_0x1b;
@@ -6384,66 +6943,37 @@ struct ENTDCurrentActionData {
     byte JobLevel;
     byte maybePlayerControl;
     undefined field25_0x29;
-    undefined field26_0x2a;
+    byte SelectedAbility;
     byte InflictedRemovedStatusCount;
-    int HPDamage:1;
-    int HPHealing:1;
-    int MPDamage:1;
-    int MPHealing:1;
-    int SPDamage:1;
-    int SPBonus:1;
-    int CTDamage:1;
-    int CTBonus:1;
-    int BraveDamage:1;
-    int BraveBonus:1;
-    int FaithDamage:1;
-    int FaithBonus:1;
-    int PADamage:1;
-    int PABonus:1;
-    int MADamage:1;
-    int MABonus:1;
-    int -1Lv:1;
-    int +1Lv:1;
-    int Stolen:1;
-    int Broken:1;
-    int Quick:1;
-    int CT00:1;
-    int Missed:1;
-    int Guarded:1;
-    int Caught:1;
-    int GainedExp:1;
-    int GainedJP:1;
-    int NoTarget:1;
-    int Silenced:1;
-    int NoMP:1;
-    byte field58_0x30;
-    undefined field59_0x31;
-    undefined field60_0x32;
-    undefined field61_0x33;
-    undefined field62_0x34;
-    undefined field63_0x35;
-    undefined field64_0x36;
-    undefined field65_0x37;
-    undefined field66_0x38;
-    undefined field67_0x39;
-    undefined field68_0x3a;
-    undefined field69_0x3b;
-    undefined field70_0x3c;
-    undefined field71_0x3d;
-    undefined field72_0x3e;
-    undefined field73_0x3f;
-    undefined field74_0x40;
-    undefined field75_0x41;
-    undefined field76_0x42;
-    undefined field77_0x43;
-    undefined field78_0x44;
-    undefined field79_0x45;
-    undefined field80_0x46;
-    undefined field81_0x47;
-    undefined field82_0x48;
-    undefined field83_0x49;
-    undefined field84_0x4a;
-    undefined field85_0x4b;
+    enum ENTDCurrentActionDisplayFlags DisplayFlags;
+    byte field29_0x30;
+    undefined field30_0x31;
+    undefined field31_0x32;
+    undefined field32_0x33;
+    undefined field33_0x34;
+    undefined field34_0x35;
+    undefined field35_0x36;
+    undefined field36_0x37;
+    undefined field37_0x38;
+    undefined field38_0x39;
+    undefined field39_0x3a;
+    undefined field40_0x3b;
+    undefined field41_0x3c;
+    undefined field42_0x3d;
+    undefined field43_0x3e;
+    undefined field44_0x3f;
+    undefined field45_0x40;
+    undefined field46_0x41;
+    undefined field47_0x42;
+    undefined field48_0x43;
+    undefined field49_0x44;
+    undefined field50_0x45;
+    undefined field51_0x46;
+    undefined field52_0x47;
+    undefined field53_0x48;
+    undefined field54_0x49;
+    undefined field55_0x4a;
+    undefined field56_0x4b;
 };
 
 struct WeaponSpriteDisplayData {
@@ -6779,7 +7309,7 @@ struct ENTDDisplayUnitData {
     undefined field241_0x11c;
     undefined field242_0x11d;
     byte BattleIDPlusOne;
-    undefined field244_0x11f;
+    byte PrevBattleIDPlusOne;
     undefined field245_0x120;
     undefined field246_0x121;
     undefined field247_0x122;
@@ -6844,7 +7374,7 @@ struct ENTDDisplayUnitData {
     undefined field306_0x179;
     undefined field307_0x17a;
     undefined field308_0x17b;
-    undefined field309_0x17c;
+    enum SkillsetID AnotherSkillSet;
     undefined field310_0x17d;
     undefined field311_0x17e;
     undefined field312_0x17f;
@@ -11057,7 +11587,7 @@ typedef enum SkillsetType {
     Jump=9,
     Aim=10,
     Defend=11,
-    EqChng=12,
+    EquipChange=12,
     BUGGED=13,
     DEPRECATED2=14,
     BUGGED2=15
@@ -11102,7 +11632,7 @@ typedef enum GameStateVar {
     CommenceAtkPhaseCtrl=30,
     BattleTargetSelectStartMode=31 // Official name from IOS port. AI related?,
     BattleTargetSelectMode=32 // Official name from IOS port. AI related?,
-    BattleTargetSelectDeneidMode=33 // Official name from IOS port. AI related?,
+    BattleTargetSelectDeniedMode=33 // Official name from IOS port. AI related?,
     BattleTargetSelectConfirmMode=34 // Official name from IOS port. AI related?,
     BattleTargetDisplayStartMode=35 // Official name from IOS port. AI related?,
     BattleTargetDisplayMode=36 // Official name from IOS port. AI related?,
@@ -11334,6 +11864,17 @@ typedef enum CameraYawAngle {
     90DegreesLeft=64512,
     DiagonalMask=65024
 } CameraYawAngle;
+
+typedef enum CursorMoveDirection { // Returned from Free Cursor Input to Move Cursor
+    MoveSouth=0,
+    MoveSouthWest=512,
+    MoveWest=1024,
+    MoveNorthWest=1536,
+    MoveNorth=2048,
+    MoveNorthEast=2560,
+    MoveEast=3072,
+    MoveSouthEast=3584
+} CursorMoveDirection;
 
 typedef enum CameraZoomAction {
     MapNotZooming=0,
@@ -12137,7 +12678,7 @@ void Pause_SpecificMUS(int param_1)
 
 {
   short sVar1;
-  SFX_ID param1;
+  SFX_ID sfx;
   MusicChannelData *ChannelData;
   int numChannels;
   
@@ -12147,9 +12688,9 @@ void Pause_SpecificMUS(int param_1)
   do {
     numChannels = numChannels + -1;
     if (((ChannelData->channelflags & action1) != 0) &&
-       (param1 = *(SFX_ID *)&(ChannelData->channel_inter).channelSecondary.field_0x4,
-       (int)param1 >> 0x10 == (int)sVar1)) {
-      AccumulateChannelsToPause(param1);
+       (sfx = *(SFX_ID *)&(ChannelData->channel_inter).channelSecondary.field_0x4,
+       (int)sfx >> 0x10 == (int)sVar1)) {
+      SCUS_AccumulateChannelsToPause(sfx);
     }
     ChannelData = ChannelData + 1;
   } while (numChannels != 0);
@@ -12158,7 +12699,9 @@ void Pause_SpecificMUS(int param_1)
 
 
 
-void AccumulateChannelsToPause(SFX_ID param1)
+// https://ffhacktics.com/wiki/SCUS_AccumulateChannelsToPause
+
+void SCUS_AccumulateChannelsToPause(SFX_ID sfx)
 
 {
   uint _channelbits;
@@ -12180,7 +12723,7 @@ void AccumulateChannelsToPause(SFX_ID param1)
   do {
     NumChannels = NumChannels + -1;
     if (((ChannelData->channelflags & action1) != 0) &&
-       (*(SFX_ID *)&_channel_data[-1].field_0x100 == param1)) {
+       (*(SFX_ID *)&_channel_data[-1].field_0x100 == sfx)) {
       _channelbits = _channel_data->using_channels;
       OwnedChannels = OwnedChannels | mask;
       ChannelData->channelflags = 0;
@@ -14418,7 +14961,7 @@ byte * Sound_Effect(byte *instruction_list)
 byte * FUN_80015bfc(byte *instruction_list)
 
 {
-  AccumulateChannelsToPause((uint)*(ushort *)instruction_list);
+  SCUS_AccumulateChannelsToPause((uint)*(ushort *)instruction_list);
   return instruction_list + 2;
 }
 
@@ -32018,7 +32561,7 @@ u_short LoadTPage(u_long *pix,int tp,int abr,int x,int y,int w,int h)
                        unaff_s0,unaff_s1,unaff_s2,unaff_s3,unaff_retaddr);
     return (u_short)uVar2;
   }
-  LoadImage((RECT *)&stack0xffffffe0,pix);
+  SYS_LoadImage((RECT *)&stack0xffffffe0,pix);
   uVar1 = GetTPage(2,abr,x,y);
   return uVar1;
 }
@@ -32029,13 +32572,13 @@ u_short EXT_OBJ_A8(void)
 
 {
   u_short uVar1;
-  u_long *in_t0;
+  void *in_t0;
   int unaff_s0;
   int unaff_s1;
   int unaff_s2;
   int unaff_s3;
   
-  LoadImage((RECT *)&stack0x00000010,in_t0);
+  SYS_LoadImage((RECT *)&stack0x00000010,in_t0);
   uVar1 = GetTPage(unaff_s0,unaff_s2,unaff_s1,unaff_s3);
   return uVar1;
 }
@@ -32048,13 +32591,13 @@ uint EXT_OBJ_AC(RECT *param_1,undefined param_2,undefined param_3,undefined para
 
 {
   u_short uVar1;
-  u_long *in_t0;
+  void *in_t0;
   int unaff_s0;
   int unaff_s1;
   int unaff_s2;
   int unaff_s3;
   
-  LoadImage(param_1,in_t0);
+  SYS_LoadImage(param_1,in_t0);
   uVar1 = GetTPage(unaff_s0,unaff_s2,unaff_s1,unaff_s3);
   return (uint)uVar1;
 }
@@ -32071,14 +32614,14 @@ u_short LoadClut(u_long *clut,int x,int y)
   local_18.x = (short)x;
   local_18.y = (short)y;
   local_18.h = 1;
-  LoadImage(&local_18,clut);
+  SYS_LoadImage(&local_18,clut);
   uVar1 = GetClut(x,y);
   return uVar1;
 }
 
 
 
-uint LoadClut2(u_long *param_1,int param_2,uint param_3)
+uint LoadClut2(void *param_1,int param_2,uint param_3)
 
 {
   u_short uVar1;
@@ -32088,7 +32631,7 @@ uint LoadClut2(u_long *param_1,int param_2,uint param_3)
   local_18.x = (short)param_2;
   local_18.y = (short)param_3;
   local_18.h = 1;
-  LoadImage(&local_18,param_1);
+  SYS_LoadImage(&local_18,param_1);
   uVar1 = GetClut(param_2,param_3);
   return (uint)uVar1;
 }
@@ -34548,7 +35091,9 @@ int ClearImage(RECT *rect,u_char r,u_char g,u_char b)
 
 
 
-int LoadImage(RECT *rect,u_long *p)
+// https://ffhacktics.com/wiki/SYS_LoadImage
+
+int SYS_LoadImage(RECT *rect,void *p)
 
 {
   int iVar1;
@@ -38652,7 +39197,7 @@ uint DrawSquaresoftLogo(u_long *Otag,undefined *ImageSrc)
   ImageRECT.w = 0xb4;
   ImageRECT.h = 0x10;
   ImageRECT.y = (&DRAWENV1)[ScreenPolarity].clip.y + 0x70;
-  LoadImage(&ImageRECT,(u_long *)ImageSrc);
+  SYS_LoadImage(&ImageRECT,ImageSrc);
   DrawOTag(Otag);
   FntFlush(-1);
   return uVar1;
@@ -38834,7 +39379,7 @@ uint Draw_SCEAP(u_long *Otag,u_long *ImageSrc)
   ImageRECT.w = 0x140;
   ImageRECT.h = 0x20;
   ImageRECT.y = (&DRAWENV1)[ScreenPolarity].clip.y + 0x68;
-  LoadImage(&ImageRECT,ImageSrc);
+  SYS_LoadImage(&ImageRECT,ImageSrc);
   DrawOTag(Otag);
   FntFlush(-1);
   return uVar1;
@@ -39015,9 +39560,9 @@ void Get_ZODIAC_CDROM_to_FrameBuffer(void)
   local_10._0_4_ = ZODIACTW._0_4_;
   local_10._4_4_ = ZODIACTW._4_4_;
   p = Get_BIN_as_TIM(0xec61,0x10000);
-  LoadImage(&local_10,p);
+  SYS_LoadImage(&local_10,p);
   DrawSync(0);
-  SCUS_MRTA_free((int)p);
+  SCUS_MRTA_free(p);
   Get_FRAME_CDROM_to_FrameBuffer();
   return;
 }
@@ -39106,19 +39651,19 @@ undefined4 Open_ENTD_withEventID(void)
   }
   else {
     if (Current_ENTD_ID < 0x80) {
-      Current_ENTD_Sector_Data = (u_long *)BIN_Malloc_FFT(0x14000);
+      Current_ENTD_Sector_Data = (u_long *)SCUS_MRTA_Malloc(0x14000);
       iVar2 = 0xebc1;
     }
     else if (Current_ENTD_ID < 0x100) {
-      Current_ENTD_Sector_Data = (u_long *)BIN_Malloc_FFT(0x14000);
+      Current_ENTD_Sector_Data = (u_long *)SCUS_MRTA_Malloc(0x14000);
       iVar2 = 0xebe9;
     }
     else if (Current_ENTD_ID < 0x180) {
-      Current_ENTD_Sector_Data = (u_long *)BIN_Malloc_FFT(0x14000);
+      Current_ENTD_Sector_Data = (u_long *)SCUS_MRTA_Malloc(0x14000);
       iVar2 = 0xec11;
     }
     else {
-      Current_ENTD_Sector_Data = (u_long *)BIN_Malloc_FFT(0x14000);
+      Current_ENTD_Sector_Data = (u_long *)SCUS_MRTA_Malloc(0x14000);
       iVar2 = 0xec39;
     }
     iVar2 = Call_CalcFileHead_NNL(iVar2,0x14000,Current_ENTD_Sector_Data);
@@ -39244,7 +39789,7 @@ void NewGame_Setup(int param_1)
     ENTDStart_InitUnitData(0xfe);
   }
   StartingInventory();
-  WORLD_SetScriptVar(0x2c,2000);
+  WORLD_SetScriptVar(WarFunds,2000);
   return;
 }
 
@@ -40048,17 +40593,19 @@ void Stop_Playing_SFX(SFX_ID sfx_ID)
   if (sfx_ID == DAT_8004599c) {
     DAT_8004599c = 0;
   }
-  AccumulateChannelsToPause(sfx_ID);
+  SCUS_AccumulateChannelsToPause(sfx_ID);
   return;
 }
 
 
 
+// https://ffhacktics.com/wiki/00044128_-_00044150
+
 void FUN_80044128(void)
 
 {
   if (DAT_8004599c != 0) {
-    AccumulateChannelsToPause(DAT_8004599c);
+    SCUS_AccumulateChannelsToPause(DAT_8004599c);
   }
   return;
 }
@@ -40199,7 +40746,9 @@ void SMD_Free_FFT(void)
 
 
 
-undefined * BIN_Malloc_FFT(uint param_1)
+// https://ffhacktics.com/wiki/SCUS_MRTA_Malloc
+
+void * SCUS_MRTA_Malloc(uint size)
 
 {
   undefined *puVar1;
@@ -40211,9 +40760,9 @@ undefined * BIN_Malloc_FFT(uint param_1)
   uint in_t0;
   
   uVar4 = 0;
-  uVar5 = param_1 >> 0xb;
+  uVar5 = size >> 0xb;
   uVar6 = 1;
-  if ((param_1 & 0x7ff) != 0) {
+  if ((size & 0x7ff) != 0) {
     uVar5 = uVar5 + 1;
   }
   uVar3 = 0;
@@ -40304,7 +40853,7 @@ undefined * SCUS_MRTA_realloc(undefined *addr,uint size)
 
 // https://ffhacktics.com/wiki/SCUS_MRTA_Free
 
-undefined4 SCUS_MRTA_free(int addr)
+undefined4 SCUS_MRTA_free(void *address)
 
 {
   char cVar1;
@@ -40312,7 +40861,7 @@ undefined4 SCUS_MRTA_free(int addr)
   char *pcVar3;
   uint uVar4;
   
-  uVar4 = (uint)(addr - (int)exe_dest_ptr_arr[4]) >> 0xb;
+  uVar4 = (uint)((int)address - (int)exe_dest_ptr_arr[4]) >> 0xb;
   cVar1 = (&DAT_8004e9d4)[uVar4];
   uVar2 = 0;
   if (uVar4 == 0 || cVar1 != (&DAT_8004e9d3)[uVar4]) {
@@ -40400,7 +40949,7 @@ u_long * Get_TIM(int param_1,uint param_2)
   u_long *puVar1;
   int iVar2;
   
-  puVar1 = (u_long *)BIN_Malloc_FFT(param_2);
+  puVar1 = (u_long *)SCUS_MRTA_Malloc(param_2);
   if (puVar1 == (u_long *)0x0) {
     SCUS_exception_animation_DEPRECATED();
   }
@@ -40478,7 +41027,7 @@ u_long * Get_BIN_as_TIM(int param_1,uint param_2)
 void Call_BIN_Free_FFT(int param_1)
 
 {
-  SCUS_MRTA_free(param_1);
+  SCUS_MRTA_free((void *)param_1);
   return;
 }
 
@@ -40610,7 +41159,7 @@ void FUN_80044acc(void)
   DAT_800473a4 = 0x20;
   DAT_800473a7 = 1;
   DAT_800473a8 = 0;
-  DAT_800473ac = DAT_800473b0;
+  SCUS_Custom_Options = DAT_800473b0;
   return;
 }
 
@@ -40816,9 +41365,9 @@ void Get_FRAME_CDROM_to_FrameBuffer(void)
   u_long *puVar1;
   
   puVar1 = Get_BIN_as_TIM(0xe68,0x9800);
-  LoadImage(&FRAMETW1,puVar1 + 0x400);
-  LoadImage(&FRAMETW2,puVar1 + 0x2400);
-  LoadImage(&FRAMETW3,puVar1 + 0x2480);
+  SYS_LoadImage(&FRAMETW1,puVar1 + 0x400);
+  SYS_LoadImage(&FRAMETW2,puVar1 + 0x2400);
+  SYS_LoadImage(&FRAMETW3,puVar1 + 0x2480);
   DrawSync(0);
   Call_BIN_Free_FFT((int)puVar1);
   return;
@@ -41249,8 +41798,9 @@ LAB_80059c58:
   pPVar4->field_0x4 = bVar3;
   uVar1 = *(ushort *)(param_1 + 8);
   uVar2 = *(undefined2 *)(param_1 + 8);
-  pPVar4->field_0x5 = (char)(uVar1 & 0x1ff);
-  pPVar4->field_0x6 = (byte)((uVar1 & 0x1ff) >> 8) | (byte)((ushort)uVar2 >> 8) & 0xf0;
+  *(char *)&pPVar4->birthday_zodiac = (char)(uVar1 & 0x1ff);
+  *(byte *)((int)&pPVar4->birthday_zodiac + 1) =
+       (byte)((uVar1 & 0x1ff) >> 8) | (byte)((ushort)uVar2 >> 8) & 0xf0;
   StoreArg1_IntoArg2_(param_1 + 0x13,&pPVar4->SecondarySkillset,0x10);
   pPVar4->Brave = param_1[0x23];
   pPVar4->Faith = param_1[0x25];
@@ -41327,8 +41877,9 @@ int Create_MonsterEgg(JobID param_1,ushort param_2,byte param_3)
       param_2 = 1;
     }
     uVar2 = Calculate_Zodiac_Sign(param_2);
-    pPVar1->field_0x5 = (char)param_2;
-    pPVar1->field_0x6 = ((byte)(param_2 >> 8) & 1) + (char)uVar2 * '\x10';
+    *(char *)&pPVar1->birthday_zodiac = (char)param_2;
+    *(byte *)((int)&pPVar1->birthday_zodiac + 1) = ((byte)(param_2 >> 8) & 1) + (char)uVar2 * '\x10'
+    ;
     iVar3 = party_id;
   }
   return iVar3;
@@ -41622,7 +42173,7 @@ void JobGrowthMult_to_Unit(int param_1)
 
 
 
-uint Get_Abiltity_from_Skillset(int param_1,int param_2)
+uint Get_Abiltity_from_Skillset(int primary_skillset,int param_2)
 
 {
   byte bVar1;
@@ -41630,7 +42181,7 @@ uint Get_Abiltity_from_Skillset(int param_1,int param_2)
   int iVar3;
   int iVar4;
   
-  if (param_1 < 0xb0) {
+  if (primary_skillset < 0xb0) {
     if (0x15 < param_2) {
       return 0;
     }
@@ -41638,18 +42189,18 @@ uint Get_Abiltity_from_Skillset(int param_1,int param_2)
     if (param_2 < 0) {
       iVar4 = param_2 + 7;
     }
-    uVar2 = (uint)*(byte *)((int)&SkillsetList[param_1].ActionFlags + (iVar4 >> 3)) <<
+    uVar2 = (uint)*(byte *)((int)&SkillsetList[primary_skillset].ActionFlags + (iVar4 >> 3)) <<
             (param_2 + (iVar4 >> 3) * -8 + 1U & 0x1f);
-    bVar1 = (&SkillsetList[param_1].field_0x3)[param_2];
+    bVar1 = (&SkillsetList[primary_skillset].field_0x3)[param_2];
   }
   else {
-    if (0xdf < param_1) {
+    if (0xdf < primary_skillset) {
       return 0;
     }
     if (3 < param_2) {
       return 0;
     }
-    iVar3 = param_1 * 5 + -0x7ff9a7ac;
+    iVar3 = primary_skillset * 5 + -0x7ff9a7ac;
     iVar4 = param_2;
     if (param_2 < 0) {
       iVar4 = param_2 + 7;
@@ -41879,10 +42430,12 @@ void Store_Ramza_PlayerStats(byte *param_1)
       pPVar2 = Get_Party_Data_Pointer(party_id);
       if ((pPVar2->PartyID != 0xff) && (pPVar2->SpriteSet < 4)) {
         uVar1 = *(ushort *)(param_1 + 8);
-        uVar3 = (ushort)(byte)pPVar2->field_0x5 + (ushort)(byte)pPVar2->field_0x6 * 0x100 & 0x1ff;
+        uVar3 = (ushort)*(byte *)&pPVar2->birthday_zodiac +
+                (ushort)*(byte *)((int)&pPVar2->birthday_zodiac + 1) * 0x100 & 0x1ff;
         *(ushort *)(param_1 + 8) = uVar1 & 0xfe00 | uVar3;
         *(ushort *)(param_1 + 8) =
-             uVar1 & 0xe00 | uVar3 | (ushort)((byte)pPVar2->field_0x6 >> 4) << 0xc;
+             uVar1 & 0xe00 | uVar3 |
+             (ushort)(*(byte *)((int)&pPVar2->birthday_zodiac + 1) >> 4) << 0xc;
         StoreArg1_IntoArg2_(pPVar2->UnitName,param_1 + 300,0x10);
         return;
       }
@@ -43221,7 +43774,7 @@ void Calc_Learned_Abilities(byte *param_1,uint param_2,int param_3)
   int iVar6;
   uint uVar7;
   int iVar8;
-  uint uVar9;
+  uint primary_skillset;
   
   bVar1 = false;
   uVar7 = param_2 - 0x4a;
@@ -43242,19 +43795,19 @@ void Calc_Learned_Abilities(byte *param_1,uint param_2,int param_3)
   if (((param_2 != 0x5b) || ((param_1[6] & 0x40) == 0)) &&
      ((param_2 != 0x5c || ((param_1[6] & 0x80) == 0)))) {
     if (param_2 == param_1[3]) {
-      uVar9 = (uint)param_1[0x12];
+      primary_skillset = (uint)param_1[0x12];
       if (*(char *)(param_3 + 0x1d) == '\0') {
         bVar1 = true;
       }
     }
     else {
-      uVar9 = (uint)(byte)PTR_JobData_80066194[param_2 * 0x30];
+      primary_skillset = (uint)(byte)PTR_JobData_80066194[param_2 * 0x30];
     }
     iVar8 = 0;
     iVar3 = uVar7 * 3 + 0x99;
     do {
       bVar2 = false;
-      uVar5 = Get_Abiltity_from_Skillset(uVar9,iVar8);
+      uVar5 = Get_Abiltity_from_Skillset(primary_skillset,iVar8);
       uVar5 = uVar5 & 0xffff;
       if (uVar5 != 0) {
         if (bVar1) {
@@ -44386,9 +44939,9 @@ void Increment_CasualtyInjure_Counters(int param_1)
   uint new_value;
   EventVar event;
   
-  event = NumInjured;
+  event = NumCasualties;
   if ((*(byte *)(param_1 + 0x1ba) & 0x30) != 0) {
-    event = 0x61;
+    event = NumInjured;
   }
   new_value = BATTLE_get_script_variable(event);
   if ((int)new_value < 9999) {
@@ -44554,9 +45107,9 @@ void BATTLE_move_cursor_to_unit_by_misc_data(ENTDDisplayUnitData *misc_data)
 
 {
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
-    BATTLE_Cursor_XCoord = (int)misc_data->MapX;
-    BATTLE_Cursor_YCoord = (int)misc_data->MapY;
-    BATTLE_Cursor_ZCoord = (int)misc_data->MapZ;
+    BATTLE_Cursor_X_Coord = (int)misc_data->MapX;
+    BATTLE_Cursor_Y_Coord = (int)misc_data->MapY;
+    BATTLE_Cursor_Z_Coord = (int)misc_data->MapZ;
   }
   return;
 }
@@ -44576,10 +45129,10 @@ void BATTLE_get_ability_target_xyz(ENTDDisplayUnitData *unit_misc_data)
   
   unit_battle_data = unit_misc_data->UnitBattleData;
   if ((unit_battle_data->CurActionTargetData).TileTarget == TileSpecificAbility) {
-    BATTLE_Cursor_XCoord = (int)(unit_battle_data->CurActionTargetData).XMapCoordTarget;
-    BATTLE_Cursor_ZCoord =
+    BATTLE_Cursor_X_Coord = (int)(unit_battle_data->CurActionTargetData).XMapCoordTarget;
+    BATTLE_Cursor_Z_Coord =
          (int)(unit_misc_data->UnitBattleData->CurActionTargetData).ZMapCoordTarget;
-    BATTLE_Cursor_YCoord =
+    BATTLE_Cursor_Y_Coord =
          (int)(unit_misc_data->UnitBattleData->CurActionTargetData).YMapCoordTarget;
   }
   else {
@@ -44715,7 +45268,7 @@ void BATTLE_highlight_units_using_team2(void)
   
   unit_misc_id = 0;
   do {
-    unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_id);
+    unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_id);
     BATTLE_palette_mod_for_team(unit_misc_data,4);
     unit_misc_id = unit_misc_id + 1;
   } while (unit_misc_id < 0x10);
@@ -44793,7 +45346,7 @@ void BATTLE_clear_AT_list_id(void)
 
 
 
-// https://w.ffhacktics.com/wiki/Clear_960f8_and_960fc
+// https://ffhacktics.com/wiki/Clear_960f8_and_960fc
 
 void BATTLE_clear_status_menu_and_960fc(void)
 
@@ -44844,9 +45397,9 @@ void BATTLE_set_evade_special_effects(ENTDDisplayUnitData *unit_misc_data,byte *
   *(ushort *)caller_data = (ushort)bVar1;
   caller_data[0xa6] = unit_misc_data->ENTDID;
   *(ushort *)(caller_data + 0xc6) = (ushort)(unit_misc_data->CurActionData).CurActionUsedWeaponID;
-  y_coord = (undefined2)BATTLE_Cursor_YCoord;
-  z_coord = (undefined2)BATTLE_Cursor_ZCoord;
-  x_coord = (undefined2)BATTLE_Cursor_XCoord;
+  y_coord = (undefined2)BATTLE_Cursor_Y_Coord;
+  z_coord = (undefined2)BATTLE_Cursor_Z_Coord;
+  x_coord = (undefined2)BATTLE_Cursor_X_Coord;
   if (*(short *)caller_data == 0) {
     *(undefined2 *)(caller_data + 4) = 1;
     *(undefined2 *)(caller_data + 6) = x_coord;
@@ -45057,7 +45610,7 @@ int BATTLE_set_target_anim_by_misc_id(ushort unit_misc_id)
   ENTDDisplayUnitData *target_misc_data;
   ENTDDisplayUnitData *caster_misc_data;
   
-  target_misc_data = BATTLE_get_unit_misc_data_from_misc_id(unit_misc_id);
+  target_misc_data = BATTLE_get_unit_misc_data_from_entd_id(unit_misc_id);
   caster_misc_data = BATTLE_get_casting_unit_misc_data();
   BATTLE_set_target_anim_from_attack_type(caster_misc_data,target_misc_data);
   return 1;
@@ -45083,12 +45636,12 @@ int BATTLE_set_target_anim_by_battle_id(ushort unit_battle_id)
 
 // https://ffhacktics.com/wiki/Jump_to_post_action_display
 
-bool BATTLE_jump_to_post_action_display(ushort unit_misc_id)
+bool BATTLE_jump_to_post_action_display(ushort unit_entd_id)
 
 {
   ENTDDisplayUnitData *unit_misc_data;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id(unit_misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id(unit_entd_id);
   if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
     BATTLE_post_action_display_setup(unit_misc_data);
   }
@@ -45142,8 +45695,8 @@ void BATTLE_call_bow_hardcoding_by_misc_id(ushort attacker_misc_id,ushort target
   ENTDDisplayUnitData *attacker_misc_data;
   ENTDDisplayUnitData *target_misc_data;
   
-  attacker_misc_data = BATTLE_get_unit_misc_data_from_misc_id(attacker_misc_id);
-  target_misc_data = BATTLE_get_unit_misc_data_from_misc_id(target_misc_id);
+  attacker_misc_data = BATTLE_get_unit_misc_data_from_entd_id(attacker_misc_id);
+  target_misc_data = BATTLE_get_unit_misc_data_from_entd_id(target_misc_id);
   BATTLE_set_bow_hardcoding(attacker_misc_data,target_misc_data);
   return;
 }
@@ -45226,14 +45779,14 @@ void BATTLE_sprite_transform_display(ENTDDisplayUnitData *unit_misc_data)
 
 
 
-// https://ffhacktics.com/wiki/Update_Animation_Display_By_Unit_Misc_ID
+// https://ffhacktics.com/wiki/Update_Animation_Display_By_Unit_ENTD_ID
 
-void BATTLE_update_anim_display_by_misc_id(ushort misc_id)
+void BATTLE_update_anim_display_by_entd_id(ushort entd_id)
 
 {
   ENTDDisplayUnitData *unit_misc_data;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id(entd_id);
   BATTLE_sprite_transform_display(unit_misc_data);
   return;
 }
@@ -45430,8 +45983,8 @@ void BATTLE_rider_mounts_unit
   BATTLE_set_anim_from_status(rider_unit_data);
   z_map = rider_unit_data->ENTDID;
   (rider_unit_data->UnitSpriteData).SHPInstrIndex = (mount_unit_data->UnitSpriteData).SHPInstrIndex;
-  BATTLE_update_anim_display_by_misc_id((ushort)z_map);
-  BATTLE_update_anim_display_by_misc_id((ushort)mount_unit_data->ENTDID);
+  BATTLE_update_anim_display_by_entd_id((ushort)z_map);
+  BATTLE_update_anim_display_by_entd_id((ushort)mount_unit_data->ENTDID);
   return;
 }
 
@@ -45446,7 +45999,7 @@ void BATTLE_rider_dismounts(ENTDDisplayUnitData *rider_misc_data)
   uint uVar1;
   
   if (rider_misc_data->MountVal == CurrentlyRiding) {
-    mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)rider_misc_data->MountID);
+    mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)rider_misc_data->MountID);
     uVar1._0_1_ = rider_misc_data->StatusFlag1;
     uVar1._1_1_ = rider_misc_data->StatusFlag2;
     uVar1._2_1_ = rider_misc_data->StatusFlag3;
@@ -45479,7 +46032,7 @@ void BATTLE_rider_dismount_and_update_display(ENTDDisplayUnitData *rider_misc_da
   uint uVar1;
   
   if (rider_misc_data->MountVal == CurrentlyRiding) {
-    mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)rider_misc_data->MountID);
+    mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)rider_misc_data->MountID);
     uVar1._0_1_ = rider_misc_data->StatusFlag1;
     uVar1._1_1_ = rider_misc_data->StatusFlag2;
     uVar1._2_1_ = rider_misc_data->StatusFlag3;
@@ -45493,11 +46046,11 @@ void BATTLE_rider_dismount_and_update_display(ENTDDisplayUnitData *rider_misc_da
     rider_misc_data->StatusFlag2 = (char)(uVar1 >> 8);
     rider_misc_data->StatusFlag3 = (char)(uVar1 >> 0x10);
     rider_misc_data->StatusFlag4 = (char)(uVar1 >> 0x18);
-    BATTLE_update_anim_display_by_misc_id((ushort)rider_misc_data->ENTDID);
+    BATTLE_update_anim_display_by_entd_id((ushort)rider_misc_data->ENTDID);
     if (mount_misc_data != (ENTDDisplayUnitData *)0x0) {
       mount_misc_data->MountVal = NotMounted;
       mount_misc_data->MountID = 0;
-      BATTLE_update_anim_display_by_misc_id((ushort)mount_misc_data->ENTDID);
+      BATTLE_update_anim_display_by_entd_id((ushort)mount_misc_data->ENTDID);
     }
   }
   return;
@@ -46098,7 +46651,7 @@ void BATTLE_dismount_and_update_facing2(ENTDDisplayUnitData *misc_unit_data)
 LAB_BATTLE_BIN__8006a180:
   BATTLE_store_unit_anim_facing(0x12,current_facing,misc_unit_data);
   if ((misc_unit_data->MountVal == BeingRidden) &&
-     (mount_unit_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_unit_data->MountID),
+     (mount_unit_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_unit_data->MountID),
      mount_unit_data != (ENTDDisplayUnitData *)0x0)) {
     BATTLE_store_unit_anim_facing(0x32,misc_unit_data->CurrentFacing,mount_unit_data);
   }
@@ -46203,7 +46756,7 @@ void FUN_BATTLE_BIN__8006a380(ENTDDisplayUnitData *misc_unit_data,int param_2)
   }
 store_facing:
   if ((misc_unit_data->MountVal == BeingRidden) &&
-     (mount_unit_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_unit_data->MountID),
+     (mount_unit_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_unit_data->MountID),
      mount_unit_data != (ENTDDisplayUnitData *)0x0)) {
     BATTLE_store_unit_anim_facing(0x32,misc_unit_data->CurrentFacing,mount_unit_data);
   }
@@ -46877,7 +47430,7 @@ LAB_BATTLE_BIN__8006b898:
 switchD_BATTLE_BIN__8006b1f0_caseD_11:
   BATTLE_set_screen_coords_from_real_coords(misc_unit_id);
   if ((misc_unit_id->MountVal == BeingRidden) &&
-     (mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_unit_id->MountID),
+     (mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_unit_id->MountID),
      mount_misc_data != (ENTDDisplayUnitData *)0x0)) {
     sVar4 = misc_unit_id->ScreenZ;
     sVar2 = misc_unit_id->ScreenY;
@@ -47104,7 +47657,7 @@ void BATTLE_store_coord_mount_anim_data(ENTDDisplayUnitData *misc_unit_data)
                misc_unit_data->MapX,misc_unit_data->MapY,(uint)misc_unit_data->MapZ,
                (byte)(current_facing >> 10));
     if ((misc_unit_data->MountVal != NotMounted) &&
-       (rider_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_unit_data->ENTDID),
+       (rider_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_unit_data->ENTDID),
        misc_unit_data->UnitBattleData != (BattleUnitData *)0x0)) {
       current_facing = (uint)(short)misc_unit_data->CurrentFacing;
       if ((int)current_facing < 0) {
@@ -47145,7 +47698,7 @@ void FUN_BATTLE_BIN__8006bce4(ENTDDisplayUnitData *unit_misc_data)
       if (unit_misc_data->MountVal != BeingRidden) {
         return;
       }
-      misc_data1 = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID);
+      misc_data1 = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID);
       misc_data2 = unit_misc_data;
       if (misc_data1 == (ENTDDisplayUnitData *)0x0) {
         return;
@@ -47585,7 +48138,7 @@ void FUN_BATTLE_BIN__8006c790(ENTDDisplayUnitData *unit_misc_data)
     unit_misc_data->MapZ = unit_misc_data->MoveZ;
     if (((BATTLE_Unit_Misc_ID_Under_Cursor & 0x10) != 0) &&
        (DAT_BATTLE_BIN__80096234 =
-             BATTLE_get_misc_data_at_map_coords_from_list
+             BATTLE_get_misc_data_at_map_coords_1
                        ((uint)unit_misc_data->MoveX,(uint)unit_misc_data->MoveY,
                         (uint)unit_misc_data->MoveZ),
        DAT_BATTLE_BIN__80096234 != (ENTDDisplayUnitData *)0x0)) {
@@ -47857,7 +48410,7 @@ void FUN_BATTLE_BIN__8006cc94(ENTDDisplayUnitData *misc_unit_data)
       }
       else {
         DAT_BATTLE_BIN__80096234 =
-             BATTLE_get_misc_data_at_map_coords_from_list
+             BATTLE_get_misc_data_at_map_coords_1
                        ((uint)misc_unit_data->MoveX,(uint)misc_unit_data->MoveY,
                         (uint)misc_unit_data->MoveZ);
         misc_unit_data->BattleIDPlusOne =
@@ -48382,7 +48935,7 @@ void BATTLE_process_single_unit_movement(ENTDDisplayUnitData *unit_misc_data)
 // https://ffhacktics.com/wiki/Knockback_Processing
 // Attack animation handling? runs while attack animation is occurring
 
-void FUN_BATTLE_BIN__8006db10(ENTDDisplayUnitData *unit_misc_data)
+void BATTLE_knockback_processing(ENTDDisplayUnitData *unit_misc_data)
 
 {
   int new_move_speed;
@@ -48552,9 +49105,16 @@ void BATTLE_transfer_target_coords_bow_knockback
 // https://ffhacktics.com/wiki/Free_cursor_input_related
 // "loops while cursor is free"
 // 
-// returns a Facing Direction
+// Param 1 is always either 0 or 1
+// 
+// returns a Cursor Move Direction, see enum for values
+// 
+// decomp note: Ghidra thought this took 2 parameters, but param 2 is never
+// checked and is overwritten, so i think one of the callers just happened
+// to set r5 before calling this function and Ghidra is wrong about there
+// being a param 2.
 
-int BATTLE_free_cursor_input(int param_1,uint param_2)
+CursorMoveDirection BATTLE_free_cursor_input(int param_1)
 
 {
   ControllerInput CVar1;
@@ -48562,13 +49122,14 @@ int BATTLE_free_cursor_input(int param_1,uint param_2)
   ControllerInput CVar2;
   uint uVar3;
   uint uVar4;
+  ControllerInput in_a1;
   int result;
   
   result = -1;
   if (-1 < BATTLE_Controller_Input) {
     if (BATTLE_Controller_Input < 2) {
       if (param_1 == 1) {
-        uVar3 = DAT_800473ac >> 3 & 7;
+        uVar3 = SCUS_Custom_Options >> 3 & 7;
         if (uVar3 == 1) {
           uVar4 = 6;
           uVar3 = 0x1e;
@@ -48581,10 +49142,10 @@ int BATTLE_free_cursor_input(int param_1,uint param_2)
           uVar4 = 0xc;
           uVar3 = 0x3c;
         }
-        param_2 = SCUS_Controller_Input;
+        in_a1 = SCUS_Controller_Input;
         if ((uVar3 < DAT_80045974) && (DAT_80045974 % uVar4 == 0)) {
 LAB_BATTLE_BIN__8006ded0:
-          param_2 = SCUS_Controller_Input_Copy_11;
+          in_a1 = SCUS_Controller_Input_Copy_11;
         }
       }
       else if (param_1 < 2) {
@@ -48593,14 +49154,14 @@ LAB_BATTLE_BIN__8006ded0:
       else {
 joined_r0x8006de44:
         if (param_1 == 2) {
-          param_2 = SCUS_Controller_Input_Copy_6;
+          in_a1 = SCUS_Controller_Input_Copy_6;
         }
       }
     }
     else if (BATTLE_Controller_Input == 2) {
       if (param_1 == 1) {
         CVar2 = SCUS_Controller_Input_Copy_11 | SCUS_Controller_Input_Copy_7;
-        param_2 = NoButtons;
+        in_a1 = NoButtons;
         if ((SCUS_Controller_Input & ButtonUp) == NoButtons) {
           if ((SCUS_Controller_Input & ButtonDown) == NoButtons) {
             if ((SCUS_Controller_Input & ButtonLeft) != NoButtons) {
@@ -48615,22 +49176,22 @@ joined_r0x8006de44:
                     if ((((SCUS_Controller_Input_Copy_3 & ButtonRight) != NoButtons) &&
                         (((SCUS_Controller_Input | SCUS_Controller_Input_Copy_2) & ButtonRight) ==
                          NoButtons)) && ((CVar2 & ButtonRight) != NoButtons)) {
-                      param_2 = ButtonRight;
+                      in_a1 = ButtonRight;
                     }
                   }
                   else if ((((SCUS_Controller_Input | SCUS_Controller_Input_Copy_2) & ButtonLeft) ==
                             NoButtons) && ((CVar2 & ButtonLeft) != NoButtons)) {
-                    param_2 = ButtonLeft;
+                    in_a1 = ButtonLeft;
                   }
                 }
                 else if ((((SCUS_Controller_Input | SCUS_Controller_Input_Copy_2) & ButtonDown) ==
                           NoButtons) && ((CVar2 & ButtonDown) != NoButtons)) {
-                  param_2 = ButtonDown;
+                  in_a1 = ButtonDown;
                 }
               }
               else if ((((SCUS_Controller_Input | SCUS_Controller_Input_Copy_2) & ButtonUp) ==
                         NoButtons) && ((CVar2 & ButtonUp) != NoButtons)) {
-                param_2 = ButtonUp;
+                in_a1 = ButtonUp;
               }
             }
             else {
@@ -48643,26 +49204,26 @@ joined_r0x8006de44:
             if ((CVar2 & ButtonRight) == NoButtons) {
 LAB_BATTLE_BIN__8006df84:
               if (CVar1 != NoButtons) {
-                param_2 = ButtonDown|ButtonLeft;
+                in_a1 = ButtonDown|ButtonLeft;
               }
             }
             else {
 LAB_BATTLE_BIN__8006dfb8:
-              param_2 = ButtonRight|ButtonDown;
+              in_a1 = ButtonRight|ButtonDown;
             }
           }
         }
         else if ((CVar2 & ButtonRight) == NoButtons) {
           if ((CVar2 & ButtonLeft) != NoButtons) {
 LAB_BATTLE_BIN__8006df4c:
-            param_2 = ButtonUp|ButtonLeft;
+            in_a1 = ButtonUp|ButtonLeft;
           }
         }
         else {
 LAB_BATTLE_BIN__8006dfa8:
-          param_2 = ButtonUp|ButtonRight;
+          in_a1 = ButtonUp|ButtonRight;
         }
-        uVar3 = DAT_800473ac >> 3 & 7;
+        uVar3 = SCUS_Custom_Options >> 3 & 7;
         if (uVar3 == 1) {
           uVar4 = 10;
           uVar3 = 0xf;
@@ -48681,7 +49242,7 @@ LAB_BATTLE_BIN__8006dfa8:
         if (1 < param_1) goto joined_r0x8006de44;
         if (param_1 != 0) goto LAB_BATTLE_BIN__8006e144;
       }
-      param_2 = SCUS_Controller_Input_Copy_11 | SCUS_Controller_Input_Copy_7;
+      in_a1 = SCUS_Controller_Input_Copy_11 | SCUS_Controller_Input_Copy_7;
     }
   }
 LAB_BATTLE_BIN__8006e144:
@@ -48691,15 +49252,15 @@ LAB_BATTLE_BIN__8006e144:
     if (0x400 < camera_rot_angle) {
       if (camera_rot_angle == 0x800) {
 LAB_BATTLE_BIN__8006e2d4:
-        if ((param_2 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
+        if ((in_a1 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
         goto LAB_BATTLE_BIN__8006e534;
-        if ((param_2 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
-          if ((param_2 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
-            if ((param_2 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
-              if ((param_2 & ButtonUp) != NoButtons) goto LAB_BATTLE_BIN__8006e37c;
-              if ((param_2 & ButtonDown) == NoButtons) {
-                if ((param_2 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e26c;
-                if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+        if ((in_a1 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
+          if ((in_a1 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
+            if ((in_a1 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
+              if ((in_a1 & ButtonUp) != NoButtons) goto LAB_BATTLE_BIN__8006e37c;
+              if ((in_a1 & ButtonDown) == NoButtons) {
+                if ((in_a1 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e26c;
+                if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
                 goto LAB_BATTLE_BIN__8006e324;
               }
               goto LAB_BATTLE_BIN__8006e2c8;
@@ -48712,15 +49273,15 @@ LAB_BATTLE_BIN__8006e2d4:
       else {
         if (camera_rot_angle != 0xc00) goto set_final_result;
 LAB_BATTLE_BIN__8006e32c:
-        if ((param_2 & (ButtonUp|ButtonRight)) != (ButtonUp|ButtonRight)) {
-          if ((param_2 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft))
+        if ((in_a1 & (ButtonUp|ButtonRight)) != (ButtonUp|ButtonRight)) {
+          if ((in_a1 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft))
           goto LAB_BATTLE_BIN__8006e480;
-          if ((param_2 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
-            if ((param_2 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
-              if ((param_2 & ButtonUp) != NoButtons) goto LAB_BATTLE_BIN__8006e26c;
-              if ((param_2 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e324;
-              if ((param_2 & ButtonLeft) == NoButtons) {
-                if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+          if ((in_a1 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
+            if ((in_a1 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
+              if ((in_a1 & ButtonUp) != NoButtons) goto LAB_BATTLE_BIN__8006e26c;
+              if ((in_a1 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e324;
+              if ((in_a1 & ButtonLeft) == NoButtons) {
+                if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
                 goto LAB_BATTLE_BIN__8006e37c;
               }
               goto LAB_BATTLE_BIN__8006e2c8;
@@ -48731,23 +49292,23 @@ LAB_BATTLE_BIN__8006e32c:
         }
       }
 LAB_BATTLE_BIN__8006e424:
-      result = 0xa00;
+      result = MoveNorthEast;
       goto set_final_result;
     }
     if ((BATTLE_Camera_Yaw_Angle & 0xc00) != 0) goto set_final_result;
 LAB_BATTLE_BIN__8006e21c:
-    if ((param_2 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight)) {
+    if ((in_a1 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight)) {
 LAB_BATTLE_BIN__8006e480:
-      result = 0x600;
+      result = MoveNorthWest;
       goto set_final_result;
     }
-    if ((param_2 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
-      if ((param_2 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
-        if ((param_2 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
-          if ((param_2 & ButtonUp) == NoButtons) {
-            if ((param_2 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e37c;
-            if ((param_2 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e324;
-            if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+    if ((in_a1 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
+      if ((in_a1 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
+        if ((in_a1 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
+          if ((in_a1 & ButtonUp) == NoButtons) {
+            if ((in_a1 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e37c;
+            if ((in_a1 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e324;
+            if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
             goto LAB_BATTLE_BIN__8006e26c;
           }
           goto LAB_BATTLE_BIN__8006e2c8;
@@ -48757,7 +49318,7 @@ LAB_BATTLE_BIN__8006e480:
       goto LAB_BATTLE_BIN__8006e424;
     }
 LAB_BATTLE_BIN__8006e4dc:
-    result = 0x200;
+    result = MoveSouthWest;
   }
   else {
     if (BATTLE_Controller_Input < 2) {
@@ -48773,60 +49334,58 @@ LAB_BATTLE_BIN__8006e4dc:
         goto LAB_BATTLE_BIN__8006e2d4;
       }
 LAB_BATTLE_BIN__8006e274:
-      if ((param_2 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
-      goto LAB_BATTLE_BIN__8006e4dc;
-      if ((param_2 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft)) {
+      if ((in_a1 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight)) goto LAB_BATTLE_BIN__8006e4dc;
+      if ((in_a1 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft)) {
 LAB_BATTLE_BIN__8006e534:
-        result = 0xe00;
+        result = MoveSouthEast;
         goto set_final_result;
       }
-      if ((param_2 & (ButtonRight|ButtonDown)) == (ButtonRight|ButtonDown))
+      if ((in_a1 & (ButtonRight|ButtonDown)) == (ButtonRight|ButtonDown))
       goto LAB_BATTLE_BIN__8006e480;
-      if ((param_2 & (ButtonDown|ButtonLeft)) == (ButtonDown|ButtonLeft))
+      if ((in_a1 & (ButtonDown|ButtonLeft)) == (ButtonDown|ButtonLeft))
       goto LAB_BATTLE_BIN__8006e424;
-      if ((param_2 & ButtonUp) != NoButtons) {
+      if ((in_a1 & ButtonUp) != NoButtons) {
 LAB_BATTLE_BIN__8006e324:
-        result = 0;
+        result = MoveSouth;
         goto set_final_result;
       }
-      if ((param_2 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e26c;
-      if ((param_2 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e37c;
-      if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+      if ((in_a1 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e26c;
+      if ((in_a1 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e37c;
+      if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
     }
     else {
       if (BATTLE_Controller_Input != 2) goto set_final_result;
       camera_rot_angle = BATTLE_Camera_Yaw_Angle & 0xc00;
       if (camera_rot_angle == 0x400) {
-        if ((param_2 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
+        if ((in_a1 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
         goto LAB_BATTLE_BIN__8006e2c8;
-        if ((param_2 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft))
-        goto LAB_BATTLE_BIN__8006e324;
-        if ((param_2 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
-          if ((param_2 & (ButtonDown|ButtonLeft)) == (ButtonDown|ButtonLeft))
+        if ((in_a1 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft)) goto LAB_BATTLE_BIN__8006e324;
+        if ((in_a1 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
+          if ((in_a1 & (ButtonDown|ButtonLeft)) == (ButtonDown|ButtonLeft))
           goto LAB_BATTLE_BIN__8006e37c;
-          if ((param_2 & ButtonUp) == NoButtons) {
-            if ((param_2 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e424;
-            if ((param_2 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e534;
-            if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+          if ((in_a1 & ButtonUp) == NoButtons) {
+            if ((in_a1 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e424;
+            if ((in_a1 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e534;
+            if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
             goto LAB_BATTLE_BIN__8006e480;
           }
           goto LAB_BATTLE_BIN__8006e4dc;
         }
 LAB_BATTLE_BIN__8006e26c:
-        result = 0x800;
+        result = MoveNorth;
         goto set_final_result;
       }
       if (0x400 < camera_rot_angle) {
         if (camera_rot_angle == 0x800) {
-          if ((param_2 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
+          if ((in_a1 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
           goto LAB_BATTLE_BIN__8006e324;
-          if ((param_2 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
-            if ((param_2 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
-              if ((param_2 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
-                if ((param_2 & ButtonUp) == NoButtons) {
-                  if ((param_2 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e480;
-                  if ((param_2 & ButtonLeft) == NoButtons) {
-                    if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+          if ((in_a1 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
+            if ((in_a1 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
+              if ((in_a1 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
+                if ((in_a1 & ButtonUp) == NoButtons) {
+                  if ((in_a1 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e480;
+                  if ((in_a1 & ButtonLeft) == NoButtons) {
+                    if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
                     goto LAB_BATTLE_BIN__8006e4dc;
                   }
                   goto LAB_BATTLE_BIN__8006e424;
@@ -48840,16 +49399,16 @@ LAB_BATTLE_BIN__8006e26c:
         }
         else {
           if (camera_rot_angle != 0xc00) goto set_final_result;
-          if ((param_2 & (ButtonUp|ButtonRight)) != (ButtonUp|ButtonRight)) {
-            if ((param_2 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft))
+          if ((in_a1 & (ButtonUp|ButtonRight)) != (ButtonUp|ButtonRight)) {
+            if ((in_a1 & (ButtonUp|ButtonLeft)) == (ButtonUp|ButtonLeft))
             goto LAB_BATTLE_BIN__8006e26c;
-            if ((param_2 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
-              if ((param_2 & (ButtonDown|ButtonLeft)) == (ButtonDown|ButtonLeft))
+            if ((in_a1 & (ButtonRight|ButtonDown)) != (ButtonRight|ButtonDown)) {
+              if ((in_a1 & (ButtonDown|ButtonLeft)) == (ButtonDown|ButtonLeft))
               goto LAB_BATTLE_BIN__8006e2c8;
-              if ((param_2 & ButtonUp) == NoButtons) {
-                if ((param_2 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e4dc;
-                if ((param_2 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e480;
-                if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+              if ((in_a1 & ButtonUp) == NoButtons) {
+                if ((in_a1 & ButtonDown) != NoButtons) goto LAB_BATTLE_BIN__8006e4dc;
+                if ((in_a1 & ButtonLeft) != NoButtons) goto LAB_BATTLE_BIN__8006e480;
+                if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
                 goto LAB_BATTLE_BIN__8006e534;
               }
               goto LAB_BATTLE_BIN__8006e424;
@@ -48858,20 +49417,19 @@ LAB_BATTLE_BIN__8006e26c:
           }
         }
 LAB_BATTLE_BIN__8006e37c:
-        result = 0xc00;
+        result = MoveEast;
         goto set_final_result;
       }
       if ((BATTLE_Camera_Yaw_Angle & 0xc00) != 0) goto set_final_result;
-      if ((param_2 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight))
-      goto LAB_BATTLE_BIN__8006e26c;
-      if ((param_2 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
-        if ((param_2 & (ButtonRight|ButtonDown)) == (ButtonRight|ButtonDown))
+      if ((in_a1 & (ButtonUp|ButtonRight)) == (ButtonUp|ButtonRight)) goto LAB_BATTLE_BIN__8006e26c;
+      if ((in_a1 & (ButtonUp|ButtonLeft)) != (ButtonUp|ButtonLeft)) {
+        if ((in_a1 & (ButtonRight|ButtonDown)) == (ButtonRight|ButtonDown))
         goto LAB_BATTLE_BIN__8006e37c;
-        if ((param_2 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
-          if ((param_2 & ButtonUp) == NoButtons) {
-            if ((param_2 & ButtonDown) == NoButtons) {
-              if ((param_2 & ButtonLeft) == NoButtons) {
-                if ((param_2 & ButtonRight) == NoButtons) goto set_final_result;
+        if ((in_a1 & (ButtonDown|ButtonLeft)) != (ButtonDown|ButtonLeft)) {
+          if ((in_a1 & ButtonUp) == NoButtons) {
+            if ((in_a1 & ButtonDown) == NoButtons) {
+              if ((in_a1 & ButtonLeft) == NoButtons) {
+                if ((in_a1 & ButtonRight) == NoButtons) goto set_final_result;
                 goto LAB_BATTLE_BIN__8006e424;
               }
               goto LAB_BATTLE_BIN__8006e4dc;
@@ -48884,13 +49442,13 @@ LAB_BATTLE_BIN__8006e37c:
       }
     }
 LAB_BATTLE_BIN__8006e2c8:
-    result = 0x400;
+    result = MoveWest;
   }
 set_final_result:
   if ((SCUS_Controller_Input &
       (ButtonTriangle|ButtonCircle|ButtonCross|ButtonSquare|ButtonSelect|ButtonStart)) != NoButtons)
   {
-    result = -1;
+    result = ~MoveSouth;
   }
   return result;
 }
@@ -48907,8 +49465,8 @@ void BATTLE_store_name_and_unit_data_under_cursor(void)
   uint unit_id2;
   
   unit_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   store_flag = 2;
   if (unit_misc_data == (ENTDDisplayUnitData *)0x0) {
     store_flag = 1;
@@ -48933,8 +49491,8 @@ void BATTLE_store_name_and_unit_data_under_cursor2(void)
   uint uint_id2;
   
   unit_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   BATTLE_get_acting_unit_misc_data();
   store_flag = 4;
   if (unit_misc_data == (ENTDDisplayUnitData *)0x0) {
@@ -48962,8 +49520,8 @@ void BATTLE_store_caster_name_and_data_under_cursor(void)
   byte uint_id1;
   
   unit_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   unit_misc_data2 = BATTLE_get_acting_unit_misc_data();
   store_flag = 5;
   if (unit_misc_data == (ENTDDisplayUnitData *)0x0) {
@@ -48991,19 +49549,19 @@ void BATTLE_free_cursor_selection
   int y_coord;
   int z_coord;
   
-  y_coord = BATTLE_Cursor_YCoord;
-  z_coord = BATTLE_Cursor_ZCoord;
-  x_coord = BATTLE_Cursor_XCoord;
+  y_coord = BATTLE_Cursor_Y_Coord;
+  z_coord = BATTLE_Cursor_Z_Coord;
+  x_coord = BATTLE_Cursor_X_Coord;
   if (target_misc_data == (ENTDDisplayUnitData *)0x0) {
-    BATTLE_Cursor_XCoord = (int)acting_misc_data->TargetX;
-    BATTLE_Cursor_ZCoord = (int)acting_misc_data->TargetZ;
-    BATTLE_Cursor_YCoord = (int)acting_misc_data->TargetY;
+    BATTLE_Cursor_X_Coord = (int)acting_misc_data->TargetX;
+    BATTLE_Cursor_Z_Coord = (int)acting_misc_data->TargetZ;
+    BATTLE_Cursor_Y_Coord = (int)acting_misc_data->TargetY;
   }
   else {
     BATTLE_move_cursor_to_unit_by_misc_data(target_misc_data);
   }
-  if ((BATTLE_Cursor_XCoord == x_coord && BATTLE_Cursor_ZCoord == z_coord) &&
-      BATTLE_Cursor_YCoord == y_coord) {
+  if ((BATTLE_Cursor_X_Coord == x_coord && BATTLE_Cursor_Z_Coord == z_coord) &&
+      BATTLE_Cursor_Y_Coord == y_coord) {
     return;
   }
   if (BATTLE_Game_State != CloseMoveHelp) {
@@ -49030,173 +49588,188 @@ void BATTLE_free_cursor_selection
 
 // https://ffhacktics.com/wiki/Move_Cursor_Based_on_Input
 
-undefined4 BATTLE_move_cursor_based_on_input(void)
+int BATTLE_move_cursor_based_on_input(void)
 
 {
-  bool bVar1;
-  MapTileData *tile_data1;
-  MapTileData *tile_data2;
-  int cursor_move_dir;
-  MapTileData *tile_data3;
-  uint uVar2;
-  byte cVar3;
-  byte cVar4;
+  MapTileData *lower_tile_data1;
+  MapTileData *upper_tile_data1;
+  CursorMoveDirection cursor_move_dir;
+  MapTileData *lower_tile_data2;
+  MapTileData *upper_tile_data2;
+  uint value;
+  byte lower_height_diff1;
+  byte upper_lower_height_diff1;
   uint cursor_timer;
-  int iVar3;
+  int lower_height_diff;
+  int upper_lower_height_diff;
+  bool moved_z_level;
   
-  uVar2 = DAT_800473ac >> 6 & 7;
-  if (uVar2 == 1) {
+  value = SCUS_Custom_Options >> 6 & 7;
+  if (value == 1) {
     cursor_timer = 0x3c;
   }
   else {
     cursor_timer = 0x5a;
-    if ((uVar2 < 2) && (uVar2 == 0)) {
+    if ((value < 2) && (value == 0)) {
       cursor_timer = 0x1e;
     }
   }
-  bVar1 = false;
-  tile_data1 = BATTLE_get_tile_data_ptr
-                         (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
-  if ((DAT_800473ac & 0x1c0) == 0xc0) {
+  moved_z_level = false;
+  lower_tile_data1 =
+       BATTLE_get_tile_data_ptr(BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
+  if ((SCUS_Custom_Options & 0x1c0) == 0xc0) {
     if ((SCUS_Controller_Input & ButtonStart) != NoButtons) {
-LAB_BATTLE_BIN__8006e8c0:
-      tile_data2 = BATTLE_get_tile_data_ptr
-                             (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord ^ 1);
-      if ((tile_data2->TileInteraction & UnselectableObstacle) == None) {
-        bVar1 = true;
-        BATTLE_Cursor_ZCoord = BATTLE_Cursor_ZCoord ^ 1;
+check_tile_under_cursor:
+      upper_tile_data1 =
+           BATTLE_get_tile_data_ptr
+                     (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord ^ 1);
+      if ((upper_tile_data1->TileInteraction & UnselectableObstacle) == None) {
+        moved_z_level = true;
+        BATTLE_Cursor_Z_Coord = BATTLE_Cursor_Z_Coord ^ 1;
       }
     }
   }
-  else if (cursor_timer < (uint)BATTLE_Cursor_Repeat_Timer_Counter) {
-    BATTLE_Cursor_Repeat_Timer_Counter = 0;
-    goto LAB_BATTLE_BIN__8006e8c0;
+  else if (cursor_timer < (uint)BATTLE_Cursor_Repeat_Counter) {
+    BATTLE_Cursor_Repeat_Counter = 0;
+    goto check_tile_under_cursor;
   }
-  if (bVar1) goto move_cursor;
-  BATTLE_Cursor_Repeat_Timer_Counter = BATTLE_Cursor_Repeat_Timer_Counter + 1;
-  BATTLE_Cursor_X_Coord = BATTLE_Cursor_XCoord;
-  BATTLE_Cursor_Z_Coord = BATTLE_Cursor_ZCoord;
-  BATTLE_Cursor_Y_Coord = BATTLE_Cursor_YCoord;
-  cursor_move_dir = BATTLE_free_cursor_input(1,BATTLE_Cursor_ZCoord);
-  if (cursor_move_dir == 0x600) {
-    BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + 1;
-LAB_BATTLE_BIN__8006ead0:
-    BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + -1;
+  if (moved_z_level) goto check_if_cursor_moved;
+  BATTLE_Cursor_Repeat_Counter = BATTLE_Cursor_Repeat_Counter + 1;
+  BATTLE_Old_Cursor_X_Coord = BATTLE_Cursor_X_Coord;
+  BATTLE_Old_Cursor_Z_Coord = BATTLE_Cursor_Z_Coord;
+  BATTLE_Old_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord;
+  cursor_move_dir = BATTLE_free_cursor_input(1);
+  if (cursor_move_dir == MoveNorthWest) {
+    BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + 1;
+add_west:
+    BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + -1;
   }
-  else if (cursor_move_dir < 0x601) {
-    if (cursor_move_dir == 0x200) {
-      BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + -1;
-      goto LAB_BATTLE_BIN__8006ead0;
+  else if ((int)cursor_move_dir < 0x601) {
+    if (cursor_move_dir == MoveSouthWest) {
+      BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + -1;
+      goto add_west;
     }
-    if (cursor_move_dir < 0x201) {
-      if (cursor_move_dir == 0) {
-        BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + -1;
+    if ((int)cursor_move_dir < 0x201) {
+      if (cursor_move_dir == MoveSouth) {
+        BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + -1;
       }
     }
-    else if (cursor_move_dir == 0x400) {
-      BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + -1;
+    else if (cursor_move_dir == MoveWest) {
+      BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + -1;
     }
   }
-  else if (cursor_move_dir == 0xa00) {
-    BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + 1;
-    BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + 1;
+  else if (cursor_move_dir == MoveNorthEast) {
+    BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + 1;
+    BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + 1;
   }
-  else if (cursor_move_dir < 0xa01) {
-    if (cursor_move_dir == 0x800) {
-      BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + 1;
+  else if ((int)cursor_move_dir < 0xa01) {
+    if (cursor_move_dir == MoveNorth) {
+      BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + 1;
     }
   }
-  else if (cursor_move_dir == 0xc00) {
-    BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + 1;
+  else if (cursor_move_dir == MoveEast) {
+    BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + 1;
   }
-  else if (cursor_move_dir == 0xe00) {
-    BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + 1;
-    BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + -1;
+  else if (cursor_move_dir == MoveSouthEast) {
+    BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + 1;
+    BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + -1;
   }
-  if (BATTLE_Cursor_XCoord == (uint)(byte)BATTLE_Map_X_Coord) {
-    BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + -1;
+                    // check_x_limit
+                    // limit_x_maximum
+  if (BATTLE_Cursor_X_Coord == (uint)(byte)BATTLE_Map_X_Coord) {
+    BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + -1;
   }
-  else if ((uint)(byte)BATTLE_Map_X_Coord < (uint)BATTLE_Cursor_XCoord) {
-    BATTLE_Cursor_XCoord = 0;
-  }
-  uVar2 = (uint)(byte)BATTLE_Map_Y_Coord;
-  if (BATTLE_Cursor_YCoord == uVar2) {
-    BATTLE_Cursor_YCoord = uVar2 - 1;
-  }
-  if (uVar2 < (uint)BATTLE_Cursor_YCoord) {
-    BATTLE_Cursor_YCoord = 0;
-  }
-  tile_data2 = BATTLE_get_tile_data_ptr
-                         (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
-  tile_data3 = BATTLE_get_tile_data_ptr
-                         (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord ^ 1);
-  if ((tile_data2->TileInteraction & UnselectableObstacle) == None) {
-    if ((tile_data3->TileInteraction & UnselectableObstacle) != None) goto move_cursor;
-    cursor_move_dir = (uint)tile_data2->Height - (uint)tile_data1->Height;
-    cVar3 = (byte)cursor_move_dir;
-    iVar3 = (uint)tile_data3->Height - (uint)tile_data1->Height;
-    cVar4 = (byte)iVar3;
-    if (cursor_move_dir * 0x1000000 < 0) {
-      cVar3 = -cVar3;
+  else {
+                    // limit_x_minimum
+    if ((uint)(byte)BATTLE_Map_X_Coord < (uint)BATTLE_Cursor_X_Coord) {
+      BATTLE_Cursor_X_Coord = 0;
     }
-    if (iVar3 * 0x1000000 < 0) {
-      cVar4 = -cVar4;
-    }
-    if ((char)cVar3 <= (char)cVar4) goto move_cursor;
   }
-  else if ((tile_data3->TileInteraction & UnselectableObstacle) != None) {
-    if (cursor_move_dir == 0x600) {
-      BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + -1;
+                    // check_y_limit
+  value = (uint)(byte)BATTLE_Map_Y_Coord;
+                    // limit_y_maximum
+  if (BATTLE_Cursor_Y_Coord == value) {
+    BATTLE_Cursor_Y_Coord = value - 1;
+  }
+                    // limit_y_minimum
+  if (value < (uint)BATTLE_Cursor_Y_Coord) {
+    BATTLE_Cursor_Y_Coord = 0;
+  }
+  lower_tile_data2 =
+       BATTLE_get_tile_data_ptr(BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
+  upper_tile_data2 =
+       BATTLE_get_tile_data_ptr
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord ^ 1);
+  if ((lower_tile_data2->TileInteraction & UnselectableObstacle) == None) {
+    if ((upper_tile_data2->TileInteraction & UnselectableObstacle) != None)
+    goto check_if_cursor_moved;
+    lower_height_diff = (uint)lower_tile_data2->Height - (uint)lower_tile_data1->Height;
+    lower_height_diff1 = (byte)lower_height_diff;
+    upper_lower_height_diff = (uint)upper_tile_data2->Height - (uint)lower_tile_data1->Height;
+    upper_lower_height_diff1 = (byte)upper_lower_height_diff;
+    if (lower_height_diff * 0x1000000 < 0) {
+      lower_height_diff1 = -lower_height_diff1;
+    }
+    if (upper_lower_height_diff * 0x1000000 < 0) {
+      upper_lower_height_diff1 = -upper_lower_height_diff1;
+    }
+    if ((char)lower_height_diff1 <= (char)upper_lower_height_diff1) goto check_if_cursor_moved;
+  }
+  else if ((upper_tile_data2->TileInteraction & UnselectableObstacle) != None) {
+    if (cursor_move_dir == MoveNorthWest) {
+      BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + -1;
     }
     else {
-      if (0x600 < cursor_move_dir) {
-        if (cursor_move_dir == 0xa00) {
-          BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + -1;
-          BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + -1;
+      if (0x600 < (int)cursor_move_dir) {
+        if (cursor_move_dir == MoveNorthEast) {
+          BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + -1;
+          BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + -1;
         }
-        else if (cursor_move_dir < 0xa01) {
-          if (cursor_move_dir == 0x800) {
-            BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + -1;
+        else if ((int)cursor_move_dir < 0xa01) {
+          if (cursor_move_dir == MoveNorth) {
+            BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + -1;
           }
         }
-        else if (cursor_move_dir == 0xc00) {
-          BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + -1;
+        else if (cursor_move_dir == MoveEast) {
+          BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + -1;
         }
-        else if (cursor_move_dir == 0xe00) {
-          BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + -1;
-          BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + 1;
+        else if (cursor_move_dir == MoveSouthEast) {
+          BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + -1;
+          BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + 1;
         }
-        goto move_cursor;
+        goto check_if_cursor_moved;
       }
-      if (cursor_move_dir != 0x200) {
-        if (cursor_move_dir < 0x201) {
-          if (cursor_move_dir == 0) {
-            BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + 1;
+      if (cursor_move_dir != MoveSouthWest) {
+        if ((int)cursor_move_dir < 0x201) {
+          if (cursor_move_dir == MoveSouth) {
+            BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + 1;
           }
         }
-        else if (cursor_move_dir == 0x400) {
-          BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + 1;
+        else if (cursor_move_dir == MoveWest) {
+          BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + 1;
         }
-        goto move_cursor;
+        goto check_if_cursor_moved;
       }
-      BATTLE_Cursor_YCoord = BATTLE_Cursor_YCoord + 1;
+      BATTLE_Cursor_Y_Coord = BATTLE_Cursor_Y_Coord + 1;
     }
-    BATTLE_Cursor_XCoord = BATTLE_Cursor_XCoord + 1;
-    goto move_cursor;
+    BATTLE_Cursor_X_Coord = BATTLE_Cursor_X_Coord + 1;
+    goto check_if_cursor_moved;
   }
-  BATTLE_Cursor_ZCoord = BATTLE_Cursor_ZCoord ^ 1;
-move_cursor:
-  if ((BATTLE_Cursor_XCoord == BATTLE_Cursor_X_Coord &&
-      BATTLE_Cursor_ZCoord == BATTLE_Cursor_Z_Coord) &&
-      BATTLE_Cursor_YCoord == BATTLE_Cursor_Y_Coord) {
+                    // swap_z_level
+  BATTLE_Cursor_Z_Coord = BATTLE_Cursor_Z_Coord ^ 1;
+check_if_cursor_moved:
+  if ((BATTLE_Cursor_X_Coord == BATTLE_Old_Cursor_X_Coord &&
+      BATTLE_Cursor_Z_Coord == BATTLE_Old_Cursor_Z_Coord) &&
+      BATTLE_Cursor_Y_Coord == BATTLE_Old_Cursor_Y_Coord) {
     return 0;
   }
+                    // move_successful
   Call_Play_Sound(CursorMove);
-  BATTLE_Cursor_Repeat_Timer_Counter = 0;
+  BATTLE_Cursor_Repeat_Counter = 0;
   if (BATTLE_Game_State != CloseMoveHelp) {
     if ((int)BATTLE_Game_State < 0xe) {
       if (BATTLE_Game_State != FreeCursor) {
-        BATTLE_Cursor_Repeat_Timer_Counter = 0;
+        BATTLE_Cursor_Repeat_Counter = 0;
         return 1;
       }
     }
@@ -49206,7 +49779,7 @@ move_cursor:
         return 1;
       }
       if (BATTLE_Game_State != BattleTargetSelectMode) {
-        BATTLE_Cursor_Repeat_Timer_Counter = 0;
+        BATTLE_Cursor_Repeat_Counter = 0;
         return 1;
       }
     }
@@ -49246,51 +49819,52 @@ void BATTLE_stop_game_flow(void)
 void FUN_BATTLE_BIN__8006ef00(int *param_1,uint param_2)
 
 {
-  CoordLong *pCVar1;
+  CursorMoveDirection CVar1;
+  CoordLong *pCVar2;
   int iVar1;
   
   if (BATTLE_Game_Flow == GameFlowStopped) {
     return;
   }
-  iVar1 = BATTLE_free_cursor_input(0,param_2);
-  if (iVar1 == 0x600) {
+  CVar1 = BATTLE_free_cursor_input(0);
+  if (CVar1 == MoveNorthWest) {
     BATTLE_Current_Real_Coords.y = BATTLE_Current_Real_Coords.y + 0x4000;
   }
   else {
-    if (0x600 < iVar1) {
-      if (iVar1 == 0xa00) {
+    if (0x600 < (int)CVar1) {
+      if (CVar1 == MoveNorthEast) {
         BATTLE_Current_Real_Coords.y = BATTLE_Current_Real_Coords.y + 0x4000;
         BATTLE_Current_Real_Coords.x = BATTLE_Current_Real_Coords.x + 0x4000;
       }
       else {
-        if (iVar1 < 0xa01) {
-          if (iVar1 != 0x800) goto LAB_BATTLE_BIN__8006f084;
-          pCVar1 = (CoordLong *)&BATTLE_Current_Real_Coords.y;
+        if ((int)CVar1 < 0xa01) {
+          if (CVar1 != MoveNorth) goto LAB_BATTLE_BIN__8006f084;
+          pCVar2 = (CoordLong *)&BATTLE_Current_Real_Coords.y;
         }
         else {
-          if (iVar1 != 0xc00) {
-            if (iVar1 == 0xe00) {
+          if (CVar1 != MoveEast) {
+            if (CVar1 == MoveSouthEast) {
               BATTLE_Current_Real_Coords.y = BATTLE_Current_Real_Coords.y + -0x4000;
               BATTLE_Current_Real_Coords.x = BATTLE_Current_Real_Coords.x + 0x4000;
             }
             goto LAB_BATTLE_BIN__8006f084;
           }
-          pCVar1 = &BATTLE_Current_Real_Coords;
+          pCVar2 = &BATTLE_Current_Real_Coords;
         }
-        pCVar1->x = pCVar1->x + 0x4000;
+        pCVar2->x = pCVar2->x + 0x4000;
       }
       goto LAB_BATTLE_BIN__8006f084;
     }
-    if (iVar1 != 0x200) {
-      if (iVar1 < 0x201) {
-        if (iVar1 != 0) goto LAB_BATTLE_BIN__8006f084;
-        pCVar1 = (CoordLong *)&BATTLE_Current_Real_Coords.y;
+    if (CVar1 != MoveSouthWest) {
+      if ((int)CVar1 < 0x201) {
+        if (CVar1 != MoveSouth) goto LAB_BATTLE_BIN__8006f084;
+        pCVar2 = (CoordLong *)&BATTLE_Current_Real_Coords.y;
       }
       else {
-        if (iVar1 != 0x400) goto LAB_BATTLE_BIN__8006f084;
-        pCVar1 = &BATTLE_Current_Real_Coords;
+        if (CVar1 != MoveWest) goto LAB_BATTLE_BIN__8006f084;
+        pCVar2 = &BATTLE_Current_Real_Coords;
       }
-      pCVar1->x = pCVar1->x + -0x4000;
+      pCVar2->x = pCVar2->x + -0x4000;
       goto LAB_BATTLE_BIN__8006f084;
     }
     BATTLE_Current_Real_Coords.y = BATTLE_Current_Real_Coords.y + -0x4000;
@@ -49847,12 +50421,12 @@ int BATTLE_cursor_tile_vector_normal(void)
   int z_level;
   
   tile_data = BATTLE_get_tile_data_ptr
-                        (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
-  BATTLE_get_tile_data_ptr(BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord ^ 1);
+                        (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
+  BATTLE_get_tile_data_ptr(BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord ^ 1);
   z_level = -(((uint)tile_data->Height + (uint)(tile_data->SlopeAndDepth >> 5)) * 0xc +
              (tile_data->SlopeAndDepth & 0x1f) * 6);
-  SCUS_save_3_ushort(&coord_shrt.x,(short)BATTLE_Cursor_XCoord * 0x1c + 0xe,(ushort)z_level,
-                     (short)BATTLE_Cursor_YCoord * 0x1c + 0xe);
+  SCUS_save_3_ushort(&coord_shrt.x,(short)BATTLE_Cursor_X_Coord * 0x1c + 0xe,(ushort)z_level,
+                     (short)BATTLE_Cursor_Y_Coord * 0x1c + 0xe);
   global_x = BATTLE_Current_Real_Coords.x;
   if (BATTLE_Current_Real_Coords.x < 0) {
     global_x = BATTLE_Current_Real_Coords.x + 0xfff;
@@ -49907,7 +50481,7 @@ void BATTLE_compare_real_and_cursor_coords(short screen_z_coord)
     if (BATTLE_Current_Real_Coords.x < 0) {
       current_real_coord = BATTLE_Current_Real_Coords.x + 0xfff;
     }
-    cursor_screen_coord = BATTLE_Cursor_XCoord * 0x1c + 0xe;
+    cursor_screen_coord = BATTLE_Cursor_X_Coord * 0x1c + 0xe;
     real_coord_added = BATTLE_Current_Real_Coords.x + BATTLE_Current_Vector.x;
     if (cursor_screen_coord < current_real_coord >> 0xc) {
       if (real_coord_added < 0) {
@@ -49927,7 +50501,7 @@ set_x:
     if (BATTLE_Current_Real_Coords.x < 0) {
       current_real_coord = BATTLE_Current_Real_Coords.x + 0xfff;
     }
-    cursor_screen_coord = BATTLE_Cursor_XCoord * 0x1c + 0xe;
+    cursor_screen_coord = BATTLE_Cursor_X_Coord * 0x1c + 0xe;
     real_coord_added = BATTLE_Current_Real_Coords.x + BATTLE_Current_Vector.x;
     if (current_real_coord >> 0xc < cursor_screen_coord) {
       if (real_coord_added < 0) {
@@ -49974,7 +50548,7 @@ do_y:
     if (BATTLE_Current_Real_Coords.y < 0) {
       current_real_coord = BATTLE_Current_Real_Coords.y + 0xfff;
     }
-    cursor_screen_coord = BATTLE_Cursor_YCoord * 0x1c + 0xe;
+    cursor_screen_coord = BATTLE_Cursor_Y_Coord * 0x1c + 0xe;
     real_coord_added = BATTLE_Current_Real_Coords.y + BATTLE_Current_Vector.y;
     if (current_real_coord >> 0xc <= cursor_screen_coord) {
       return;
@@ -49989,7 +50563,7 @@ do_y:
     if (BATTLE_Current_Real_Coords.y < 0) {
       current_real_coord = BATTLE_Current_Real_Coords.y + 0xfff;
     }
-    cursor_screen_coord = BATTLE_Cursor_YCoord * 0x1c + 0xe;
+    cursor_screen_coord = BATTLE_Cursor_Y_Coord * 0x1c + 0xe;
     real_coord_added = BATTLE_Current_Real_Coords.y + BATTLE_Current_Vector.y;
     if (cursor_screen_coord <= current_real_coord >> 0xc) {
       return;
@@ -50140,8 +50714,8 @@ void BATTLE_adjust_current_vector_from_game_state(void)
   
   if (BATTLE_Game_State == CrystalLearn) {
     unit_misc_data =
-         BATTLE_get_misc_data_at_map_coords
-                   (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+         BATTLE_get_misc_data_at_map_coords_2
+                   (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
     screen_zoomed_height = 0;
     if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
       real_zoomed_height =
@@ -50198,8 +50772,8 @@ zero_vector_and_out:
       return;
     }
     unit_misc_data =
-         BATTLE_get_misc_data_at_map_coords
-                   (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+         BATTLE_get_misc_data_at_map_coords_2
+                   (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
     screen_zoomed_height = 0;
     if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
       real_zoomed_height =
@@ -50244,8 +50818,8 @@ void BATTLE_adjust_current_vector_and_real_coords(void)
   if ((((BATTLE_Map_Zooming_Action == MapNotZooming) && (BATTLE_Map_Tilt_Action == NotTilting)) &&
       (BATTLE_Map_Rotation_Action == MapNotRotating)) && (BATTLE_Game_Flow == GameFlowStopped)) {
     unit_misc_data =
-         BATTLE_get_misc_data_at_map_coords
-                   (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+         BATTLE_get_misc_data_at_map_coords_2
+                   (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
     screen_height = 0;
     if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
       sprite_real_height =
@@ -50289,7 +50863,7 @@ void BATTLE_process_unit_movement(void)
   
   unit_misc_id = 0;
   do {
-    unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_id);
+    unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_id);
     unit_misc_id = unit_misc_id + 1;
     if ((unit_misc_data != (ENTDDisplayUnitData *)0x0) && (unit_misc_data->NumTilesFinalMove != 0))
     {
@@ -50488,7 +51062,7 @@ check_result:
 
 // https://ffhacktics.com/wiki/Store_ENTD_flags_into_misc_data_w/o_control_flag
 
-void BATTLE_store_misc_data_without_control_flag(ENTDDisplayUnitData *unit_misc_data)
+void BATTLE_store_entd_flags_without_control_flag(ENTDDisplayUnitData *unit_misc_data)
 
 {
   ENTDDisplayUnitData *mount_misc_data;
@@ -50501,7 +51075,7 @@ void BATTLE_store_misc_data_without_control_flag(ENTDDisplayUnitData *unit_misc_
          team_flags & (IsRamza|Immortal|LightBlueTeam|RandomPresent|AlwaysPresent);
   }
   if (unit_misc_data->MountVal != NotMounted) {
-    mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID);
+    mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID);
     team_flags = (mount_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags;
     mount_misc_data->ENTDFlags = team_flags;
     if ((mount_misc_data->UnitBattleData->CurActionUnitData).AutoBattle != 0) {
@@ -50529,11 +51103,11 @@ void SetActionMenuScript(void)
   unit_misc_data = BATTLE_get_casting_unit_misc_data();
   unit_misc_data2 = BATTLE_get_acting_unit_misc_data();
   BATTLE_store_AT_list_id1();
-  BATTLE_store_misc_data_without_control_flag(unit_misc_data);
+  BATTLE_store_entd_flags_without_control_flag(unit_misc_data);
   bVar1 = BATTLE_system_setup_for_ramza_crystal_ability_ct(unit_misc_data2);
   if (CONCAT31(zero_padding,bVar1) == 0) {
     BATTLE_Game_State = OpenActionMenus;
-    DAT_BATTLE_BIN__80098db8 = 0;
+    BATTLE_Post_Action = 0;
     BATTLE_rotate_camera_when_unit_tile_obscured(unit_misc_data);
   }
   return;
@@ -50558,7 +51132,7 @@ void BATTLE_set_game_state_to_FreeCursor(void)
   BATTLE_store_AT_list_id1();
   acting_misc_data = BATTLE_get_acting_unit_misc_data();
   if (acting_misc_data != (ENTDDisplayUnitData *)0x0) {
-    BATTLE_store_misc_data_without_control_flag(acting_misc_data);
+    BATTLE_store_entd_flags_without_control_flag(acting_misc_data);
   }
   return;
 }
@@ -50705,7 +51279,7 @@ void BATTLE_in_between_turn_events(void)
         BATTLE_store_some_movement_coords(unit_misc_data);
       }
       BATTLE_jump_to_post_action_display((ushort)unit_misc_data->ENTDID);
-      BATTLE_update_anim_display_by_misc_id((ushort)unit_misc_data->ENTDID);
+      BATTLE_update_anim_display_by_entd_id((ushort)unit_misc_data->ENTDID);
       goto out;
     }
   }
@@ -50742,20 +51316,20 @@ void BATTLE_check_for_in_between_turn_events(void)
     unit_misc_data = BATTLE_get_acting_unit_misc_data();
     if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
       BATTLE_Current_Acting_Unit_ENTD_ID = (uint)unit_misc_data->ENTDID;
-      BATTLE_store_misc_data_without_control_flag(unit_misc_data);
+      BATTLE_store_entd_flags_without_control_flag(unit_misc_data);
       if (unit_misc_data->UnitBattleData == (BattleUnitData *)0x0) {
         BATTLE_set_game_state_to_FreeCursor();
       }
       else {
         FUN_BATTLE_BIN__8013f900
                   ((uint)(unit_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
-        BATTLE_store_misc_data_without_control_flag(unit_misc_data);
+        BATTLE_store_entd_flags_without_control_flag(unit_misc_data);
         if (((BATTLE_Status_Menu_Requested == 0) ||
             ((unit_misc_data->ENTDFlags & PlayerControl) != None)) || (BATTLE_Action_Type != 0x100))
         {
-          DAT_BATTLE_BIN__80098db8 = 0;
+          BATTLE_Post_Action = 0;
           if ((BATTLE_Action_Type == 0x100) || (BATTLE_Action_Type == 0xff00)) {
-            BATTLE_update_anim_display_by_misc_id((ushort)unit_misc_data->ENTDID);
+            BATTLE_update_anim_display_by_entd_id((ushort)unit_misc_data->ENTDID);
           }
           bVar1 = BATTLE_system_setup_for_ramza_crystal_ability_ct(unit_misc_data);
           if (CONCAT31(zero_padding,bVar1) == 0) {
@@ -50765,12 +51339,12 @@ void BATTLE_check_for_in_between_turn_events(void)
             DAT_BATTLE_BIN__800e4e8c = 1;
           }
           else {
-            BATTLE_update_anim_display_by_misc_id((ushort)unit_misc_data->ENTDID);
+            BATTLE_update_anim_display_by_entd_id((ushort)unit_misc_data->ENTDID);
           }
           BATTLE_Status_Menu_Requested = 0;
         }
         else {
-          BATTLE_update_anim_display_by_misc_id((ushort)unit_misc_data->ENTDID);
+          BATTLE_update_anim_display_by_entd_id((ushort)unit_misc_data->ENTDID);
           Call_Play_Sound(ATHalt);
           BATTLE_clear_AT_list_ID_and_set_960fc();
           BATTLE_check_if_unit_is_charging_ability();
@@ -50801,7 +51375,7 @@ void FUN_BATTLE_BIN__800711a4(void)
   BATTLE_Game_State = StatusExecuteMode;
   misc_unit_data = BATTLE_get_acting_unit_misc_data();
   BATTLE_store_AT_list_id0();
-  DAT_BATTLE_BIN__80098db8 = 0;
+  BATTLE_Post_Action = 0;
   if (BATTLE_Action_Type == 0x500) {
     FUN_BATTLE_BIN__8013aedc(0x3c);
     unit_id2 = (uint)(misc_unit_data->UnitBattleData->CurActionTargetData).UnitID2;
@@ -50831,7 +51405,7 @@ void FUN_BATTLE_BIN__800711a4(void)
       unit_id2b = unit_id2a;
     }
     BATTLE_system_function_setup(10,unit_id2,unit_id2a,unit_id2b,entd_flags);
-    BATTLE_update_anim_display_by_misc_id((ushort)misc_unit_data->ENTDID);
+    BATTLE_update_anim_display_by_entd_id((ushort)misc_unit_data->ENTDID);
     BATTLE_jump_to_post_action_display((ushort)misc_unit_data->ENTDID);
   }
   return;
@@ -50918,8 +51492,8 @@ void BATTLE_non_active_unit_idle_action_menu(void)
   uint menu_id;
   
   unit_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
     BATTLE_stop_game_flow();
     BATTLE_Game_State = IdlingActionMenus;
@@ -50950,8 +51524,8 @@ void BATTLE_call_idle_action_menu(void)
   ENTDDisplayUnitData *unit_misc_data;
   
   unit_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
     BATTLE_Current_Acting_Unit_ENTD_ID = (uint)unit_misc_data->ENTDID;
     if ((DAT_BATTLE_BIN__800960fc == 0) && (unit_misc_data->ENTDID == BATTLE_Casting_Unit_ENTD_ID))
@@ -51216,14 +51790,14 @@ void BATTLE_setup_unit_moving(void)
   if ((caster_misc_data->to_MountVal & 0x80) == NotMounted) {
     if ((byte)(caster_misc_data->NumTilesFinalMove + 2U) < 2) {
       setup1 = 2;
-      if ((DAT_800473ac & 0x18000) == 0) {
+      if ((SCUS_Custom_Options & 0x18000) == 0) {
         setup1 = 0xd;
       }
     }
     else {
       caster_misc_data =
-           BATTLE_get_non_treasure_crystal_misc_data_at_coords
-                     (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+           BATTLE_get_misc_data_at_map_coords_3
+                     (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
       setup1 = 2;
       if ((caster_misc_data != (ENTDDisplayUnitData *)0x0) &&
          (uVar1._0_1_ = caster_misc_data->StatusFlag5, uVar1._1_1_ = caster_misc_data->StatusFlag6,
@@ -51255,7 +51829,7 @@ void BATTLE_store_prev_xyz_facing_mount(ENTDDisplayUnitData *unit_misc_data)
   unit_misc_data->PreviousFacing = unit_misc_data->CurrentFacing;
   unit_misc_data->PrevMountVal = unit_misc_data->MountVal;
   unit_misc_data->PrevMountID = unit_misc_data->MountID;
-  unit_misc_data->field_0x11f = unit_misc_data->BattleIDPlusOne;
+  unit_misc_data->PrevBattleIDPlusOne = unit_misc_data->BattleIDPlusOne;
   return;
 }
 
@@ -51275,7 +51849,7 @@ void BATTLE_unit_moving(void)
   unit_misc_data = BATTLE_get_casting_unit_misc_data();
   BATTLE_store_prev_xyz_facing_mount(unit_misc_data);
   if ((unit_misc_data->MountVal == BeingRidden) &&
-     (rider_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID),
+     (rider_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID),
      rider_misc_data != (ENTDDisplayUnitData *)0x0)) {
     BATTLE_store_prev_xyz_facing_mount(rider_misc_data);
   }
@@ -51299,7 +51873,7 @@ void BATTLE_move_confirm_menu(void)
   ENTDDisplayUnitData *acting_misc_data;
   ENTDDisplayUnitData *casting_misc_data;
   int iVar2;
-  uint uVar3;
+  uint message_type;
   byte target_unit_id2;
   
   BATTLE_stop_game_flow();
@@ -51308,7 +51882,7 @@ void BATTLE_move_confirm_menu(void)
   casting_misc_data = BATTLE_get_casting_unit_misc_data();
   FUN_BATTLE_BIN__8013aedc(0x3c);
   if ((casting_misc_data->FloatFly & FloatFly0x8) == NoFloatFly) {
-    if ((DAT_800473ac & 0x18000) == 0) {
+    if ((SCUS_Custom_Options & 0x18000) == 0) {
       BATTLE_palette_mod_for_team(acting_misc_data,2);
       iVar2 = 0xd;
     }
@@ -51324,15 +51898,15 @@ void BATTLE_move_confirm_menu(void)
     bVar1 = casting_misc_data->field_0x11d != -1;
     iVar2 = 0xd;
     if (bVar1) {
-      uVar3 = 0;
+      message_type = 0;
       target_unit_id2 = (acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2;
     }
     else {
       iVar2 = 10;
-      uVar3 = 0x183b;
+      message_type = 0x183b;
       target_unit_id2 = (acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2;
     }
-    BATTLE_system_function_setup(iVar2,uVar3,(uint)target_unit_id2,0,(uint)!bVar1);
+    BATTLE_system_function_setup(iVar2,message_type,(uint)target_unit_id2,0,(uint)!bVar1);
     casting_misc_data->field_0x11d = 0;
   }
   if ((acting_misc_data->ENTDFlags & PlayerControl) == None) {
@@ -51355,7 +51929,7 @@ void BATTLE_set_state_to_AfterCommandMode(void)
   
   BATTLE_Animation_Speed = 1;
   BATTLE_Game_State = AfterCommandMode;
-  DAT_BATTLE_BIN__80098db8 = 0;
+  BATTLE_Post_Action = 0;
   acting_misc_data = BATTLE_get_acting_unit_misc_data();
   BATTLE_move_cursor_to_unit_by_misc_data(acting_misc_data);
   BATTLE_system_function_setup(6,0,0,0,0);
@@ -51513,7 +52087,7 @@ undefined4 BATTLE_main_post_movement(void)
             (0xc,0,(uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0,0);
   move_find_result = BATTLE_Move_Find_Item_Result;
   BATTLE_Game_State = CrystalLearn;
-  DAT_BATTLE_BIN__80098db8 = 0;
+  BATTLE_Post_Action = 0;
   treasure_chest_found = BATTLE_Move_Find_Item_Result & 1;
   caster_misc_data->FrameData = 0;
   if (treasure_chest_found == 0) {
@@ -51543,8 +52117,8 @@ undefined4 BATTLE_main_post_movement(void)
         if ((move_find_result & 0x10) == 0) {
           if ((move_find_result & 0x200) == 0) {
             if ((move_find_result & 0x400) == 0) {
-              BATTLE_update_anim_display_by_misc_id((ushort)acting_misc_data->ENTDID);
-              BATTLE_update_anim_display_by_misc_id((ushort)caster_misc_data->ENTDID);
+              BATTLE_update_anim_display_by_entd_id((ushort)acting_misc_data->ENTDID);
+              BATTLE_update_anim_display_by_entd_id((ushort)caster_misc_data->ENTDID);
               bVar4 = BATTLE_refresh_deep_dungeon();
               if (CONCAT31(extraout_var_00,bVar4) != 0) {
                 return 0;
@@ -51559,7 +52133,7 @@ undefined4 BATTLE_main_post_movement(void)
               return 1;
             }
             acting_misc_data =
-                 BATTLE_get_unit_misc_data_from_misc_id((ushort)acting_misc_data->MountID);
+                 BATTLE_get_unit_misc_data_from_entd_id((ushort)acting_misc_data->MountID);
             if (acting_misc_data == (ENTDDisplayUnitData *)0x0) {
               return 1;
             }
@@ -51573,7 +52147,7 @@ undefined4 BATTLE_main_post_movement(void)
             BATTLE_jump_to_post_action_display((ushort)acting_misc_data->ENTDID);
             bVar3 = acting_misc_data->ENTDID;
           }
-          BATTLE_update_anim_display_by_misc_id((ushort)bVar3);
+          BATTLE_update_anim_display_by_entd_id((ushort)bVar3);
           return 1;
         }
         FUN_BATTLE_BIN__80180178(caster_misc_data->UnitBattleData,1);
@@ -51608,7 +52182,7 @@ undefined4 BATTLE_main_post_movement(void)
                 ((int)caster_misc_data->UnitBattleData,&(caster_misc_data->CurActionData).EarnedEXP)
       ;
       BATTLE_post_action_display_setup(caster_misc_data);
-      FUN_BATTLE_BIN__80080f44((int)caster_misc_data);
+      BATTLE_prep_for_earned_xp_jp_display(caster_misc_data);
       BATTLE_level_up_anim_and_report(caster_misc_data);
     }
     else if (BATTLE_Post_Action_Display_Phase == 1) {
@@ -51617,7 +52191,7 @@ undefined4 BATTLE_main_post_movement(void)
   }
   else {
     caster_misc_data =
-         BATTLE_get_non_treasure_crystal_misc_data_at_coords
+         BATTLE_get_misc_data_at_map_coords_3
                    ((uint)acting_misc_data->MapX,(uint)acting_misc_data->MapY,
                     (uint)acting_misc_data->MapZ);
     move_find_result =
@@ -51647,7 +52221,7 @@ undefined4 BATTLE_main_post_movement(void)
         BATTLE_finalize_attack_flag_reaction
                   ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
         BATTLE_post_action_display_setup(acting_misc_data);
-        BATTLE_update_anim_display_by_misc_id((ushort)acting_misc_data->ENTDID);
+        BATTLE_update_anim_display_by_entd_id((ushort)acting_misc_data->ENTDID);
       }
     }
     else {
@@ -51719,7 +52293,7 @@ void BATTLE_choose_facing_for_wait(void)
   BATTLE_Game_State = WaitDirection;
   acting_misc_data->FrameData = 0;
   if ((acting_misc_data->MountVal == CurrentlyRiding) &&
-     (mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)acting_misc_data->MountID),
+     (mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)acting_misc_data->MountID),
      mount_misc_data != (ENTDDisplayUnitData *)0x0)) {
     BATTLE_decide_facing_direction(acting_misc_data,(int)(short)mount_misc_data->CurrentFacing);
     if (acting_misc_data->UnitBattleData != (BattleUnitData *)0x0) {
@@ -51800,8 +52374,8 @@ void BATTLE_set_facing_from_arctan(ENTDDisplayUnitData *unit_misc_data)
   int x_value;
   
   if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
-    x_value = BATTLE_Cursor_XCoord * 0x1c - (unit_misc_data->ScreenX + -0xe);
-    y_value = BATTLE_Cursor_YCoord * 0x1c - (unit_misc_data->ScreenY + -0xe);
+    x_value = BATTLE_Cursor_X_Coord * 0x1c - (unit_misc_data->ScreenX + -0xe);
+    y_value = BATTLE_Cursor_Y_Coord * 0x1c - (unit_misc_data->ScreenY + -0xe);
     if ((x_value != 0) || (y_value != 0)) {
       arctan_value = get_angle_value_from_arctan_table(-y_value,x_value);
       unit_misc_data->CurrentFacing = (short)arctan_value + 0xfe00 & FacingEast;
@@ -51888,7 +52462,7 @@ face_target:
                (byte)(towards_target >> 10));
     if (attacker_misc_data->MountVal != NotMounted) {
       subject_misc_data =
-           BATTLE_get_unit_misc_data_from_misc_id((ushort)attacker_misc_data->MountID);
+           BATTLE_get_unit_misc_data_from_entd_id((ushort)attacker_misc_data->MountID);
       subject_misc_data->CurrentFacing = attacker_misc_data->CurrentFacing;
       towards_target = (uint)(short)attacker_misc_data->CurrentFacing;
       if ((int)towards_target < 0) {
@@ -51931,7 +52505,7 @@ void BATTLE_rider_mount_xy_facing_set(ENTDDisplayUnitData *unit_misc_data)
                    (byte)(facing_dir >> 10));
         unit_misc_data->AttackFacing = -1;
         if (unit_misc_data->MountVal != NotMounted) {
-          mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID);
+          mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID);
           mount_misc_data->CurrentFacing = unit_misc_data->CurrentFacing;
           facing_dir = (uint)(short)unit_misc_data->CurrentFacing;
           if ((int)facing_dir < 0) {
@@ -51991,7 +52565,7 @@ void BATTLE_check_if_all_unit_facing_needs_changed(void)
   
   uint_id = 0;
   do {
-    unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)uint_id);
+    unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)uint_id);
     uint_id = uint_id + 1;
     if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
       BATTLE_rider_mount_xy_facing_set(unit_misc_data);
@@ -52021,13 +52595,13 @@ void FUN_BATTLE_BIN__80072ad0(void)
 
 
 
-// https://ffhacktics.com/wiki/00072b14_-_00072b4c
+// https://ffhacktics.com/wiki/Post_Command_Update_Animation_Display
 
-void BATTTLE_post_command_xfer_anim_and_state_clean(ENTDDisplayUnitData *unit_misc_data)
+void BATTTLE_post_command_update_anim_display(ENTDDisplayUnitData *misc_data)
 
 {
-  BATTLE_move_cursor_to_unit_by_misc_data(unit_misc_data);
-  BATTLE_update_anim_display_by_misc_id((ushort)unit_misc_data->ENTDID);
+  BATTLE_move_cursor_to_unit_by_misc_data(misc_data);
+  BATTLE_update_anim_display_by_entd_id((ushort)misc_data->ENTDID);
   BATTLE_set_state_to_AfterCommandMode();
   return;
 }
@@ -52064,46 +52638,45 @@ void BATTLE_range_1_ability_used(void)
 void BATTLE_set_ranged_ability_display(void)
 
 {
-  bool bVar1;
   ENTDDisplayUnitData *caster_misc_data;
-  int iVar2;
-  uint uVar3;
-  undefined3 extraout_var;
-  undefined3 extraout_var_00;
-  uint used_ability;
+  int new_anim_speed;
+  uint effect;
+  bool4 item;
+  AbilityID used_ability;
   
   BATTLE_Game_State = ActionExecuteMode;
   caster_misc_data = BATTLE_get_casting_unit_misc_data();
-  used_ability = (uint)caster_misc_data->UsedAbility;
+  _used_ability = (AbilityIDWord)caster_misc_data->UsedAbility;
   caster_misc_data->FrameData = 0;
   BATTLE_get_ability_target_xyz(caster_misc_data);
-  if ((used_ability == 0) || (used_ability == 0x200)) {
-    iVar2 = 1;
+  if ((_used_ability == None) || (_used_ability == FallDamage)) {
+    new_anim_speed = 1;
   }
   else {
-    uVar3 = FUN_BATTLE_BIN__801a1814(used_ability);
-    iVar2 = 1;
-    if (uVar3 == 0) {
-      if ((used_ability == 0x92) || (used_ability - 0x196 < 8)) {
-        bVar1 = FUN_BATTLE_BIN__801a1854(used_ability);
-        iVar2 = 1;
-        if (CONCAT31(extraout_var,bVar1) == 0) {
+    effect = BATTLE_load_ability_effect(_used_ability);
+    new_anim_speed = 1;
+    if (effect == 0) {
+      if ((_used_ability == Accumulate) || (_used_ability + ~VerticalJump8 < 8)) {
+                    // the "8" check is "if ability is not a charge ability"
+        item = BATTLE_check_if_ability_is_item_or_throw_ball(_used_ability);
+        new_anim_speed = 1;
+        if (item == false) {
           BATTLE_play_effect();
-          iVar2 = 1;
+          new_anim_speed = 1;
         }
       }
       else {
-        bVar1 = FUN_BATTLE_BIN__801a1854(used_ability);
-        if ((CONCAT31(extraout_var_00,bVar1) == 0) ||
-           ((ushort)(caster_misc_data->UnitSpriteData).CurrentAnim >> 1 == 0x39)) {
+        item = BATTLE_check_if_ability_is_item_or_throw_ball(_used_ability);
+        if ((item == false) || ((ushort)(caster_misc_data->UnitSpriteData).CurrentAnim >> 1 == 0x39)
+           ) {
           BATTLE_play_effect();
         }
         FUN_80044128();
-        iVar2 = 2;
+        new_anim_speed = 2;
       }
     }
   }
-  BATTLE_Animation_Speed = iVar2;
+  BATTLE_Animation_Speed = new_anim_speed;
   BATTLE_store_AT_list_id0();
   return;
 }
@@ -52132,7 +52705,7 @@ bool BATTLE_resume_attack_phase_control(void)
               (0x11,(uint)BATTLE_Post_Effect_Message_Data[prev_msg].MessageType,
                (uint)BATTLE_Post_Effect_Message_Data[prev_msg].UnitID,
                BATTLE_Post_Effect_Message_Data[prev_msg].AdditionalInfo,1);
-    DAT_BATTLE_BIN__80098db8 = 0;
+    BATTLE_Post_Action = 0;
   }
   return msgs_waiting;
 }
@@ -52141,7 +52714,7 @@ bool BATTLE_resume_attack_phase_control(void)
 
 // https://ffhacktics.com/wiki/Set_Post_Effect_Messages_data
 
-void BATTLE_set_post_effect_message_data(ENTDDisplayUnitData *unit_misc_data)
+void BATTLE_set_post_effect_message_data(ENTDDisplayUnitData *misc_data)
 
 {
   ushort uVar1;
@@ -52156,9 +52729,9 @@ void BATTLE_set_post_effect_message_data(ENTDDisplayUnitData *unit_misc_data)
   uint uVar9;
   uint uVar10;
   
-  if ((((unit_misc_data != (ENTDDisplayUnitData *)0x0) &&
-       (unit_battle_data = unit_misc_data->UnitBattleData, unit_battle_data != (BattleUnitData *)0x0
-       )) && (BATTLE_Post_Effect_Message_Counter < 0x10)) &&
+  if ((((misc_data != (ENTDDisplayUnitData *)0x0) &&
+       (unit_battle_data = misc_data->UnitBattleData, unit_battle_data != (BattleUnitData *)0x0)) &&
+      (BATTLE_Post_Effect_Message_Counter < 0x10)) &&
      ((unit_battle_data->CurActionUnitData).HitFlag != 0)) {
     uVar10 = 0;
     bVar6 = true;
@@ -52281,7 +52854,7 @@ LAB_BATTLE_BIN__80073100:
       uVar10 = uVar10 + 1;
       if (bVar7) {
         BATTLE_Post_Effect_Message_Data[BATTLE_Post_Effect_Message_Counter].UnitID =
-             (unit_misc_data->UnitBattleData->CurActionTargetData).UnitID2;
+             (misc_data->UnitBattleData->CurActionTargetData).UnitID2;
         BATTLE_Post_Effect_Message_Counter = BATTLE_Post_Effect_Message_Counter + 1;
       }
       bVar6 = uVar10 < 0xb;
@@ -52321,24 +52894,24 @@ void BATTLE_target_post_action_message_prep(void)
 
 
 
-// https://ffhacktics.com/wiki/000731d8_-_0007324c
+// https://ffhacktics.com/wiki/Caster_Post_Effect_Messages
 
-void FUN_BATTLE_BIN__800731d8(void)
+void BATTLE_caster_post_effect_messages(void)
 
 {
-  bool message_waiting;
-  ENTDDisplayUnitData *unit_misc_data;
+  bool are_messages_still_waiting;
+  ENTDDisplayUnitData *casting_misc_data;
   undefined3 zero_padding;
   
-  unit_misc_data = BATTLE_get_casting_unit_misc_data();
-  BATTLE_set_post_effect_message_data(unit_misc_data);
-  if ((DAT_800473ac & 0x180000) != 0) {
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  BATTLE_set_post_effect_message_data(casting_misc_data);
+  if ((SCUS_Custom_Options & 0x180000) != 0) {
     BATTLE_Post_Effect_Message_Counter = 0;
   }
-  message_waiting = BATTLE_resume_attack_phase_control();
-  if (CONCAT31(zero_padding,message_waiting) == 0) {
+  are_messages_still_waiting = BATTLE_resume_attack_phase_control();
+  if (CONCAT31(zero_padding,are_messages_still_waiting) == false) {
     BATTLE_system_function_setup
-              (10,0,(uint)(unit_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0,0);
+              (10,0,(uint)(casting_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0,0);
   }
   return;
 }
@@ -52363,7 +52936,7 @@ void BATTLE_attack_result_anim_update(ENTDDisplayUnitData *unit_misc_data)
     BATTLE_store_some_movement_coords(unit_misc_data);
   }
   BATTLE_jump_to_post_action_display((ushort)unit_misc_data->ENTDID);
-  BATTLE_update_anim_display_by_misc_id((ushort)unit_misc_data->ENTDID);
+  BATTLE_update_anim_display_by_entd_id((ushort)unit_misc_data->ENTDID);
   return;
 }
 
@@ -52385,7 +52958,7 @@ void BATTLE_battle_message_display(void)
   
   BATTLE_Game_State = BattleMessageDisplay;
   BATTLE_Animation_Speed = 1;
-  DAT_BATTLE_BIN__80098db8 = 0;
+  BATTLE_Post_Action = 0;
   unit_misc_data = BATTLE_get_casting_unit_misc_data();
   BATTLE_target_post_action_message_prep();
   BATTLE_attack_result_anim_update(unit_misc_data);
@@ -52485,7 +53058,7 @@ void BATTLE_learn_ability_on_hit_setup(void)
   }
   else if (BATTLE_Post_Action_Display_Phase == 2) {
     _DAT_BATTLE_BIN__80096200 =
-         FUN_BATTLE_BIN__8018e6b8
+         BATTLE_learn_ability_on_hit_1
                    ((uint)(acting_unit_misc->UnitBattleData->CurActionTargetData).UnitID2,
                     (short *)local_18);
     if (_DAT_BATTLE_BIN__80096200 == -1) {
@@ -52507,31 +53080,31 @@ void BATTLE_learn_ability_on_hit_setup(void)
 
 
 
-// https://ffhacktics.com/wiki/00073638_-_000736d0
+// https://ffhacktics.com/wiki/Post_Action_XP_JP_Ability
 
-void FUN_BATTLE_BIN__80073638(void)
+void BATTLE_post_action_xp_jp_ability(void)
 
 {
   ENTDDisplayUnitData *acting_unit_misc;
-  int iVar1;
+  int level_up;
   
   acting_unit_misc = BATTLE_get_acting_unit_misc_data();
   BATTLE_check_if_all_unit_facing_needs_changed();
   if (((acting_unit_misc != (ENTDDisplayUnitData *)0x0) &&
       (acting_unit_misc->UnitBattleData != (BattleUnitData *)0x0)) &&
-     (iVar1 = BATTLE_award_xp_and_jp
-                        ((uint)(acting_unit_misc->UnitBattleData->CurActionTargetData).UnitID2,
-                         &(acting_unit_misc->CurActionData).EarnedEXP), iVar1 == -1)) {
+     (level_up = BATTLE_award_xp_and_jp
+                           ((uint)(acting_unit_misc->UnitBattleData->CurActionTargetData).UnitID2,
+                            &(acting_unit_misc->CurActionData).EarnedEXP), level_up == -1)) {
     (acting_unit_misc->CurActionData).JobLevel = 0;
     (acting_unit_misc->CurActionData).Level = 0;
     (acting_unit_misc->CurActionData).EarnedJP = 0;
     (acting_unit_misc->CurActionData).EarnedEXP = 0;
   }
-  FUN_BATTLE_BIN__80080f44((int)acting_unit_misc);
+  BATTLE_prep_for_earned_xp_jp_display(acting_unit_misc);
   BATTLE_Post_Action_Display_Phase = 0;
   BATTLE_move_cursor_to_unit_by_misc_data(acting_unit_misc);
   BATTLE_learn_ability_on_hit_setup();
-  DAT_BATTLE_BIN__80098db8 = 0;
+  BATTLE_Post_Action = 0;
   VFX_canOpen = 0;
   return;
 }
@@ -52620,7 +53193,7 @@ LAB_BATTLE_BIN__800737b4:
   uVar9 = 0;
   do {
     if (((uVar9 != unit_misc_data->ENTDID) &&
-        (pEVar2 = BATTLE_get_unit_misc_data_from_misc_id((ushort)uVar9),
+        (pEVar2 = BATTLE_get_unit_misc_data_from_entd_id((ushort)uVar9),
         pEVar2 != (ENTDDisplayUnitData *)0x0)) && (pEVar2->UnitBattleData != (BattleUnitData *)0x0))
     {
       uVar7 = (uint)(unit_misc_data->CurActionData).CurActionTargetHitCount;
@@ -52697,7 +53270,7 @@ undefined4 BATTLE_action_phase_control(void)
                    (uint)(misc_data->UnitBattleData->CurActionTargetData).UnitID2,1);
         used_ability = misc_data->UsedAbility2;
         (misc_data->CurActionData).field_0x29 = 0;
-        DAT_BATTLE_BIN__80098db8 = 0;
+        BATTLE_Post_Action = 0;
         *(int *)&misc_data->field_0x170 = (int)(short)used_ability;
         misc_data->UsedAbility = used_ability;
         unaff_s1 = 0;
@@ -52707,7 +53280,7 @@ undefined4 BATTLE_action_phase_control(void)
           BATTLE_activate_numerical_sprite_data(misc_data,action_result);
         }
         BATTLE_set_anim_from_status(misc_data);
-        BATTTLE_post_command_xfer_anim_and_state_clean(misc_data);
+        BATTTLE_post_command_update_anim_display(misc_data);
         unaff_s1 = -1;
       }
 LAB_BATTLE_BIN__80073b4c:
@@ -52737,7 +53310,7 @@ LAB_BATTLE_BIN__80073af0:
                   ((int)&uStack_30,(uint)(pEVar1->UnitBattleData->CurActionTargetData).UnitID2,1);
         unaff_s1 = 0;
         (pEVar1->CurActionData).field_0x29 = 0;
-        DAT_BATTLE_BIN__80098db8 = 0;
+        BATTLE_Post_Action = 0;
         *(int *)&pEVar1->field_0x170 = (int)(short)local_2e[0];
         pEVar1->UsedAbility = local_2e[0];
         goto LAB_BATTLE_BIN__80073b4c;
@@ -52888,8 +53461,9 @@ void BATTLE_set_damage_display_from_agility(void)
 
 {
   ENTDDisplayUnitData *acting_misc_data;
-  uint ability_id;
-  uint reaction_id;
+  uint uVar1;
+  AbilityIDWord ability;
+  AbilityIDWord reaction_id;
   byte current_weapon;
   AbilityID last_attack;
   
@@ -52899,15 +53473,14 @@ void BATTLE_set_damage_display_from_agility(void)
                       &(acting_misc_data->CurActionData).CurActionUsedAbilityID);
   current_weapon = (acting_misc_data->CurActionData).CurActionUsedWeaponID;
   last_attack = (acting_misc_data->CurActionData).LastUsedAttack;
-  reaction_id = (uint)*(short *)&(acting_misc_data->CurActionData).ReactionID;
-  ability_id = (uint)last_attack;
+  reaction_id = (AbilityIDWord)*(short *)&(acting_misc_data->CurActionData).ReactionID;
+  ability = (AbilityIDWord)last_attack;
   acting_misc_data->UsedAbility = last_attack;
   BATTLE_set_thrown_item_palette((uint)current_weapon,acting_misc_data);
-  if ((((reaction_id == 0) || (ability_id == reaction_id)) && (ability_id != FallDamage)) &&
-     ((ability_id != 0 && (reaction_id = FUN_BATTLE_BIN__801a1814(ability_id), reaction_id == 0))))
-  {
+  if ((((reaction_id == None) || (ability == reaction_id)) && (ability != FallDamage)) &&
+     ((ability != None && (uVar1 = BATTLE_load_ability_effect(ability), uVar1 == 0)))) {
     BATTLE_Game_State = StartEffectFileOpen;
-    BATTLE_store_target_coord_and_atk_display_types(ability_id,acting_misc_data);
+    BATTLE_store_target_coord_and_atk_display_types(ability,acting_misc_data);
   }
   else {
     BATTLE_set_some_target_coords();
@@ -52917,17 +53490,17 @@ void BATTLE_set_damage_display_from_agility(void)
 
 
 
-// https://ffhacktics.com/wiki/00073fb8_-_00073fdc
+// https://ffhacktics.com/wiki/Finish_Hiding_Unit_Status
 // 
-// happens after 0x73a78, unit status at bottom of screen almost completely
-// disappeared. Means one of the previous menus was to hide the unit status
+// Unit status at bottom of screen almost completely disappeared.
+// Means one of the previous menus was to hide the unit status.
 
 void BATTLE_finish_hiding_unit_status(void)
 
 {
   BATTLE_Animation_Speed = 1;
   BATTLE_Game_State = OpenSP2Files;
-  DAT_BATTLE_BIN__80098d70 = 0;
+  BATTLE_SP2_Data = (void *)0x0;
   return;
 }
 
@@ -52967,7 +53540,7 @@ void FUN_BATTLE_BIN__80074068(void)
   
   BATTLE_stop_game_flow();
   BATTLE_Game_State = ActionCast2Mode;
-  DAT_BATTLE_BIN__80098db8 = 0;
+  BATTLE_Post_Action = 0;
   misc_data = BATTLE_get_acting_unit_misc_data();
   system_setup_result = BATTLE_system_setup_for_ramza_crystal_ability_ct(misc_data);
   if (CONCAT31(zero_pad,system_setup_result) == false) {
@@ -52995,12 +53568,12 @@ void BATTLE_execute_ability(void)
   BATTLE_set_facing_from_arctan(acting_misc_data);
   ability_ct_is_zero =
        BATTLE_call_attack_prep_AT_list_preview((CurActionTargetData *)&acting_misc_data->TargetID);
-  *(uint *)&acting_misc_data->field_0x17c = ability_ct_is_zero;
+  *(uint *)&acting_misc_data->AnotherSkillSet = ability_ct_is_zero;
   if (ability_ct_is_zero == 1) {
 LAB_BATTLE_BIN__80074184:
     BATTLE_stop_game_flow();
     BATTLE_Game_State = CommenceAtkPhaseCtrl;
-    DAT_BATTLE_BIN__80098db8 = 0;
+    BATTLE_Post_Action = 0;
     acting_misc_data->CTResolved = acting_misc_data->CTResolved | 2;
     if (BATTLE_Animation_Flag[acting_misc_data->UsedAbility][0] == 0) {
       return;
@@ -53017,7 +53590,7 @@ LAB_BATTLE_BIN__80074184:
   else if ((ability_ct_is_zero != 2) && (ability_ct_is_zero == 3)) goto LAB_BATTLE_BIN__80074184;
   SCUS_exception_pointer_DEPRECATED();
 out:
-  BATTTLE_post_command_xfer_anim_and_state_clean(acting_misc_data);
+  BATTTLE_post_command_update_anim_display(acting_misc_data);
   return;
 }
 
@@ -53117,9 +53690,9 @@ void BATTLE_select_target_tile(void)
   }
   else {
     if ((misc_data->ENTDFlags & PlayerControl) == None) goto LAB_BATTLE_BIN__8007437c;
-    x_coord = (ushort)BATTLE_Cursor_XCoord;
-    z_coord = (ushort)BATTLE_Cursor_ZCoord;
-    y_coord = (ushort)BATTLE_Cursor_YCoord;
+    x_coord = (ushort)BATTLE_Cursor_X_Coord;
+    z_coord = (ushort)BATTLE_Cursor_Z_Coord;
+    y_coord = (ushort)BATTLE_Cursor_Y_Coord;
   }
   SCUS_save_3_ushort(&misc_data->TargetX,x_coord,z_coord,y_coord);
   misc_data->TileOrTarget = 5;
@@ -53139,7 +53712,7 @@ LAB_BATTLE_BIN__8007437c:
       BATTLE_Controller_Input = 2;
       BATTLE_tile_bg_color_partial(7,3);
       BATTLE_store_caster_name_and_data_under_cursor();
-      if ((DAT_800473ac & 0x18000000) == 0) {
+      if ((SCUS_Custom_Options & 0x18000000) == 0) {
         BATTLE_highlight_units_using_team2();
       }
     }
@@ -53210,57 +53783,59 @@ int BATTLE_set_target_boxes_red(void)
 
 
 
-// https://ffhacktics.com/wiki/000745ac_-_000746a8
+// https://ffhacktics.com/wiki/Confirm_Action
 
-void BATTLE_confirm_location_execute_action(void)
+void BATTLE_confirm_action(void)
 
 {
   ENTDDisplayUnitData *acting_misc_data;
   ENTDDisplayUnitData *cursor_misc_data;
-  int iVar1;
-  uint uVar2;
+  int target_value;
+  uint message_type;
   
   BATTLE_stop_game_flow();
   BATTLE_Game_State = ConfirmAction;
   acting_misc_data = BATTLE_get_acting_unit_misc_data();
   cursor_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
-  iVar1 = acting_misc_data->field304_0x174;
-  if (iVar1 == 1) {
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
+  target_value = acting_misc_data->field304_0x174;
+  if (target_value == 1) {
+                    // can't follow target
     if (cursor_misc_data == (ENTDDisplayUnitData *)0x0) {
-      uVar2 = 2;
+      message_type = 2;
     }
     else {
-      uVar2 = 4;
+      message_type = 4;
     }
   }
   else {
-    if (iVar1 < 2) {
-      if (iVar1 == 0) {
+    if (target_value < 2) {
+      if (target_value == 0) {
+                    // can follow target
         if (cursor_misc_data == (ENTDDisplayUnitData *)0x0) {
-          uVar2 = 2;
+          message_type = 2;
         }
         else {
-          uVar2 = 1;
+          message_type = 1;
         }
         goto out;
       }
     }
-    else if (iVar1 == 2) {
+    else if (target_value == 2) {
       if (cursor_misc_data == (ENTDDisplayUnitData *)0x0) {
-        uVar2 = 2;
+        message_type = 2;
       }
       else {
-        uVar2 = 3;
+        message_type = 3;
       }
       goto out;
     }
-    uVar2 = 0;
+    message_type = 0;
   }
 out:
   BATTLE_system_function_setup
-            (4,uVar2,(uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0,
+            (4,message_type,(uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0,
              acting_misc_data->ENTDFlags & 8);
   return;
 }
@@ -53268,43 +53843,49 @@ out:
 
 
 // https://ffhacktics.com/wiki/Highlight_All_Units_Blue_or_Red
+// 
+// Param 1 is Misc Data field 0x2a, values either 0xc or 0xe
 
-void BATTLE_highlight_all_units_blue_or_red(int param_1)
+void BATTLE_highlight_all_units_blue_or_red(int color_hint)
 
 {
-  ENTDDisplayUnitData *caster_misc_data;
-  ENTDDisplayUnitData *misc_data;
-  BattleUnitData *battle_data;
-  int misc_id_iter;
+  ENTDDisplayUnitData *casting_misc_data;
+  ENTDDisplayUnitData *loop_misc_data;
+  BattleUnitData *loop_battle_stats;
+  int entd_id;
   ushort blue_mod;
   ushort red_mod;
   
-  caster_misc_data = BATTLE_get_casting_unit_misc_data();
-  misc_id_iter = 0;
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  entd_id = 0;
   do {
-    misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_id_iter);
-    if ((misc_data != (ENTDDisplayUnitData *)0x0) &&
-       (battle_data = misc_data->UnitBattleData, battle_data != (BattleUnitData *)0x0)) {
-      if (param_1 == 0xc) {
-        if (((battle_data->AllActionUnitData).EntdTeamFlags & LightBlueTeam) !=
-            ((caster_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam)) {
+    loop_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)entd_id);
+    if ((loop_misc_data != (ENTDDisplayUnitData *)0x0) &&
+       (loop_battle_stats = loop_misc_data->UnitBattleData,
+       loop_battle_stats != (BattleUnitData *)0x0)) {
+      if (color_hint == 0xc) {
+        if (((loop_battle_stats->AllActionUnitData).EntdTeamFlags & LightBlueTeam) !=
+            ((casting_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam))
+        {
           red_mod = 0x10;
           blue_mod = 0;
-          goto LAB_BATTLE_BIN__80074784;
+          goto do_palette_mod;
         }
       }
-      else if ((param_1 == 0xe) &&
-              (((battle_data->AllActionUnitData).EntdTeamFlags & LightBlueTeam) ==
-               ((caster_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam)
-              )) {
+      else if ((color_hint == 0xe) &&
+              (((loop_battle_stats->AllActionUnitData).EntdTeamFlags & LightBlueTeam) ==
+               ((casting_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam
+               ))) {
         red_mod = 0;
         blue_mod = 0x18;
-LAB_BATTLE_BIN__80074784:
-        BATTLE_palette_modification(9,4,3,misc_id_iter,0,red_mod,0,blue_mod);
+do_palette_mod:
+        BATTLE_palette_modification(9,4,3,entd_id,0,red_mod,0,blue_mod);
       }
     }
-    misc_id_iter = misc_id_iter + 1;
-    if (0xf < misc_id_iter) {
+    entd_id = entd_id + 1;
+                    // weird loop condition, should be:
+                    // } while (entd_id < 0x10);
+    if (0xf < entd_id) {
       return;
     }
   } while( true );
@@ -53312,9 +53893,9 @@ LAB_BATTLE_BIN__80074784:
 
 
 
-// https://ffhacktics.com/wiki/Target_Selection_Start
+// https://ffhacktics.com/wiki/Target_Select_Start
 
-void BATTLE_target_selection_start(void)
+void BATTLE_target_select_start(void)
 
 {
   ENTDDisplayUnitData *misc_data;
@@ -53330,9 +53911,9 @@ void BATTLE_target_selection_start(void)
 
 
 
-// https://ffhacktics.com/wiki/00074814_-_00074858
+// https://ffhacktics.com/wiki/Target_Select_Mode
 
-void FUN_BATTLE_BIN__80074814(void)
+void BATTLE_target_select_mode(void)
 
 {
   ENTDDisplayUnitData *misc_data;
@@ -53341,27 +53922,27 @@ void FUN_BATTLE_BIN__80074814(void)
   BATTLE_Game_State = BattleTargetSelectMode;
   BATTLE_store_name_and_unit_data_under_cursor();
   misc_data = BATTLE_get_casting_unit_misc_data();
-  BATTLE_highlight_all_units_blue_or_red((uint)(byte)(misc_data->CurActionData).field_0x2a);
+  BATTLE_highlight_all_units_blue_or_red((uint)(misc_data->CurActionData).SelectedAbility);
   return;
 }
 
 
 
-// https://ffhacktics.com/wiki/0007485c_-_0007492chttps://ffhacktics.com/wiki/0007485c_-_0007492c
+// https://ffhacktics.com/wiki/Target_Select_Denied
 
-void FUN_BATTLE_BIN__8007485c(void)
+void BATTLE_target_select_denied(void)
 
 {
   ENTDDisplayUnitData *cursor_misc_data;
   ENTDDisplayUnitData *casting_misc_data;
-  uint uVar1;
-  byte cVar1;
+  uint message_type;
+  byte some_color;
   
   BATTLE_stop_game_flow();
-  BATTLE_Game_State = BattleTargetSelectDeneidMode;
+  BATTLE_Game_State = BattleTargetSelectDeniedMode;
   cursor_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   if ((cursor_misc_data != (ENTDDisplayUnitData *)0x0) &&
      (cursor_misc_data->UnitBattleData != (BattleUnitData *)0x0)) {
     BATTLE_store_unit_names_and_event_block_data
@@ -53369,30 +53950,31 @@ void FUN_BATTLE_BIN__8007485c(void)
   }
   casting_misc_data = BATTLE_get_casting_unit_misc_data();
   if (cursor_misc_data == (ENTDDisplayUnitData *)0x0) {
-    uVar1 = 3;
+    message_type = 3;
   }
   else {
-    cVar1 = (casting_misc_data->CurActionData).field_0x2a;
-    if (cVar1 == 0xc) {
-      uVar1 = 1;
+    some_color = (casting_misc_data->CurActionData).SelectedAbility;
+    if (some_color == 0xc) {
+      message_type = 1;
     }
     else {
-      if (cVar1 != 0xe) {
+      if (some_color != 0xe) {
         return;
       }
-      uVar1 = 2;
+      message_type = 2;
     }
   }
   BATTLE_system_function_setup
-            (9,uVar1,(uint)(casting_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0,1);
+            (9,message_type,(uint)(casting_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0
+             ,1);
   return;
 }
 
 
 
-// https://ffhacktics.com/wiki/00074930_-_000749c4
+// https://ffhacktics.com/wiki/Target_Select_Confirm
 
-void FUN_BATTLE_BIN__80074930(void)
+void BATTLE_target_select_confirm(void)
 
 {
   ENTDDisplayUnitData *cursor_misc_data;
@@ -53400,8 +53982,8 @@ void FUN_BATTLE_BIN__80074930(void)
   BATTLE_stop_game_flow();
   BATTLE_Game_State = BattleTargetSelectConfirmMode;
   cursor_misc_data =
-       BATTLE_get_misc_data_at_map_coords
-                 (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   if ((cursor_misc_data != (ENTDDisplayUnitData *)0x0) &&
      (cursor_misc_data->UnitBattleData != (BattleUnitData *)0x0)) {
     BATTLE_store_unit_names_and_event_block_data
@@ -53428,7 +54010,7 @@ void BATTLE_target_display_start(void)
   acting_misc_data = BATTLE_get_casting_unit_misc_data();
   BATTLE_system_function_setup
             (1,0,(uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2,0,1);
-  DAT_BATTLE_BIN__80098db8 = 0;
+  BATTLE_Post_Action = 0;
   BATTLE_store_AT_list_id1();
   return;
 }
@@ -53581,7 +54163,7 @@ void BATTLE_main_default_state_handler
               BATTLE_free_cursor_mini_menu();
             }
           }
-          else if ((DAT_800473ac & 0x1c0) != 0xc0) {
+          else if ((SCUS_Custom_Options & 0x1c0) != 0xc0) {
                     // start button handler
             Call_Play_Sound(Confirm);
             BATTLE_check_if_unit_is_charging_ability();
@@ -53591,8 +54173,8 @@ void BATTLE_main_default_state_handler
         else {
                     // cross button
           BATTLE_clear_AT_list_id();
-          misc_data = BATTLE_get_misc_data_at_map_coords
-                                (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+          misc_data = BATTLE_get_misc_data_at_map_coords_2
+                                (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
           if (misc_data != (ENTDDisplayUnitData *)0x0) {
             BATTLE_Current_Acting_Unit_ENTD_ID = (uint)misc_data->ENTDID;
             BATTLE_show_move_range_in_free_cursor();
@@ -53603,8 +54185,8 @@ void BATTLE_main_default_state_handler
                     // circle button
         BATTLE_tile_bg_color_partial(0,0);
         Call_Play_Sound(Confirm);
-        misc_data = BATTLE_get_misc_data_at_map_coords
-                              (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+        misc_data = BATTLE_get_misc_data_at_map_coords_2
+                              (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
         if (misc_data == (ENTDDisplayUnitData *)0x0) {
           misc_data = BATTLE_get_acting_unit_misc_data();
           if (misc_data != (ENTDDisplayUnitData *)0x0) {
@@ -53702,13 +54284,13 @@ void BATTLE_main_OpenActionMenus_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   value = *ptr;
   if ((6 < value) && ((value < 9 || (value == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+    BATTLE_Post_Action = 1;
   }
   if ((((BATTLE_Current_Vector.x | BATTLE_Current_Vector.z | BATTLE_Current_Vector.y) == 0) &&
-      (BATTLE_Map_Rotation_Action == MapNotRotating)) && (DAT_BATTLE_BIN__80098db8 != 0)) {
+      (BATTLE_Map_Rotation_Action == MapNotRotating)) && (BATTLE_Post_Action != 0)) {
     BATTLE_call_idle_action_menu();
   }
   return;
@@ -53729,23 +54311,24 @@ void BATTLE_main_IdlingActionMenus_state_handler
 
 {
   ENTDAutoBattleAction *pEVar1;
-  byte bVar2;
+  undefined uVar2;
   undefined uVar3;
-  undefined uVar4;
+  undefined2 uVar4;
   undefined2 uVar5;
   undefined2 uVar6;
-  undefined2 uVar7;
+  undefined uVar7;
   undefined uVar8;
   undefined uVar9;
   undefined uVar10;
-  undefined uVar11;
   int menu_still_opening;
   void *otag_list;
-  ENTDAutoBattleAction *ptr;
-  ENTDDisplayUnitData *acting_misc_data;
-  TargetTileResult TVar12;
-  int ptr_value;
-  uint acting_misc_id;
+  ENTDAutoBattleAction *selected_ability_addr;
+  ENTDDisplayUnitData *casting_misc_data;
+  ENTDDisplayUnitData *mount_misc_data;
+  TargetTileResult TVar11;
+  int selected_ability_value;
+  uint acting_entd_id;
+  byte some_entd_id;
   
   menu_still_opening = BATTLE_is_menu_still_building();
   if (menu_still_opening == 0) {
@@ -53757,49 +54340,49 @@ void BATTLE_main_IdlingActionMenus_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = (ENTDAutoBattleAction *)BATTLE_return_80169828();
-  acting_misc_data = BATTLE_get_casting_unit_misc_data();
-  ptr_value = *ptr;
-  if (ptr_value == 0xe) {
+  selected_ability_addr = (ENTDAutoBattleAction *)BATTLE_get_selected_ability_address();
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  selected_ability_value = *selected_ability_addr;
+  if (selected_ability_value == 0xe) {
 do_target_select:
                     // "if executing attack"
-    (acting_misc_data->CurActionData).field_0x2a = *(undefined *)ptr;
-    BATTLE_target_selection_start();
+    (casting_misc_data->CurActionData).SelectedAbility = *(byte *)selected_ability_addr;
+    BATTLE_target_select_start();
     return;
   }
-  acting_misc_id = BATTLE_Casting_Unit_ENTD_ID;
-  if (0xe < ptr_value) {
-    if (ptr_value == 0x12) {
-      BATTLE_store_misc_data_without_control_flag(acting_misc_data);
+  acting_entd_id = BATTLE_Casting_Unit_ENTD_ID;
+  if (0xe < selected_ability_value) {
+    if (selected_ability_value == 0x12) {
+      BATTLE_store_entd_flags_without_control_flag(casting_misc_data);
       return;
     }
-    if (ptr_value < 0x13) {
-      if (ptr_value != 0xf) {
+    if (selected_ability_value < 0x13) {
+      if (selected_ability_value != 0xf) {
         SetActionMenuScript();
         return;
       }
 do_target_display:
-      (acting_misc_data->CurActionData).field_0x2a = *(undefined *)ptr;
+      (casting_misc_data->CurActionData).SelectedAbility = *(byte *)selected_ability_addr;
       BATTLE_target_display_start();
       return;
     }
-    if (ptr_value != 0x19) {
+    if (selected_ability_value != 0x19) {
       return;
     }
 do_move:
-    BATTLE_Current_Acting_Unit_ENTD_ID = acting_misc_id;
+    BATTLE_Current_Acting_Unit_ENTD_ID = acting_entd_id;
     BATTLE_clear_AT_list_id();
     BATTLE_pressed_move_command();
     return;
   }
-  if (ptr_value == 2) {
+  if (selected_ability_value == 2) {
     BATTLE_choose_wait_action();
     return;
   }
-  if (2 < ptr_value) {
-    if (ptr_value != 0xc) {
-      if (ptr_value < 0xd) {
-        if (ptr_value != 7) {
+  if (2 < selected_ability_value) {
+    if (selected_ability_value != 0xc) {
+      if (selected_ability_value < 0xd) {
+        if (selected_ability_value != 7) {
           return;
         }
         BATTLE_clear_status_menu_and_960fc();
@@ -53810,150 +54393,153 @@ do_move:
     }
     goto do_target_select;
   }
-  if (ptr_value == 0) {
-    if (acting_misc_data->MountVal != NotMounted) {
-      acting_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)acting_misc_data->MountID);
-      acting_misc_id = (uint)acting_misc_data->ENTDID;
+  if (selected_ability_value == 0) {
+    if (casting_misc_data->MountVal != NotMounted) {
+      mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)casting_misc_data->MountID);
+      acting_entd_id = (uint)mount_misc_data->ENTDID;
     }
     goto do_move;
   }
-  if (ptr_value != 1) {
+  if (selected_ability_value != 1) {
     return;
   }
   BATTLE_clear_AT_list_id();
-  switch(*(undefined *)((int)ptr + 5)) {
+                    // 0x5 offset is "skillset used"
+  switch(*(undefined *)((int)selected_ability_addr + 5)) {
   default:
-    pEVar1 = ptr + 1;
-    uVar3 = *(undefined *)pEVar1;
-    uVar4 = *(undefined *)((int)pEVar1 + 1);
-    uVar5 = *(undefined2 *)((int)pEVar1 + 2);
-    uVar6 = *(undefined2 *)(ptr + 2);
-    uVar7 = *(undefined2 *)((int)(ptr + 2) + 2);
-    pEVar1 = ptr + 3;
-    uVar8 = *(undefined *)pEVar1;
-    uVar9 = *(undefined *)((int)pEVar1 + 1);
-    uVar10 = *(undefined *)((int)pEVar1 + 2);
-    uVar11 = *(undefined *)((int)pEVar1 + 3);
-    acting_misc_data->AutoBattleAction = *ptr;
-    acting_misc_data->TargetID = uVar3;
-    acting_misc_data->UsedSkillset = uVar4;
-    acting_misc_data->UsedAbility2 = uVar5;
-    acting_misc_data->CalcTypeAb = uVar6;
-    acting_misc_data->CalcMultAb = uVar7;
-    acting_misc_data->UsedItem2 = uVar8;
-    acting_misc_data->field_0x165 = uVar9;
-    acting_misc_data->TileOrTarget = uVar10;
-    acting_misc_data->TargetID2 = uVar11;
-    uVar5 = *(undefined2 *)((int)(ptr + 4) + 2);
-    pEVar1 = ptr + 5;
-    uVar6 = *(undefined2 *)pEVar1;
-    uVar3 = *(undefined *)((int)pEVar1 + 2);
-    uVar4 = *(undefined *)((int)pEVar1 + 3);
-    acting_misc_data->TargetX = *(undefined2 *)(ptr + 4);
-    acting_misc_data->TargetZ = uVar5;
-    acting_misc_data->TargetY = uVar6;
-    acting_misc_data->TargetIDFromBattleStats = uVar3;
-    acting_misc_data->field_0x16f = uVar4;
-    bVar2 = (acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2;
-    acting_misc_data->TileOrTarget = 5;
-    acting_misc_data->TargetID = bVar2;
-    BATTLE_call_attack_prep_ability_selected((CurActionTargetData *)&acting_misc_data->TargetID);
-    acting_misc_data->UsedAbility = acting_misc_data->UsedAbility2;
-    TVar12 = BATTLE_calculate_target_panels((CurActionTargetData *)&acting_misc_data->TargetID);
-    acting_misc_data->field304_0x174 = TVar12;
-    if (TVar12 != UnhandledTarget) {
-      if (TVar12 < NoTilesToTarget) {
-        if (TVar12 < TargetValidAbilityCanFollow) goto do_select_target_tile;
+                    // defend
+    pEVar1 = selected_ability_addr + 1;
+    uVar2 = *(undefined *)pEVar1;
+    uVar3 = *(undefined *)((int)pEVar1 + 1);
+    uVar4 = *(undefined2 *)((int)pEVar1 + 2);
+    uVar5 = *(undefined2 *)(selected_ability_addr + 2);
+    uVar6 = *(undefined2 *)((int)(selected_ability_addr + 2) + 2);
+    pEVar1 = selected_ability_addr + 3;
+    uVar7 = *(undefined *)pEVar1;
+    uVar8 = *(undefined *)((int)pEVar1 + 1);
+    uVar9 = *(undefined *)((int)pEVar1 + 2);
+    uVar10 = *(undefined *)((int)pEVar1 + 3);
+    casting_misc_data->AutoBattleAction = *selected_ability_addr;
+    casting_misc_data->TargetID = uVar2;
+    casting_misc_data->UsedSkillset = uVar3;
+    casting_misc_data->UsedAbility2 = uVar4;
+    casting_misc_data->CalcTypeAb = uVar5;
+    casting_misc_data->CalcMultAb = uVar6;
+    casting_misc_data->UsedItem2 = uVar7;
+    casting_misc_data->field_0x165 = uVar8;
+    casting_misc_data->TileOrTarget = uVar9;
+    casting_misc_data->TargetID2 = uVar10;
+    uVar4 = *(undefined2 *)((int)(selected_ability_addr + 4) + 2);
+    pEVar1 = selected_ability_addr + 5;
+    uVar5 = *(undefined2 *)pEVar1;
+    uVar2 = *(undefined *)((int)pEVar1 + 2);
+    uVar3 = *(undefined *)((int)pEVar1 + 3);
+    casting_misc_data->TargetX = *(undefined2 *)(selected_ability_addr + 4);
+    casting_misc_data->TargetZ = uVar4;
+    casting_misc_data->TargetY = uVar5;
+    casting_misc_data->TargetIDFromBattleStats = uVar2;
+    casting_misc_data->field_0x16f = uVar3;
+    some_entd_id = (casting_misc_data->UnitBattleData->CurActionTargetData).UnitID2;
+    casting_misc_data->TileOrTarget = 5;
+    casting_misc_data->TargetID = some_entd_id;
+    BATTLE_call_attack_prep_ability_selected((CurActionTargetData *)&casting_misc_data->TargetID);
+    casting_misc_data->UsedAbility = casting_misc_data->UsedAbility2;
+    TVar11 = BATTLE_calculate_target_panels((CurActionTargetData *)&casting_misc_data->TargetID);
+    casting_misc_data->field304_0x174 = TVar11;
+    if (TVar11 != UnhandledTarget) {
+      if (TVar11 < NoTilesToTarget) {
+        if (TVar11 < TargetValidAbilityCanFollow) goto auto_target;
       }
-      else if (TVar12 != NoTilesToTarget) goto do_select_target_tile;
+      else if (TVar11 != NoTilesToTarget) goto auto_target;
       BATTLE_range_1_ability_used();
       return;
     }
-do_select_target_tile:
+auto_target:
     BATTLE_select_target_tile();
     return;
   case 2:
-    pEVar1 = ptr + 1;
-    uVar3 = *(undefined *)pEVar1;
-    uVar4 = *(undefined *)((int)pEVar1 + 1);
-    uVar5 = *(undefined2 *)((int)pEVar1 + 2);
-    uVar6 = *(undefined2 *)(ptr + 2);
-    uVar7 = *(undefined2 *)((int)(ptr + 2) + 2);
-    pEVar1 = ptr + 3;
-    uVar8 = *(undefined *)pEVar1;
-    uVar9 = *(undefined *)((int)pEVar1 + 1);
-    uVar10 = *(undefined *)((int)pEVar1 + 2);
-    uVar11 = *(undefined *)((int)pEVar1 + 3);
-    acting_misc_data->AutoBattleAction = *ptr;
-    acting_misc_data->TargetID = uVar3;
-    acting_misc_data->UsedSkillset = uVar4;
-    acting_misc_data->UsedAbility2 = uVar5;
-    acting_misc_data->CalcTypeAb = uVar6;
-    acting_misc_data->CalcMultAb = uVar7;
-    acting_misc_data->UsedItem2 = uVar8;
-    acting_misc_data->field_0x165 = uVar9;
-    acting_misc_data->TileOrTarget = uVar10;
-    acting_misc_data->TargetID2 = uVar11;
-    uVar5 = *(undefined2 *)((int)(ptr + 4) + 2);
-    pEVar1 = ptr + 5;
-    uVar6 = *(undefined2 *)pEVar1;
-    uVar3 = *(undefined *)((int)pEVar1 + 2);
-    uVar4 = *(undefined *)((int)pEVar1 + 3);
-    acting_misc_data->TargetX = *(undefined2 *)(ptr + 4);
-    acting_misc_data->TargetZ = uVar5;
-    acting_misc_data->TargetY = uVar6;
-    acting_misc_data->TargetIDFromBattleStats = uVar3;
-    acting_misc_data->field_0x16f = uVar4;
+    pEVar1 = selected_ability_addr + 1;
+    uVar2 = *(undefined *)pEVar1;
+    uVar3 = *(undefined *)((int)pEVar1 + 1);
+    uVar4 = *(undefined2 *)((int)pEVar1 + 2);
+    uVar5 = *(undefined2 *)(selected_ability_addr + 2);
+    uVar6 = *(undefined2 *)((int)(selected_ability_addr + 2) + 2);
+    pEVar1 = selected_ability_addr + 3;
+    uVar7 = *(undefined *)pEVar1;
+    uVar8 = *(undefined *)((int)pEVar1 + 1);
+    uVar9 = *(undefined *)((int)pEVar1 + 2);
+    uVar10 = *(undefined *)((int)pEVar1 + 3);
+    casting_misc_data->AutoBattleAction = *selected_ability_addr;
+    casting_misc_data->TargetID = uVar2;
+    casting_misc_data->UsedSkillset = uVar3;
+    casting_misc_data->UsedAbility2 = uVar4;
+    casting_misc_data->CalcTypeAb = uVar5;
+    casting_misc_data->CalcMultAb = uVar6;
+    casting_misc_data->UsedItem2 = uVar7;
+    casting_misc_data->field_0x165 = uVar8;
+    casting_misc_data->TileOrTarget = uVar9;
+    casting_misc_data->TargetID2 = uVar10;
+    uVar4 = *(undefined2 *)((int)(selected_ability_addr + 4) + 2);
+    pEVar1 = selected_ability_addr + 5;
+    uVar5 = *(undefined2 *)pEVar1;
+    uVar2 = *(undefined *)((int)pEVar1 + 2);
+    uVar3 = *(undefined *)((int)pEVar1 + 3);
+    casting_misc_data->TargetX = *(undefined2 *)(selected_ability_addr + 4);
+    casting_misc_data->TargetZ = uVar4;
+    casting_misc_data->TargetY = uVar5;
+    casting_misc_data->TargetIDFromBattleStats = uVar2;
+    casting_misc_data->field_0x16f = uVar3;
     BATTLE_inflict_defending_to_battle_id
-              ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
-    bVar2 = acting_misc_data->ENTDID;
-    acting_misc_data->CTResolved = acting_misc_data->CTResolved | 2;
+              ((uint)(casting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
+    some_entd_id = casting_misc_data->ENTDID;
+    casting_misc_data->CTResolved = casting_misc_data->CTResolved | 2;
     break;
   case 3:
-    pEVar1 = ptr + 1;
-    uVar3 = *(undefined *)pEVar1;
-    uVar4 = *(undefined *)((int)pEVar1 + 1);
-    uVar5 = *(undefined2 *)((int)pEVar1 + 2);
-    uVar6 = *(undefined2 *)(ptr + 2);
-    uVar7 = *(undefined2 *)((int)(ptr + 2) + 2);
-    pEVar1 = ptr + 3;
-    uVar8 = *(undefined *)pEVar1;
-    uVar9 = *(undefined *)((int)pEVar1 + 1);
-    uVar10 = *(undefined *)((int)pEVar1 + 2);
-    uVar11 = *(undefined *)((int)pEVar1 + 3);
-    acting_misc_data->AutoBattleAction = *ptr;
-    acting_misc_data->TargetID = uVar3;
-    acting_misc_data->UsedSkillset = uVar4;
-    acting_misc_data->UsedAbility2 = uVar5;
-    acting_misc_data->CalcTypeAb = uVar6;
-    acting_misc_data->CalcMultAb = uVar7;
-    acting_misc_data->UsedItem2 = uVar8;
-    acting_misc_data->field_0x165 = uVar9;
-    acting_misc_data->TileOrTarget = uVar10;
-    acting_misc_data->TargetID2 = uVar11;
-    uVar5 = *(undefined2 *)((int)(ptr + 4) + 2);
-    pEVar1 = ptr + 5;
-    uVar6 = *(undefined2 *)pEVar1;
-    uVar3 = *(undefined *)((int)pEVar1 + 2);
-    uVar4 = *(undefined *)((int)pEVar1 + 3);
-    acting_misc_data->TargetX = *(undefined2 *)(ptr + 4);
-    acting_misc_data->TargetZ = uVar5;
-    acting_misc_data->TargetY = uVar6;
-    acting_misc_data->TargetIDFromBattleStats = uVar3;
-    acting_misc_data->field_0x16f = uVar4;
-    acting_misc_data->CTResolved = acting_misc_data->CTResolved | 2;
-    BATTLE_remove_all_status_by_battle_stats(acting_misc_data->UnitBattleData);
+                    // equipment change
+    pEVar1 = selected_ability_addr + 1;
+    uVar2 = *(undefined *)pEVar1;
+    uVar3 = *(undefined *)((int)pEVar1 + 1);
+    uVar4 = *(undefined2 *)((int)pEVar1 + 2);
+    uVar5 = *(undefined2 *)(selected_ability_addr + 2);
+    uVar6 = *(undefined2 *)((int)(selected_ability_addr + 2) + 2);
+    pEVar1 = selected_ability_addr + 3;
+    uVar7 = *(undefined *)pEVar1;
+    uVar8 = *(undefined *)((int)pEVar1 + 1);
+    uVar9 = *(undefined *)((int)pEVar1 + 2);
+    uVar10 = *(undefined *)((int)pEVar1 + 3);
+    casting_misc_data->AutoBattleAction = *selected_ability_addr;
+    casting_misc_data->TargetID = uVar2;
+    casting_misc_data->UsedSkillset = uVar3;
+    casting_misc_data->UsedAbility2 = uVar4;
+    casting_misc_data->CalcTypeAb = uVar5;
+    casting_misc_data->CalcMultAb = uVar6;
+    casting_misc_data->UsedItem2 = uVar7;
+    casting_misc_data->field_0x165 = uVar8;
+    casting_misc_data->TileOrTarget = uVar9;
+    casting_misc_data->TargetID2 = uVar10;
+    uVar4 = *(undefined2 *)((int)(selected_ability_addr + 4) + 2);
+    pEVar1 = selected_ability_addr + 5;
+    uVar5 = *(undefined2 *)pEVar1;
+    uVar2 = *(undefined *)((int)pEVar1 + 2);
+    uVar3 = *(undefined *)((int)pEVar1 + 3);
+    casting_misc_data->TargetX = *(undefined2 *)(selected_ability_addr + 4);
+    casting_misc_data->TargetZ = uVar4;
+    casting_misc_data->TargetY = uVar5;
+    casting_misc_data->TargetIDFromBattleStats = uVar2;
+    casting_misc_data->field_0x16f = uVar3;
+    casting_misc_data->CTResolved = casting_misc_data->CTResolved | 2;
+    BATTLE_remove_all_status_by_battle_stats(casting_misc_data->UnitBattleData);
     BATTLE_ai_ability_setting_by_battle_id
-              ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
-    bVar2 = acting_misc_data->ENTDID;
+              ((uint)(casting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
+    some_entd_id = casting_misc_data->ENTDID;
     break;
   case 4:
   case 0x18:
     goto do_cleanup_and_out;
   }
-  BATTLE_update_anim_display_by_misc_id((ushort)bVar2);
+  BATTLE_update_anim_display_by_entd_id((ushort)some_entd_id);
   BATTLE_set_only_action_taken
-            ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
+            ((uint)(casting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
 do_cleanup_and_out:
   BATTLE_set_state_to_AfterCommandMode();
   return;
@@ -54021,7 +54607,7 @@ void BATTLE_main_MenuToTargeting_state_handler
         return;
       }
       if (acting_misc_data->MountVal != NotMounted) {
-        acting_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)acting_misc_data->MountID)
+        acting_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)acting_misc_data->MountID)
         ;
         acting_misc_id = (uint)acting_misc_data->ENTDID;
       }
@@ -54061,16 +54647,16 @@ select_target_tile:
     BATTLE_inflict_defending_to_battle_id
               ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
     acting_misc_data->CTResolved = acting_misc_data->CTResolved | 2;
-    BATTLE_update_anim_display_by_misc_id((ushort)acting_misc_data->ENTDID);
+    BATTLE_update_anim_display_by_entd_id((ushort)acting_misc_data->ENTDID);
     BATTLE_set_only_action_taken
               ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
     break;
-  case EquimentChange:
+  case EquipmentChange:
     acting_misc_data->CTResolved = acting_misc_data->CTResolved | 2;
     BATTLE_remove_all_status_by_battle_stats(acting_misc_data->UnitBattleData);
     BATTLE_ai_ability_setting_by_battle_id
               ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
-    BATTLE_update_anim_display_by_misc_id((ushort)acting_misc_data->ENTDID);
+    BATTLE_update_anim_display_by_entd_id((ushort)acting_misc_data->ENTDID);
     BATTLE_set_only_action_taken
               ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
     break;
@@ -54169,7 +54755,7 @@ void BATTLE_main_MiniMenu_state_handler
   menu_building = BATTLE_is_menu_still_building();
   if ((SCUS_Controller_Input & ButtonSelect) == NoButtons) {
     if (menu_building == 0) {
-      BATTLE_Controller_Input = DAT_800473ac & 7;
+      BATTLE_Controller_Input = SCUS_Custom_Options & 7;
       BATTLE_set_game_state_to_FreeCursor();
     }
     else if (99 < menu_building) {
@@ -54254,7 +54840,7 @@ void BATTLE_main_UnitMove_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   value = *ptr;
   if (value != 8) {
     if (value < 9) {
@@ -54327,9 +54913,9 @@ void BATTLE_main_CloseMoveHelp_state_handler
       else {
         auto_x_coord2._0_1_ = acting_misc_data->TargetID;
         auto_x_coord2._1_1_ = acting_misc_data->UsedSkillset;
-        BATTLE_Cursor_XCoord = (int)auto_x_coord2;
-        BATTLE_Cursor_ZCoord = (int)acting_misc_data->UsedAbility2;
-        BATTLE_Cursor_YCoord = (int)acting_misc_data->CalcTypeAb;
+        BATTLE_Cursor_X_Coord = (int)auto_x_coord2;
+        BATTLE_Cursor_Z_Coord = (int)acting_misc_data->UsedAbility2;
+        BATTLE_Cursor_Y_Coord = (int)acting_misc_data->CalcTypeAb;
         puVar4 = path_result + 0x20;
         if ((((uint)path_result | (uint)tiles_to_move_ptr) & 3) == 0) {
           do {
@@ -54386,8 +54972,8 @@ void BATTLE_main_CloseMoveHelp_state_handler
       path_result = (undefined4 *)
                     FUN_BATTLE_BIN__801766b4
                               ((uint)(casting_misc_data->UnitBattleData->CurActionTargetData).
-                                     UnitID2,(byte)BATTLE_Cursor_XCoord,(byte)BATTLE_Cursor_YCoord,
-                               (byte)BATTLE_Cursor_ZCoord);
+                                     UnitID2,(byte)BATTLE_Cursor_X_Coord,(byte)BATTLE_Cursor_Y_Coord
+                               ,(byte)BATTLE_Cursor_Z_Coord);
       tiles_to_move_ptr = &casting_misc_data->NumTilesFinalMove;
       if (path_result == (undefined4 *)0x0) {
         BATTLE_open_illegal_move_help();
@@ -54450,7 +55036,7 @@ void BATTLE_main_MoveRangeExceptionMode_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   value = *ptr;
   if ((6 < value) && ((value < 9 || (value == 0xff)))) {
     BATTLE_call_idle_action_menu();
@@ -54477,7 +55063,7 @@ void BATTLE_main_IllegalMoveMenu_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   value = *ptr;
   if ((6 < value) && ((value < 9 || (value == 0xff)))) {
     BATTLE_close_move_help();
@@ -54505,7 +55091,7 @@ void BATTLE_main_UnitMovingSetup_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   casting_misc_data = BATTLE_get_casting_unit_misc_data();
   value = *ptr;
   if (value != 8) {
@@ -54548,7 +55134,7 @@ void BATTLE_main_UnitMoving_state_handler
   if (((caster_misc_data->CentreTileOffs == 0) &&
       ((uint)(byte)caster_misc_data->NumTilesFinalMove <= caster_misc_data->NumTilesCurMove)) &&
      (VFX_canOpen == 0)) {
-    BATTLE_update_anim_display_by_misc_id((ushort)caster_misc_data->ENTDID);
+    BATTLE_update_anim_display_by_entd_id((ushort)caster_misc_data->ENTDID);
     BATTLE_move_confirm_menu();
   }
   BATTLE_free_cursor_controller_input();
@@ -54559,9 +55145,9 @@ void BATTLE_main_UnitMoving_state_handler
 
 
 
-// move to previous square?
+// https://ffhacktics.com/wiki/Move_to_Previous_Map_Square
 
-void FUN_BATTLE_BIN__80075e68(ENTDDisplayUnitData *misc_data)
+void BATTLE_move_to_previous_map_square(ENTDDisplayUnitData *misc_data)
 
 {
   uint facing;
@@ -54572,7 +55158,7 @@ void FUN_BATTLE_BIN__80075e68(ENTDDisplayUnitData *misc_data)
   misc_data->CurrentFacing = misc_data->PreviousFacing;
   misc_data->MountVal = misc_data->PrevMountVal;
   misc_data->MountID = misc_data->PrevMountID;
-  misc_data->BattleIDPlusOne = misc_data->field_0x11f;
+  misc_data->BattleIDPlusOne = misc_data->PrevBattleIDPlusOne;
   BATTLE_set_move_screen_real_coords(misc_data);
   facing = (uint)(short)misc_data->CurrentFacing;
   if ((int)facing < 0) {
@@ -54598,16 +55184,16 @@ void FUN_BATTLE_BIN__80075f10(ENTDDisplayUnitData *misc_data)
   uint status1234_2;
   
   if (misc_data->MountVal == CurrentlyRiding) {
-    mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_data->MountID);
+    mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_data->MountID);
     mount_misc_data->MountVal = NotMounted;
-    BATTLE_update_anim_display_by_misc_id((ushort)mount_misc_data->ENTDID);
+    BATTLE_update_anim_display_by_entd_id((ushort)mount_misc_data->ENTDID);
   }
-  FUN_BATTLE_BIN__80075e68(misc_data);
+  BATTLE_move_to_previous_map_square(misc_data);
   if (misc_data->MountVal == BeingRidden) {
-    rider_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_data->MountID);
+    rider_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_data->MountID);
     if (rider_misc_data != (ENTDDisplayUnitData *)0x0) {
-      FUN_BATTLE_BIN__80075e68(rider_misc_data);
-      BATTLE_update_anim_display_by_misc_id((ushort)rider_misc_data->ENTDID);
+      BATTLE_move_to_previous_map_square(rider_misc_data);
+      BATTLE_update_anim_display_by_entd_id((ushort)rider_misc_data->ENTDID);
     }
   }
   else if (misc_data->MountVal == CurrentlyRiding) {
@@ -54620,11 +55206,11 @@ void FUN_BATTLE_BIN__80075f10(ENTDDisplayUnitData *misc_data)
     misc_data->StatusFlag2 = (char)(status1234_1 >> 8);
     misc_data->StatusFlag3 = (char)(status1234_1 >> 0x10);
     misc_data->StatusFlag4 = (char)(status1234_1 >> 0x18);
-    mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_data->MountID);
+    mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_data->MountID);
     if (mount_misc_data != (ENTDDisplayUnitData *)0x0) {
       mount_misc_data->MountVal = BeingRidden;
       mount_misc_data->MountID = misc_data->ENTDID;
-      BATTLE_update_anim_display_by_misc_id((ushort)mount_misc_data->ENTDID);
+      BATTLE_update_anim_display_by_entd_id((ushort)mount_misc_data->ENTDID);
     }
   }
   else {
@@ -54638,7 +55224,7 @@ void FUN_BATTLE_BIN__80075f10(ENTDDisplayUnitData *misc_data)
     misc_data->StatusFlag3 = (char)(status1234_2 >> 0x10);
     misc_data->StatusFlag4 = (char)(status1234_2 >> 0x18);
   }
-  BATTLE_update_anim_display_by_misc_id((ushort)misc_data->ENTDID);
+  BATTLE_update_anim_display_by_entd_id((ushort)misc_data->ENTDID);
   return;
 }
 
@@ -54666,7 +55252,7 @@ void FUN_BATTLE_BIN__8007601c(ENTDDisplayUnitData *acting_misc,ENTDDisplayUnitDa
               ((uint)(casting_misc->UnitBattleData->CurActionTargetData).UnitID2,casting_misc->MapX,
                casting_misc->MapY,(uint)casting_misc->MapZ,(byte)(casting_facing >> 10));
     if ((casting_misc->MountVal == BeingRidden) &&
-       (mount_misc = BATTLE_get_unit_misc_data_from_misc_id((ushort)casting_misc->MountID),
+       (mount_misc = BATTLE_get_unit_misc_data_from_entd_id((ushort)casting_misc->MountID),
        mount_misc != (ENTDDisplayUnitData *)0x0)) {
       casting_map_coord = casting_misc->MapX;
       mount_misc->MoveX = casting_map_coord;
@@ -54734,7 +55320,7 @@ void BATTLE_main_MoveConfirmMenu_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   acting_misc_data = BATTLE_get_acting_unit_misc_data();
   casting_misc_data = BATTLE_get_casting_unit_misc_data();
   value = *ptr;
@@ -54782,7 +55368,7 @@ void BATTLE_main_WaitMenu_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   acting_misc_data = BATTLE_get_acting_unit_misc_data();
   value = *ptr;
   if (value != 8) {
@@ -54825,7 +55411,7 @@ void FUN_BATTLE_BIN__80076358(ENTDDisplayUnitData *unit_misc_data)
              unit_misc_data->MapX,unit_misc_data->MapY,(uint)unit_misc_data->MapZ,
              (byte)(_facing >> 10));
   if ((unit_misc_data->MountVal != NotMounted) &&
-     (mount_misc_id = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID),
+     (mount_misc_id = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID),
      mount_misc_id != (ENTDDisplayUnitData *)0x0)) {
     mount_misc_id->CurrentFacing = unit_misc_data->CurrentFacing;
     mount_misc_id->UnknownFacing = unit_misc_data->UnknownFacing;
@@ -54859,7 +55445,6 @@ void BATTLE_main_WaitDirection_state_handler
   int input_facing_dir;
   ENTDDisplayUnitData *riding_misc_data;
   ENTDDisplayUnitData *unit_misc_data;
-  ControllerInput button_input;
   int unit_facing_hint;
   int mount_facing_hint;
   ushort frame_data;
@@ -54874,7 +55459,6 @@ void BATTLE_main_WaitDirection_state_handler
   }
   FUN_BATTLE_BIN__80086dc4();
   otag_list = SCUS_get_OTAG_list();
-  button_input = SCUS_Controller_Input_Copy_1;
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
   if ((acting_misc_data->ENTDFlags & PlayerControl) == None) {
                     // this word is reused as AI Facing Hint
@@ -54885,7 +55469,7 @@ void BATTLE_main_WaitDirection_state_handler
     if (((unit_facing_hint < 4) &&
         (BATTLE_decide_facing_direction(acting_misc_data,unit_facing_hint << 0xa),
         acting_misc_data->MountVal != NotMounted)) &&
-       (unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)acting_misc_data->MountID),
+       (unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)acting_misc_data->MountID),
        unit_misc_data != (ENTDDisplayUnitData *)0x0)) {
                     // this word is reused as AI Facing Hint
       mount_facing_hint._0_1_ = acting_misc_data->UsedItem2;
@@ -54921,14 +55505,14 @@ void BATTLE_main_WaitDirection_state_handler
       Call_Play_Sound(Confirm);
       BATTLE_check_for_in_between_turn_events();
     }
-    input_facing_dir = BATTLE_free_cursor_input(1,button_input);
+    input_facing_dir = BATTLE_free_cursor_input(1);
     if ((input_facing_dir != -1) && (input_facing_dir != BATTLE_Current_Facing_Direction)) {
       Call_Play_Sound(CursorMove);
       BATTLE_Current_Facing_Direction = input_facing_dir;
     }
     BATTLE_decide_facing_direction(acting_misc_data,input_facing_dir);
     if ((acting_misc_data->MountVal != NotMounted) &&
-       (riding_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)acting_misc_data->MountID)
+       (riding_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)acting_misc_data->MountID)
        , riding_misc_data != (ENTDDisplayUnitData *)0x0)) {
       BATTLE_decide_facing_direction(riding_misc_data,input_facing_dir);
     }
@@ -54960,7 +55544,7 @@ void BATTLE_main_CrystalLearn_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = (uint *)BATTLE_return_80169828();
+  ptr = (uint *)BATTLE_get_selected_ability_address();
   acting_misc_data = BATTLE_get_acting_unit_misc_data();
   casting_misc_data = BATTLE_get_casting_unit_misc_data();
   value = *ptr;
@@ -54974,11 +55558,11 @@ learn_from_crystal_4:
       if (1 < (int)value) {
         if (value == 2) {
           BATTLE_learn_from_crystal(acting_misc_data->UnitBattleData,2);
-          DAT_BATTLE_BIN__80098db8 = 1;
+          BATTLE_Post_Action = 1;
           BATTLE_finalize_attack_flag_reaction
                     ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
           BATTLE_post_action_display_setup(acting_misc_data);
-          BATTLE_update_anim_display_by_misc_id((ushort)acting_misc_data->ENTDID);
+          BATTLE_update_anim_display_by_entd_id((ushort)acting_misc_data->ENTDID);
         }
         goto find_item;
       }
@@ -54986,9 +55570,9 @@ learn_from_crystal_4:
     }
     if (((int)value < 7) || ((8 < (int)value && (value != 0xff)))) goto find_item;
   }
-  DAT_BATTLE_BIN__80098db8 = 1;
+  BATTLE_Post_Action = 1;
 find_item:
-  if ((((DAT_BATTLE_BIN__80098db8 != 0) && (VFX_canOpen == 0)) &&
+  if ((((BATTLE_Post_Action != 0) && (VFX_canOpen == 0)) &&
       (frame_data = casting_misc_data->FrameData, casting_misc_data->FrameData = frame_data + 1,
       0x1e < frame_data)) &&
      ((*(char *)&acting_misc_data->AtkResultGraphicTrigger == '\0' &&
@@ -55008,7 +55592,7 @@ find_item:
           else {
             BATTLE_Move_Find_Item_Result = BATTLE_Move_Find_Item_Result & 0xfffffff7;
             BATTLE_call_init_some_ai_data();
-            BATTLE_update_anim_display_by_misc_id((ushort)acting_misc_data->ENTDID);
+            BATTLE_update_anim_display_by_entd_id((ushort)acting_misc_data->ENTDID);
           }
         }
         else {
@@ -55029,7 +55613,7 @@ find_item:
     }
     else {
       crystal_unit_misc_data =
-           BATTLE_get_non_treasure_crystal_misc_data_at_coords
+           BATTLE_get_misc_data_at_map_coords_3
                      ((uint)acting_misc_data->MapX,(uint)acting_misc_data->MapY,
                       (uint)acting_misc_data->MapZ);
       if (crystal_unit_misc_data != (ENTDDisplayUnitData *)0x0) {
@@ -55062,7 +55646,7 @@ void BATTLE_main_ActionExecuteSetup_state_handler
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  ptr = BATTLE_return_80169828();
+  ptr = BATTLE_get_selected_ability_address();
   value = *ptr;
   if (value != 8) {
     if (value < 9) {
@@ -55120,7 +55704,7 @@ void BATTLE_main_TargetingRange_state_handler
       return;
     }
     cursor_tile = BATTLE_get_tile_data_ptr
-                            (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+                            (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
     if ((cursor_tile->Overlay & 0x40) != 0) {
       BATTLE_select_target_tile();
       return;
@@ -55166,19 +55750,26 @@ void BATTLE_main_TargetingRange_state_handler
 
 
 
-void FUN_BATTLE_BIN__80076b7c(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_IllegalRange_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "IllegalRange" case.
+
+void BATTLE_main_IllegalRange_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  int *piVar1;
-  int iVar2;
+  int *ptr;
+  int value;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
-  iVar2 = *piVar1;
-  if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
+  ptr = BATTLE_get_selected_ability_address();
+  value = *ptr;
+  if ((6 < value) && ((value < 9 || (value == 0xff)))) {
     BATTLE_set_target_boxes_red();
   }
   return;
@@ -55186,7 +55777,14 @@ void FUN_BATTLE_BIN__80076b7c(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__80076be8(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_AbilityPrvwHelp_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "AbilityPrvwHelp" case.
+
+void BATTLE_main_AbilityPrvwHelp_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   int menu_opening;
@@ -55206,18 +55804,25 @@ void FUN_BATTLE_BIN__80076be8(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__80076c50(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_AbilityPrvwHandling_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "AbilityPrvwHandling" case.
+
+void BATTLE_main_AbilityPrvwHandling_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  ushort uVar1;
   ENTDDisplayUnitData *acting_misc_data;
   void *otag_list;
+  ushort frame_data;
   
   acting_misc_data = BATTLE_get_acting_unit_misc_data();
   if ((acting_misc_data->ENTDFlags & PlayerControl) == None) {
-    uVar1 = acting_misc_data->FrameData;
-    acting_misc_data->FrameData = uVar1 + 1;
-    if (uVar1 < 0x1f) goto out;
+    frame_data = acting_misc_data->FrameData;
+    acting_misc_data->FrameData = frame_data + 1;
+    if (frame_data < 0x1f) goto set_menu_data;
   }
   else {
     BATTLE_button_input_map_rotation();
@@ -55238,13 +55843,13 @@ void FUN_BATTLE_BIN__80076c50(undefined4 param_1,undefined4 param_2,undefined4 p
           BATTLE_set_target_boxes_red();
         }
       }
-      goto out;
+      goto set_menu_data;
     }
   }
   BATTLE_Controller_Input = BATTLE_Controller_Input_Copy_12;
   BATTLE_store_palette_for_each_unit();
-  BATTLE_confirm_location_execute_action();
-out:
+  BATTLE_confirm_action();
+set_menu_data:
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
@@ -55253,25 +55858,32 @@ out:
 
 
 
-void FUN_BATTLE_BIN__80076d84(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_ConfirmAction_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "ConfirmAction" case.
+
+void BATTLE_main_ConfirmAction_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  int *piVar1;
-  ENTDDisplayUnitData *pEVar2;
-  ENTDDisplayUnitData *pEVar3;
-  int iVar4;
+  int *ptr;
+  ENTDDisplayUnitData *acting_misc_data;
+  ENTDDisplayUnitData *cursor_misc_data;
+  int value;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
-  pEVar2 = BATTLE_get_acting_unit_misc_data();
-  if ((pEVar2->ENTDFlags & PlayerControl) == None) {
-    iVar4 = *piVar1;
-    if (iVar4 == 8) goto LAB_BATTLE_BIN__80076eec;
-    if (iVar4 < 9) {
-      if (iVar4 < 5) {
+  ptr = BATTLE_get_selected_ability_address();
+  acting_misc_data = BATTLE_get_acting_unit_misc_data();
+  if ((acting_misc_data->ENTDFlags & PlayerControl) == None) {
+    value = *ptr;
+    if (value == 8) goto color_tiles;
+    if (value < 9) {
+      if (value < 5) {
         return;
       }
       BATTLE_store_anim_facing_from_anim_flag1();
@@ -55279,36 +55891,38 @@ void FUN_BATTLE_BIN__80076d84(undefined4 param_1,undefined4 param_2,undefined4 p
     }
   }
   else {
-    iVar4 = *piVar1;
-    if (iVar4 < 8) {
-      if (iVar4 < 6) {
-        if (iVar4 != 5) {
+    value = *ptr;
+    if (value < 8) {
+      if (value < 6) {
+        if (value != 5) {
           return;
         }
-        pEVar2->TileOrTarget = *(byte *)piVar1;
+        acting_misc_data->TileOrTarget = *(byte *)ptr;
       }
       else {
-        pEVar3 = BATTLE_get_misc_data_at_map_coords
-                           (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
-        if (pEVar3 == (ENTDDisplayUnitData *)0x0) {
-          pEVar2->TileOrTarget = 5;
+        cursor_misc_data =
+             BATTLE_get_misc_data_at_map_coords_2
+                       (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
+        if (cursor_misc_data == (ENTDDisplayUnitData *)0x0) {
+          acting_misc_data->TileOrTarget = 5;
         }
         else {
-          pEVar2->TileOrTarget = *(byte *)piVar1;
-          pEVar2->TargetID2 = (pEVar3->UnitBattleData->CurActionTargetData).UnitID2;
+          acting_misc_data->TileOrTarget = *(byte *)ptr;
+          acting_misc_data->TargetID2 =
+               (cursor_misc_data->UnitBattleData->CurActionTargetData).UnitID2;
         }
       }
-      SCUS_save_3_ushort(&pEVar2->TargetX,(ushort)BATTLE_Cursor_XCoord,(ushort)BATTLE_Cursor_ZCoord,
-                         (ushort)BATTLE_Cursor_YCoord);
+      SCUS_save_3_ushort(&acting_misc_data->TargetX,(ushort)BATTLE_Cursor_X_Coord,
+                         (ushort)BATTLE_Cursor_Z_Coord,(ushort)BATTLE_Cursor_Y_Coord);
       BATTLE_store_anim_facing_from_anim_flag1();
       return;
     }
-    if (iVar4 == 8) goto LAB_BATTLE_BIN__80076eec;
+    if (value == 8) goto color_tiles;
   }
-  if (iVar4 != 0xff) {
+  if (value != 0xff) {
     return;
   }
-LAB_BATTLE_BIN__80076eec:
+color_tiles:
   BATTLE_tile_bg_color_partial(0,3);
   BATTLE_set_target_boxes_red();
   return;
@@ -55316,7 +55930,14 @@ LAB_BATTLE_BIN__80076eec:
 
 
 
-void FUN_BATTLE_BIN__80076f14(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_PreAttackAnim1_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "PreAttackAnim1" case.
+
+void BATTLE_main_PreAttackAnim1_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
@@ -55338,23 +55959,31 @@ void FUN_BATTLE_BIN__80076f14(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__80076fd0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_ActionCast2Mode_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "ActionCast2Mode" case.
+// 
+
+void BATTLE_main_ActionCast2Mode_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  int *piVar1;
-  int iVar2;
+  int *ability_addr;
+  int ability;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
-  iVar2 = *piVar1;
-  if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+  ability_addr = BATTLE_get_selected_ability_address();
+  ability = *ability_addr;
+  if ((6 < ability) && ((ability < 9 || (ability == 0xff)))) {
+    BATTLE_Post_Action = 1;
   }
   if ((((BATTLE_Current_Vector.x | BATTLE_Current_Vector.z | BATTLE_Current_Vector.y) == 0) &&
-      (BATTLE_Map_Rotation_Action == MapNotRotating)) && (DAT_BATTLE_BIN__80098db8 != 0)) {
+      (BATTLE_Map_Rotation_Action == MapNotRotating)) && (BATTLE_Post_Action != 0)) {
     BATTLE_copy_caster_target_action_data_to_misc();
   }
   return;
@@ -55362,21 +55991,28 @@ void FUN_BATTLE_BIN__80076fd0(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__80077098(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_CommenceAtkPhaseCtrl_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "CommenceAtkPhaseCtrl" case.
+
+void BATTLE_main_CommenceAtkPhaseCtrl_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  ENTDDisplayUnitData *unit_misc_data;
+  ENTDDisplayUnitData *acting_misc_data;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  unit_misc_data = BATTLE_get_acting_unit_misc_data();
-  if (*(int *)&unit_misc_data->field_0x17c == 3) {
-    if ((unit_misc_data->UnitSpriteData).WaitTime == 0) {
+  acting_misc_data = BATTLE_get_acting_unit_misc_data();
+  if (*(int *)&acting_misc_data->AnotherSkillSet == EquimentChange) {
+    if ((acting_misc_data->UnitSpriteData).WaitTime == 0) {
       BATTLE_set_only_action_taken
-                ((uint)(unit_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
-      BATTTLE_post_command_xfer_anim_and_state_clean(unit_misc_data);
+                ((uint)(acting_misc_data->UnitBattleData->CurActionTargetData).UnitID2);
+      BATTTLE_post_command_update_anim_display(acting_misc_data);
     }
   }
   else {
@@ -55388,21 +56024,26 @@ void FUN_BATTLE_BIN__80077098(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-// https://ffhacktics.com/wiki/00077134_-_0007719c
+// https://ffhacktics.com/wiki/Main_DoEffectDamageDisp_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "DoEffectDamageDisp" case.
 
-void FUN_BATTLE_BIN__80077134(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+void BATTLE_main_DoEffectDamageDisp_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  int *piVar1;
-  int iVar2;
+  int *selected_ability_addr;
+  int value;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
-  iVar2 = *piVar1;
-  if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
+  selected_ability_addr = BATTLE_get_selected_ability_address();
+  value = *selected_ability_addr;
+  if ((6 < value) && ((value < 9 || (value == 0xff)))) {
     BATTLE_finish_hiding_unit_status();
   }
   return;
@@ -55410,51 +56051,60 @@ void FUN_BATTLE_BIN__80077134(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__800771a0(RECT *param_1,RECT *param_2,int param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_OpenSP2Files_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "OpenSP2Files" case.
+// 
+
+void BATTLE_main_OpenSP2Files_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  u_long *p;
-  ENTDDisplayUnitData *pEVar1;
-  uint uVar2;
-  int iVar3;
+  ENTDDisplayUnitData *casting_misc_data;
+  int open_sp2;
+  int still_loading;
   void *otag_list;
-  int iVar4;
-  RECT local_10;
+  int counter;
+  int offset;
+  RECT image_rect;
+  void *sp2_data;
   
-  pEVar1 = BATTLE_get_casting_unit_misc_data();
-  if (DAT_BATTLE_BIN__80098d70 == (u_long *)0x0) {
-    DAT_BATTLE_BIN__80098d70 = (u_long *)BIN_Malloc_FFT(0x8000);
-    uVar2 = FUN_BATTLE_BIN__8007a840((int)pEVar1,DAT_BATTLE_BIN__80098d70);
-    if (uVar2 == 0xffffffff) {
-      SCUS_MRTA_free((int)DAT_BATTLE_BIN__80098d70);
-      DAT_BATTLE_BIN__80098d70 = (u_long *)0x0;
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  if (BATTLE_SP2_Data == (void *)0x0) {
+    BATTLE_SP2_Data = SCUS_MRTA_Malloc(0x8000);
+    open_sp2 = BATTLE_open_sp2(casting_misc_data,(u_long *)BATTLE_SP2_Data);
+    if (open_sp2 == -1) {
+      SCUS_MRTA_free(BATTLE_SP2_Data);
+      BATTLE_SP2_Data = (void *)0x0;
       BATTLE_set_damage_display_from_agility();
     }
-    else if (uVar2 == 0) {
-      SCUS_MRTA_free((int)DAT_BATTLE_BIN__80098d70);
-      DAT_BATTLE_BIN__80098d70 = (u_long *)0x0;
+    else if (open_sp2 == 0) {
+      SCUS_MRTA_free(BATTLE_SP2_Data);
+      BATTLE_SP2_Data = (void *)0x0;
     }
   }
   else {
-    iVar3 = Check_File_Still_Loading();
-    p = DAT_BATTLE_BIN__80098d70;
-    iVar4 = 0;
-    if (iVar3 == 0) {
-      iVar3 = 0;
+    still_loading = Check_File_Still_Loading();
+    sp2_data = BATTLE_SP2_Data;
+    counter = 0;
+    if (still_loading == 0) {
+      offset = 0;
       do {
-        iVar4 = iVar4 + 1;
-        if (*(int *)((int)&DAT_BATTLE_BIN__800a77c4 + iVar3) == 0xff) {
-          local_10.x = *(short *)((int)&DAT_BATTLE_BIN__800a77d0 + iVar3);
-          *(uint *)((int)&DAT_BATTLE_BIN__800a77c4 + iVar3) = pEVar1->ENTDID | 0x40;
-          local_10.y = *(short *)((int)&DAT_BATTLE_BIN__800a77d2 + iVar3);
-          local_10.w = 0x40;
-          local_10.h = 0x100;
-          LoadImage(&local_10,p);
+        counter = counter + 1;
+        if (*(int *)((int)&BATTLE_VRAM_Slot_ENTD_ID + offset) == 0xff) {
+          image_rect.x = *(short *)((int)&DAT_BATTLE_BIN__800a77d0 + offset);
+          *(uint *)((int)&BATTLE_VRAM_Slot_ENTD_ID + offset) = casting_misc_data->ENTDID | 0x40;
+          image_rect.y = *(short *)((int)&DAT_BATTLE_BIN__800a77d2 + offset);
+          image_rect.w = 0x40;
+          image_rect.h = 0x100;
+          SYS_LoadImage(&image_rect,sp2_data);
           BATTLE_set_damage_display_from_agility();
           break;
         }
-        iVar3 = iVar3 + 0x7564;
-      } while (iVar4 < 2);
+        offset = offset + 0x7564;
+      } while (counter < 2);
     }
   }
   BATTLE_free_cursor_controller_input();
@@ -55465,15 +56115,23 @@ void FUN_BATTLE_BIN__800771a0(RECT *param_1,RECT *param_2,int param_3,uint param
 
 
 
-void FUN_BATTLE_BIN__80077314(uint param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_StartEffectFileOpen_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "StartEffectFileOpen" case.
+
+void BATTLE_main_StartEffectFileOpen_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  bool _VFX_canOpen;
-  undefined3 extraout_var;
+  bool vfx_loaded;
+  undefined3 zero_pad;
   
-  _VFX_canOpen = begin_open_VFX(param_1);
-  VFX_canOpen = (uint)(CONCAT31(extraout_var,_VFX_canOpen) != 0);
-  if (VFX_canOpen == 0) {
+  vfx_loaded = begin_open_VFX((uint)rotation_matrix_elements);
+                    // VFX_canOpen = (vfx_loaded == true);
+  VFX_canOpen = (uint)(CONCAT31(zero_pad,vfx_loaded) != false);
+  if (VFX_canOpen == false) {
     BATTLE_set_some_target_coords();
   }
   BATTLE_free_cursor_controller_input();
@@ -55482,13 +56140,20 @@ void FUN_BATTLE_BIN__80077314(uint param_1,undefined4 param_2,undefined4 param_3
 
 
 
-void FUN_BATTLE_BIN__80077378(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_SecondaryEffect_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "SecondaryEffect" case.
+
+void BATTLE_main_SecondaryEffect_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  ENTDDisplayUnitData *acting_misc_data;
+  ENTDDisplayUnitData *casting_misc_data;
   
-  acting_misc_data = BATTLE_get_casting_unit_misc_data();
-  acting_misc_data->FrameData = acting_misc_data->FrameData + 1;
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  casting_misc_data->FrameData = casting_misc_data->FrameData + 1;
   BATTLE_set_ranged_ability_display();
   BATTLE_free_cursor_controller_input();
   return;
@@ -55496,37 +56161,49 @@ void FUN_BATTLE_BIN__80077378(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__800773b4(int param_1,int param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Post_Attack_Animation_Display
+
+void BATTLE_post_attack_anim_display
+               (ENTDDisplayUnitData *acting_misc_data,ENTDDisplayUnitData *current_misc_data)
 
 {
-  if ((param_1 != 0) && (param_2 != 0)) {
-    BATTLE_set_target_anim_from_attack_type
-              ((ENTDDisplayUnitData *)param_1,(ENTDDisplayUnitData *)param_2);
-    BATTLE_jump_to_post_action_display((ushort)*(byte *)(param_2 + 4));
+  if ((acting_misc_data != (ENTDDisplayUnitData *)0x0) &&
+     (current_misc_data != (ENTDDisplayUnitData *)0x0)) {
+    BATTLE_set_target_anim_from_attack_type(acting_misc_data,current_misc_data);
+    BATTLE_jump_to_post_action_display((ushort)current_misc_data->ENTDID);
   }
   return;
 }
 
 
 
-void FUN_BATTLE_BIN__800773f8(undefined4 param_1,int *param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_ActionExecuteMode_Game_State_Handler
+// https://ffhacktics.com/wiki/0x773f8
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "ActionExecuteMode" case.
+
+void BATTLE_main_ActionExecuteMode_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   ENTDDisplayUnitData *acting_misc_data;
+  uint effect;
   void *otag_list;
-  uint used_ability;
+  AbilityIDWord used_ability;
   int counter;
   byte hit_count;
-  ENTDDisplayUnitData *misc_data_iter;
+  ENTDDisplayUnitData *target_misc_data;
   
   BATTLE_rotate_and_vector_for_all_units();
-  if (BATTLE_Status_Screen_Is_Selected != 1) {
+  if (BATTLE_Status_Screen_Is_Selected != true) {
     BATTLE_maybe_update_status_bubbles();
     FUN_BATTLE_BIN__8008f130();
     BATTLE_increment_real_coords_and_countdown();
     BATTLE_increment_real_and_screen_coords();
     BATTLE_modify_all_camera_zooms_and_countdown();
-    BATTLE_increment_all_camera_pitch();
+    BATTLE_increment_all_camera_pitch_and_countdown();
   }
   FUN_BATTLE_BIN__80086dc4();
   FUN_BATTLE_BIN__8008f208();
@@ -55534,21 +56211,22 @@ void FUN_BATTLE_BIN__800773f8(undefined4 param_1,int *param_2,undefined4 param_3
   acting_misc_data = BATTLE_get_casting_unit_misc_data();
   hit_count = (acting_misc_data->CurActionData).CurActionTargetHitCount;
   acting_misc_data->FrameData = acting_misc_data->FrameData + (short)BATTLE_Animation_Speed;
-  if ((hit_count != 0) && (counter = 0, misc_data_iter = acting_misc_data, hit_count != 0)) {
+  if ((hit_count != 0) && (counter = 0, target_misc_data = acting_misc_data, hit_count != 0)) {
     do {
-      misc_data_iter =
+      target_misc_data =
            BATTLE_get_unit_misc_data_from_battle_id
-                     ((ushort)(misc_data_iter->CurActionData).TargetList[0]);
+                     ((ushort)(target_misc_data->CurActionData).TargetList[0]);
       counter = counter + 1;
-      if (misc_data_iter != (ENTDDisplayUnitData *)0x0) {
-        FUN_BATTLE_BIN__8006db10(misc_data_iter);
-        VFX_canOpen = misc_data_iter->CentreTileOffs | VFX_canOpen;
+      if (target_misc_data != (ENTDDisplayUnitData *)0x0) {
+        BATTLE_knockback_processing(target_misc_data);
+        VFX_canOpen = target_misc_data->CentreTileOffs | VFX_canOpen;
       }
-      misc_data_iter = (ENTDDisplayUnitData *)((int)&acting_misc_data->PrevMiscUnitData + counter);
+      target_misc_data = (ENTDDisplayUnitData *)((int)&acting_misc_data->PrevMiscUnitData + counter)
+      ;
     } while (counter < (int)(uint)(acting_misc_data->CurActionData).CurActionTargetHitCount);
   }
-  used_ability = (uint)acting_misc_data->UsedAbility;
-  if (((used_ability == 0) || (used_ability == 0x200)) || (used_ability == 0x94)) {
+  used_ability = (AbilityIDWord)acting_misc_data->UsedAbility;
+  if (((used_ability == None) || (used_ability == FallDamage)) || (used_ability == ThrowStone)) {
     BATTLE_adjust_current_vector_and_real_coords();
     otag_list = SCUS_get_OTAG_list();
     BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
@@ -55558,65 +56236,68 @@ void FUN_BATTLE_BIN__800773f8(undefined4 param_1,int *param_2,undefined4 param_3
     if (*(char *)&acting_misc_data->AtkResultGraphicTrigger != '\0') {
       return;
     }
+                    // "(Current Anim >> 1) > 0x3b" is "not an attacking animation"
     if (((acting_misc_data->UnitSpriteData).WaitTime != 0) &&
        (0x3b < (ushort)(acting_misc_data->UnitSpriteData).CurrentAnim >> 1)) {
       return;
     }
     hit_count = (acting_misc_data->CurActionData).CurActionTargetHitCount;
-    if ((hit_count != 0) && (counter = 0, misc_data_iter = acting_misc_data, hit_count != 0)) {
+    if ((hit_count != 0) && (counter = 0, target_misc_data = acting_misc_data, hit_count != 0)) {
       do {
-        misc_data_iter =
+        target_misc_data =
              BATTLE_get_unit_misc_data_from_battle_id
-                       ((ushort)(misc_data_iter->CurActionData).TargetList[0]);
-        if (misc_data_iter != (ENTDDisplayUnitData *)0x0) {
+                       ((ushort)(target_misc_data->CurActionData).TargetList[0]);
+        if (target_misc_data != (ENTDDisplayUnitData *)0x0) {
           if (acting_misc_data->UsedAbility == FallDamage) {
-            BATTLE_jump_to_post_action_display((ushort)misc_data_iter->ENTDID);
+            BATTLE_jump_to_post_action_display((ushort)target_misc_data->ENTDID);
           }
-          BATTLE_update_anim_display_by_misc_id((ushort)misc_data_iter->ENTDID);
+          BATTLE_update_anim_display_by_entd_id((ushort)target_misc_data->ENTDID);
         }
         counter = counter + 1;
-        misc_data_iter = (ENTDDisplayUnitData *)((int)&acting_misc_data->PrevMiscUnitData + counter)
-        ;
+        target_misc_data =
+             (ENTDDisplayUnitData *)((int)&acting_misc_data->PrevMiscUnitData + counter);
       } while (counter < (int)(uint)(acting_misc_data->CurActionData).CurActionTargetHitCount);
     }
   }
   else {
-    used_ability = FUN_BATTLE_BIN__801a1814(used_ability);
-    if ((used_ability != 0) || (acting_misc_data->UsedAbility - 0x196 < 8)) {
+    effect = BATTLE_load_ability_effect(used_ability);
+    if ((effect != 0) || (acting_misc_data->UsedAbility - 0x196 < 8)) {
+                    // true if Used Ability was Charge+ Aim+
       BATTLE_adjust_current_vector_and_real_coords();
     }
-    if (VFX_canOpen != 0) {
+    if (VFX_canOpen != false) {
       return;
     }
     if (*(char *)&acting_misc_data->AtkResultGraphicTrigger != '\0') {
       return;
     }
+                    // "(Current Anim >> 1) > 0x3b" is "not an attacking animation"
     if (((acting_misc_data->UnitSpriteData).WaitTime != 0) &&
        (0x3b < (ushort)(acting_misc_data->UnitSpriteData).CurrentAnim >> 1)) {
       return;
     }
     __builtin_delete_a();
     hit_count = (acting_misc_data->CurActionData).CurActionTargetHitCount;
-    if ((hit_count != 0) && (counter = 0, misc_data_iter = acting_misc_data, hit_count != 0)) {
+    if ((hit_count != 0) && (counter = 0, target_misc_data = acting_misc_data, hit_count != 0)) {
       do {
-        misc_data_iter =
+        target_misc_data =
              BATTLE_get_unit_misc_data_from_battle_id
-                       ((ushort)(misc_data_iter->CurActionData).TargetList[0]);
-        if (misc_data_iter != (ENTDDisplayUnitData *)0x0) {
+                       ((ushort)(target_misc_data->CurActionData).TargetList[0]);
+        if (target_misc_data != (ENTDDisplayUnitData *)0x0) {
+                    // if a reaction ability
           if (acting_misc_data->UsedAbility - 0x1a6 < 0x20) {
-            used_ability = FUN_BATTLE_BIN__801a1814((uint)acting_misc_data->UsedAbility);
-            if ((used_ability != 0) &&
-               (BATTLE_Animation_Flag[acting_misc_data->UsedAbility][1] != 0)) {
-              FUN_BATTLE_BIN__800773b4((int)acting_misc_data,(int)misc_data_iter,param_3,param_4);
+            effect = BATTLE_load_ability_effect((uint)acting_misc_data->UsedAbility);
+            if ((effect != 0) && (BATTLE_Animation_Flag[acting_misc_data->UsedAbility][1] != 0)) {
+              BATTLE_post_attack_anim_display(acting_misc_data,target_misc_data);
             }
           }
           else {
-            BATTLE_update_anim_display_by_misc_id((ushort)misc_data_iter->ENTDID);
+            BATTLE_update_anim_display_by_entd_id((ushort)target_misc_data->ENTDID);
           }
         }
         counter = counter + 1;
-        misc_data_iter = (ENTDDisplayUnitData *)((int)&acting_misc_data->PrevMiscUnitData + counter)
-        ;
+        target_misc_data =
+             (ENTDDisplayUnitData *)((int)&acting_misc_data->PrevMiscUnitData + counter);
       } while (counter < (int)(uint)(acting_misc_data->CurActionData).CurActionTargetHitCount);
     }
   }
@@ -55626,77 +56307,102 @@ void FUN_BATTLE_BIN__800773f8(undefined4 param_1,int *param_2,undefined4 param_3
 
 
 
-void FUN_BATTLE_BIN__80077760(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_BattleMessageDisplay_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "BattleMessageDisplay" case.
+
+void BATTLE_main_BattleMessageDisplay_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  int *piVar1;
-  int iVar2;
+  int *ability_addr;
+  int value;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
-  iVar2 = *piVar1;
-  if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+  ability_addr = BATTLE_get_selected_ability_address();
+  value = *ability_addr;
+  if ((6 < value) && ((value < 9 || (value == 0xff)))) {
+    BATTLE_Post_Action = 1;
   }
-  if (DAT_BATTLE_BIN__80098db8 != 0) {
-    FUN_BATTLE_BIN__800731d8();
+  if (BATTLE_Post_Action != 0) {
+    BATTLE_caster_post_effect_messages();
   }
   return;
 }
 
 
 
-void FUN_BATTLE_BIN__800777ec(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_ResumeAttackPhaseControl_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "ResumeAttackPhaseControl" case.
+
+void BATTLE_main_ResumeAttackPhaseControl_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  bool bVar1;
+  bool messages_waiting;
   void *otag_list;
-  int *piVar2;
-  ENTDDisplayUnitData *misc_data;
-  undefined3 extraout_var;
-  int iVar3;
+  int *selected_ability_address;
+  ENTDDisplayUnitData *casting_misc_data;
+  undefined3 zero_pad;
+  int action_phase;
+  int selected_ability_value;
+  uint facing;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar2 = BATTLE_return_80169828();
-  iVar3 = *piVar2;
-  if ((6 < iVar3) && ((iVar3 < 9 || (iVar3 == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+  selected_ability_address = BATTLE_get_selected_ability_address();
+  selected_ability_value = *selected_ability_address;
+  if ((6 < selected_ability_value) &&
+     ((selected_ability_value < 9 || (selected_ability_value == 0xff)))) {
+    BATTLE_Post_Action = 1;
   }
-  misc_data = BATTLE_get_casting_unit_misc_data();
-  if (((DAT_BATTLE_BIN__80098db8 != 0) &&
-      (bVar1 = BATTLE_resume_attack_phase_control(), CONCAT31(extraout_var,bVar1) == 0)) &&
-     (*(char *)&misc_data->AtkResultGraphicTrigger == '\0')) {
-    if ((misc_data->CurActionData).field_0x18 == '\0') {
-      if (DAT_BATTLE_BIN__80098d70 != 0) {
-        SCUS_MRTA_free(DAT_BATTLE_BIN__80098d70);
-        DAT_BATTLE_BIN__80098d70 = 0;
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  if (((BATTLE_Post_Action != 0) &&
+      (messages_waiting = BATTLE_resume_attack_phase_control(),
+      CONCAT31(zero_pad,messages_waiting) == 0)) &&
+     (*(char *)&casting_misc_data->AtkResultGraphicTrigger == '\0')) {
+    if ((casting_misc_data->CurActionData).ContinueAttack == 0) {
+      if (BATTLE_SP2_Data != (void *)0x0) {
+        SCUS_MRTA_free(BATTLE_SP2_Data);
+        BATTLE_SP2_Data = (void *)0x0;
       }
-      FUN_BATTLE_BIN__8007a968((int)misc_data);
+      BATTLE_set_sp2_entd_id_invalid(casting_misc_data);
+                    // 0x100 = Active Turn
       if ((BATTLE_Action_Type == 0x100) && (BATTLE_Action_Phase == ActingUnitAction)) {
-        FUN_BATTLE_BIN__8018ef2c();
+        facing = (uint)(short)casting_misc_data->CurrentFacing;
+        if ((int)facing < 0) {
+          facing = facing + 0x3ff;
+        }
+        BATTLE_action_facing_exception_handler
+                  (casting_misc_data->UnitBattleData,(ushort)(facing >> 0xa) & 0xff);
       }
-      BATTLE_store_some_acting_unit_data(misc_data->UnitBattleData);
-      BATTLE_call_set_anim_based_on_status(misc_data);
-      BATTLE_sprite_display_setting_for_all_units_on_attack((BattleUnitData *)misc_data);
+      BATTLE_store_some_acting_unit_data(casting_misc_data->UnitBattleData);
+      BATTLE_call_set_anim_based_on_status(casting_misc_data);
+      BATTLE_update_anim_display_for_all_targets(casting_misc_data);
       BATTLE_get_acting_unit_misc_data();
       if (BATTLE_Action_Phase != PreAction) {
         if (BATTLE_Action_Phase != ReactingUnitAction) {
           BATTLE_Action_Phase = BATTLE_Action_Phase + ActingUnitAction;
         }
-        iVar3 = BATTLE_action_phase_control();
-        if (iVar3 != 0) {
+        action_phase = BATTLE_action_phase_control();
+        if (action_phase != 0) {
           return;
         }
       }
-      FUN_BATTLE_BIN__80073638();
+      BATTLE_post_action_xp_jp_ability();
     }
     else {
-      (misc_data->CurActionData).field_0x29 = (misc_data->CurActionData).field_0x29 + '\x01';
+      (casting_misc_data->CurActionData).field_0x29 =
+           (casting_misc_data->CurActionData).field_0x29 + '\x01';
       BATTLE_set_damage_display_from_agility();
     }
   }
@@ -55705,61 +56411,72 @@ void FUN_BATTLE_BIN__800777ec(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__800779a0(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_LearnAbilityOnHit_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "LearnAbilityOnHit" case.
+
+void BATTLE_main_LearnAbilityOnHit_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  bool bVar1;
   void *otag_list;
-  int *piVar2;
-  ENTDDisplayUnitData *pEVar3;
-  ENTDDisplayUnitData *pEVar4;
-  int iVar5;
+  int *selected_ability_addr;
+  ENTDDisplayUnitData *casting_misc_data;
+  ENTDDisplayUnitData *target_misc_data;
+  ENTDDisplayUnitData *acting_misc_data;
+  int selected_ability_value;
+  int counter;
+  bool skip_anim;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar2 = BATTLE_return_80169828();
-  pEVar3 = BATTLE_get_casting_unit_misc_data();
-  iVar5 = *piVar2;
-  if (iVar5 != 8) {
-    if (iVar5 < 9) {
-      if (iVar5 != 7) goto LAB_BATTLE_BIN__80077a94;
+  selected_ability_addr = BATTLE_get_selected_ability_address();
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  selected_ability_value = *selected_ability_addr;
+  if (selected_ability_value != 8) {
+    if (selected_ability_value < 9) {
+      if (selected_ability_value != 7) goto after;
       if (BATTLE_Post_Action_Display_Phase == 2) {
-        pEVar4 = BATTLE_get_unit_misc_data_from_battle_id(DAT_BATTLE_BIN__80096200);
-        FUN_BATTLE_BIN__8018e8ac((int)pEVar4->UnitBattleData);
+        target_misc_data = BATTLE_get_unit_misc_data_from_battle_id(DAT_BATTLE_BIN__80096200);
+        BATTLE_learn_ability_on_hit_2(target_misc_data->UnitBattleData);
       }
     }
-    else if (iVar5 != 0xff) goto LAB_BATTLE_BIN__80077a94;
+    else if (selected_ability_value != 0xff) goto after;
   }
   BATTLE_Post_Action_Display_Phase = BATTLE_Post_Action_Display_Phase + 1;
   if (BATTLE_Post_Action_Display_Phase < 3) {
     BATTLE_learn_ability_on_hit_setup();
   }
   else {
-    DAT_BATTLE_BIN__80098db8 = 1;
+    BATTLE_Post_Action = 1;
   }
-LAB_BATTLE_BIN__80077a94:
-  if (((DAT_BATTLE_BIN__80098db8 != 0) && (VFX_canOpen == 0)) &&
-     (iVar5 = 0, *(char *)&pEVar3->AtkResultGraphicTrigger == '\0')) {
-    bVar1 = false;
-    pEVar4 = pEVar3;
-    if ((pEVar3->CurActionData).CurActionTargetHitCount != 0) {
+after:
+  if (((BATTLE_Post_Action != 0) && (VFX_canOpen == 0)) &&
+     (counter = 0, *(char *)&casting_misc_data->AtkResultGraphicTrigger == '\0')) {
+    skip_anim = false;
+    target_misc_data = casting_misc_data;
+    if ((casting_misc_data->CurActionData).CurActionTargetHitCount != 0) {
       do {
-        pEVar4 = BATTLE_get_unit_misc_data_from_battle_id
-                           ((ushort)(pEVar4->CurActionData).TargetList[0]);
-        iVar5 = iVar5 + 1;
-        if ((pEVar4 != (ENTDDisplayUnitData *)0x0) &&
-           (*(char *)&pEVar4->AtkResultGraphicTrigger != '\0')) {
-          bVar1 = true;
+        target_misc_data =
+             BATTLE_get_unit_misc_data_from_battle_id
+                       ((ushort)(target_misc_data->CurActionData).TargetList[0]);
+        counter = counter + 1;
+        if ((target_misc_data != (ENTDDisplayUnitData *)0x0) &&
+           (*(char *)&target_misc_data->AtkResultGraphicTrigger != '\0')) {
+          skip_anim = true;
           break;
         }
-        pEVar4 = (ENTDDisplayUnitData *)((int)&pEVar3->PrevMiscUnitData + iVar5);
-      } while (iVar5 < (int)(uint)(pEVar3->CurActionData).CurActionTargetHitCount);
+        target_misc_data =
+             (ENTDDisplayUnitData *)((int)&casting_misc_data->PrevMiscUnitData + counter);
+      } while (counter < (int)(uint)(casting_misc_data->CurActionData).CurActionTargetHitCount);
     }
-    if (!bVar1) {
-      pEVar3 = BATTLE_get_acting_unit_misc_data();
-      BATTLE_call_set_anim_based_on_status(pEVar3);
-      BATTTLE_post_command_xfer_anim_and_state_clean(pEVar3);
+    if (!skip_anim) {
+      acting_misc_data = BATTLE_get_acting_unit_misc_data();
+      BATTLE_call_set_anim_based_on_status(acting_misc_data);
+      BATTTLE_post_command_update_anim_display(acting_misc_data);
     }
   }
   return;
@@ -55767,32 +56484,34 @@ LAB_BATTLE_BIN__80077a94:
 
 
 
-// https://ffhacktics.com/wiki/00077b58_-_00077bd4
+// https://ffhacktics.com/wiki/Deep_Dungeon_Map_and_Animation
 
-undefined4
-FUN_BATTLE_BIN__80077b58(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+int BATTLE_deep_dungeon_map_and_animation
+              (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+              void *camera_zooms)
 
 {
   void *otag_list;
-  undefined4 result;
+  int map_result;
+  int result;
   ENTDDisplayUnitData *misc_data;
-  int misc_id;
+  int counter;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  misc_id = BATTLE_call_load_map_data();
+  map_result = BATTLE_load_deep_dungeon_map_data();
   result = 0;
-  if (misc_id == 0) {
-    misc_id = 0;
+  if (map_result == 0) {
+    counter = 0;
     do {
-      misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_id);
-      misc_id = misc_id + 1;
+      misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)counter);
+      counter = counter + 1;
       if (misc_data != (ENTDDisplayUnitData *)0x0) {
-        BATTLE_update_anim_display_by_misc_id((ushort)misc_data->ENTDID);
+        BATTLE_update_anim_display_by_entd_id((ushort)misc_data->ENTDID);
       }
       result = 1;
-    } while (misc_id < 0x10);
+    } while (counter < 0x10);
     DAT_BATTLE_BIN__80093cac = 0;
   }
   return result;
@@ -55800,13 +56519,22 @@ FUN_BATTLE_BIN__80077b58(undefined4 param_1,undefined4 param_2,undefined4 param_
 
 
 
-void FUN_BATTLE_BIN__80077bd8(undefined4 param_1,int *param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_DeepDungeonMeshLoad_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "DeepDungeonMeshLoad" case.
+
+void BATTLE_main_DeepDungeonMeshLoad_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  int iVar1;
+  int function_result;
   
-  iVar1 = FUN_BATTLE_BIN__80077b58(param_1,param_2,param_3,param_4);
-  if (iVar1 != 0) {
+  function_result =
+       BATTLE_deep_dungeon_map_and_animation
+                 (rotation_matrix_elements,camera_angles,offset_coords,camera_zooms);
+  if (function_result != 0) {
     BATTLE_check_for_in_between_turn_events();
   }
   return;
@@ -55814,13 +56542,22 @@ void FUN_BATTLE_BIN__80077bd8(undefined4 param_1,int *param_2,undefined4 param_3
 
 
 
-void FUN_BATTLE_BIN__80077c08(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_DeepDungeonMeshFinish_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "DeepDungeonMeshFinish" case.
+
+void BATTLE_main_DeepDungeonMeshFinish_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  int iVar1;
+  int function_result;
   
-  iVar1 = FUN_BATTLE_BIN__80077b58(param_1,param_2,param_3,param_4);
-  if (iVar1 != 0) {
+  function_result =
+       BATTLE_deep_dungeon_map_and_animation
+                 (rotation_matrix_elements,camera_angles,offset_coords,camera_zooms);
+  if (function_result != 0) {
     BATTLE_set_state_to_AfterCommandMode();
   }
   return;
@@ -55828,33 +56565,48 @@ void FUN_BATTLE_BIN__80077c08(undefined4 param_1,undefined4 param_2,undefined4 p
 
 
 
-void FUN_BATTLE_BIN__80077c38(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_BattleTargetSelectStartMode_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "BattleTargetSelectStartMode" case.
+
+void BATTLE_main_BattleTargetSelectStartMode_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  int *piVar1;
-  int iVar2;
+  int *selected_ability_addr;
+  int selected_ability_value;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
-  iVar2 = *piVar1;
-  if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
-    FUN_BATTLE_BIN__80074814();
+  selected_ability_addr = BATTLE_get_selected_ability_address();
+  selected_ability_value = *selected_ability_addr;
+  if ((6 < selected_ability_value) &&
+     ((selected_ability_value < 9 || (selected_ability_value == 0xff)))) {
+    BATTLE_target_select_mode();
   }
   return;
 }
 
 
 
-void FUN_BATTLE_BIN__80077ca4(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_BattleTargetSelectMode_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "BattleTargetSelectMode" case.
+
+void BATTLE_main_BattleTargetSelectMode_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
-  char cVar1;
   void *otag_list;
-  ENTDDisplayUnitData *pEVar2;
-  ENTDDisplayUnitData *pEVar3;
+  ENTDDisplayUnitData *coord_misc_data;
+  ENTDDisplayUnitData *casting_misc_data;
+  byte field_0x2a;
   
   BATTLE_button_input_map_rotation();
   BATTLE_call_map_zoom();
@@ -55865,8 +56617,8 @@ void FUN_BATTLE_BIN__80077ca4(undefined4 param_1,undefined4 param_2,undefined4 p
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
   if ((SCUS_Controller_Input & ButtonCircle) == NoButtons) {
     if ((SCUS_Controller_Input & ButtonCross) != NoButtons) {
-      pEVar2 = BATTLE_get_casting_unit_misc_data();
-      BATTLE_move_cursor_to_unit_by_misc_data(pEVar2);
+      casting_misc_data = BATTLE_get_casting_unit_misc_data();
+      BATTLE_move_cursor_to_unit_by_misc_data(casting_misc_data);
       BATTLE_store_palette_for_each_unit();
       SetActionMenuScript();
       return;
@@ -55874,53 +56626,62 @@ void FUN_BATTLE_BIN__80077ca4(undefined4 param_1,undefined4 param_2,undefined4 p
     if ((SCUS_Controller_Input & ButtonTriangle) == NoButtons) {
       return;
     }
-    pEVar2 = BATTLE_get_casting_unit_misc_data();
-    BATTLE_move_cursor_to_unit_by_misc_data(pEVar2);
+    casting_misc_data = BATTLE_get_casting_unit_misc_data();
+    BATTLE_move_cursor_to_unit_by_misc_data(casting_misc_data);
     return;
   }
-  pEVar2 = BATTLE_get_casting_unit_misc_data();
-  pEVar3 = BATTLE_get_misc_data_at_map_coords
-                     (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
-  if (pEVar3 == (ENTDDisplayUnitData *)0x0) {
-LAB_BATTLE_BIN__80077da8:
-    FUN_BATTLE_BIN__8007485c();
+  casting_misc_data = BATTLE_get_casting_unit_misc_data();
+  coord_misc_data =
+       BATTLE_get_misc_data_at_map_coords_2
+                 (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
+  if (coord_misc_data == (ENTDDisplayUnitData *)0x0) {
+target_denied:
+    BATTLE_target_select_denied();
   }
   else {
-    cVar1 = (pEVar2->CurActionData).field_0x2a;
-    if (cVar1 == '\f') {
-      if (((pEVar2->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam) ==
-          ((pEVar3->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam))
-      goto LAB_BATTLE_BIN__80077da8;
+    field_0x2a = (casting_misc_data->CurActionData).SelectedAbility;
+    if (field_0x2a == 0xc) {
+      if (((casting_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam) ==
+          ((coord_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam))
+      goto target_denied;
     }
     else {
-      if (cVar1 != '\x0e') goto LAB_BATTLE_BIN__80077db0;
-      if (((pEVar2->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam) !=
-          ((pEVar3->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam))
-      goto LAB_BATTLE_BIN__80077da8;
+      if (field_0x2a != 0xe) goto store_palette_data;
+      if (((casting_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam) !=
+          ((coord_misc_data->UnitBattleData->AllActionUnitData).EntdTeamFlags & LightBlueTeam))
+      goto target_denied;
     }
-    FUN_BATTLE_BIN__80074930();
+    BATTLE_target_select_confirm();
   }
-LAB_BATTLE_BIN__80077db0:
+store_palette_data:
   BATTLE_store_palette_for_each_unit();
   return;
 }
 
 
 
-void FUN_BATTLE_BIN__80077e1c(undefined4 param_1,undefined4 param_2,undefined4 param_3,uint param_4)
+// https://ffhacktics.com/wiki/Main_BattleTargetSelectDeniedMode_Game_State_Handler
+// 
+// Called from BATTLE_main in the switch-case for Game State.
+// This is called in the "BattleTargetSelectDeniedMode" case.
+
+void BATTLE_main_BattleTargetSelectDeniedMode_state_handler
+               (void *rotation_matrix_elements,void *camera_angles,void *offset_coords,
+               void *camera_zooms)
 
 {
   void *otag_list;
-  int *piVar1;
-  int iVar2;
+  int *selected_ability_address;
+  int selected_ability_value;
   
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
-  iVar2 = *piVar1;
-  if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
-    FUN_BATTLE_BIN__80074814();
+  selected_ability_address = BATTLE_get_selected_ability_address();
+  selected_ability_value = *selected_ability_address;
+  if ((6 < selected_ability_value) &&
+     ((selected_ability_value < 9 || (selected_ability_value == 0xff)))) {
+    BATTLE_target_select_mode();
   }
   return;
 }
@@ -55939,7 +56700,7 @@ void FUN_BATTLE_BIN__80077e88(undefined4 param_1,undefined4 param_2,undefined4 p
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
+  piVar1 = BATTLE_get_selected_ability_address();
   iVar3 = *piVar1;
   if (iVar3 != 8) {
     if (iVar3 < 9) {
@@ -55947,8 +56708,8 @@ void FUN_BATTLE_BIN__80077e88(undefined4 param_1,undefined4 param_2,undefined4 p
         return;
       }
       misc_data = BATTLE_get_casting_unit_misc_data();
-      pEVar2 = BATTLE_get_misc_data_at_map_coords
-                         (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+      pEVar2 = BATTLE_get_misc_data_at_map_coords_2
+                         (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
       FUN_BATTLE_BIN__8014171c
                 ((pEVar2->UnitBattleData->CurActionTargetData).UnitID2,
                  (uint)(misc_data->UnitBattleData->CurActionTargetData).UnitID2);
@@ -55960,7 +56721,7 @@ void FUN_BATTLE_BIN__80077e88(undefined4 param_1,undefined4 param_2,undefined4 p
       return;
     }
   }
-  FUN_BATTLE_BIN__80074814();
+  BATTLE_target_select_mode();
   return;
 }
 
@@ -55976,13 +56737,13 @@ void FUN_BATTLE_BIN__80077f68(undefined4 param_1,undefined4 param_2,undefined4 p
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
+  piVar1 = BATTLE_get_selected_ability_address();
   iVar2 = *piVar1;
   if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+    BATTLE_Post_Action = 1;
   }
   if ((((BATTLE_Current_Vector.x | BATTLE_Current_Vector.z | BATTLE_Current_Vector.y) == 0) &&
-      (BATTLE_Map_Rotation_Action == MapNotRotating)) && (DAT_BATTLE_BIN__80098db8 != 0)) {
+      (BATTLE_Map_Rotation_Action == MapNotRotating)) && (BATTLE_Post_Action != 0)) {
     FUN_BATTLE_BIN__80074a3c();
   }
   return;
@@ -56021,13 +56782,13 @@ void FUN_BATTLE_BIN__800780a0(undefined4 param_1,undefined4 param_2,undefined4 p
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
+  piVar1 = BATTLE_get_selected_ability_address();
   pEVar2 = BATTLE_get_acting_unit_misc_data();
   iVar3 = *piVar1;
   if ((6 < iVar3) && ((iVar3 < 9 || (iVar3 == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+    BATTLE_Post_Action = 1;
   }
-  if ((DAT_BATTLE_BIN__80098db8 != 0) && (*(char *)&pEVar2->AtkResultGraphicTrigger == '\0')) {
+  if ((BATTLE_Post_Action != 0) && (*(char *)&pEVar2->AtkResultGraphicTrigger == '\0')) {
     FUN_BATTLE_BIN__80072ad0();
   }
   return;
@@ -56116,11 +56877,11 @@ void FUN_BATTLE_BIN__80078148(undefined4 param_1,undefined4 param_2,undefined4 p
     acing_misc_data->field_0x16f = targ_0x9;
     acing_misc_data->UsedAbility =
          (acing_misc_data->UnitBattleData->CurActionTargetData).AttackToUse;
-    if (*(int *)&acing_misc_data->field_0x17c != 3) {
+    if (*(int *)&acing_misc_data->AnotherSkillSet != 3) {
       BATTLE_choose_wait_action();
       return;
     }
-    *(undefined4 *)&acing_misc_data->field_0x17c = 0;
+    *(undefined4 *)&acing_misc_data->AnotherSkillSet = 0;
     BATTLE_reset_unit_misc_gfx_trigger((ushort)acing_misc_data->ENTDID);
   }
   BATTLE_check_for_in_between_turn_events();
@@ -56141,12 +56902,12 @@ void FUN_BATTLE_BIN__80078328(undefined4 param_1,undefined4 param_2,undefined4 p
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
+  piVar1 = BATTLE_get_selected_ability_address();
   iVar2 = *piVar1;
   if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+    BATTLE_Post_Action = 1;
   }
-  if (((DAT_BATTLE_BIN__80098db8 != 0) &&
+  if (((BATTLE_Post_Action != 0) &&
       ((BATTLE_Current_Vector.x | BATTLE_Current_Vector.z | BATTLE_Current_Vector.y) == 0)) &&
      (BATTLE_Map_Rotation_Action == MapNotRotating)) {
     BATTLE_get_acting_unit_misc_data();
@@ -56178,15 +56939,15 @@ void FUN_BATTLE_BIN__8007843c(undefined4 param_1,undefined4 param_2,undefined4 p
   BATTLE_free_cursor_controller_input();
   otag_list = SCUS_get_OTAG_list();
   BATTLE_data_setting_from_menu_selections(otag_list,SCUS_Controller_Input_Copy_1);
-  piVar1 = BATTLE_return_80169828();
+  piVar1 = BATTLE_get_selected_ability_address();
   iVar2 = *piVar1;
   if ((6 < iVar2) && ((iVar2 < 9 || (iVar2 == 0xff)))) {
-    DAT_BATTLE_BIN__80098db8 = 1;
+    BATTLE_Post_Action = 1;
   }
-  if (((DAT_BATTLE_BIN__80098db8 != 0) && (VFX_canOpen == 0)) &&
+  if (((BATTLE_Post_Action != 0) && (VFX_canOpen == 0)) &&
      (misc_data = BATTLE_get_acting_unit_misc_data(),
      *(char *)&misc_data->AtkResultGraphicTrigger == '\0')) {
-    BATTLE_update_anim_display_by_misc_id((ushort)misc_data->ENTDID);
+    BATTLE_update_anim_display_by_entd_id((ushort)misc_data->ENTDID);
     BATTLE_check_for_in_between_turn_events();
   }
   return;
@@ -56204,7 +56965,7 @@ void FUN_BATTLE_BIN__80078504(undefined4 param_1,undefined4 param_2,undefined4 p
     BATTLE_increment_real_coords_and_countdown();
     BATTLE_increment_real_and_screen_coords();
     BATTLE_modify_all_camera_zooms_and_countdown();
-    BATTLE_increment_all_camera_pitch();
+    BATTLE_increment_all_camera_pitch_and_countdown();
   }
   FUN_BATTLE_BIN__80086dc4();
   FUN_BATTLE_BIN__8008f208();
@@ -56234,7 +56995,7 @@ void FUN_BATTLE_BIN__800785ac(undefined4 param_1,undefined4 param_2,undefined4 p
     BATTLE_increment_real_coords_and_countdown();
     BATTLE_increment_real_and_screen_coords();
     BATTLE_modify_all_camera_zooms_and_countdown();
-    BATTLE_increment_all_camera_pitch();
+    BATTLE_increment_all_camera_pitch_and_countdown();
     BATTLE_process_unit_movement();
   }
   FUN_BATTLE_BIN__80086dc4();
@@ -56497,7 +57258,7 @@ void FUN_BATTLE_BIN__80078fb4(undefined4 param_1,undefined4 param_2,undefined4 p
     BATTLE_increment_real_coords_and_countdown();
     BATTLE_increment_real_and_screen_coords();
     BATTLE_modify_all_camera_zooms_and_countdown();
-    BATTLE_increment_all_camera_pitch();
+    BATTLE_increment_all_camera_pitch_and_countdown();
     BATTLE_process_unit_movement();
   }
   FUN_BATTLE_BIN__80086dc4();
@@ -56832,7 +57593,7 @@ void BATTLE_main(void)
   do {
     BATTLE_do_deployment();
     DAT_BATTLE_BIN__800e4e8c = 0;
-    BATTLE_Controller_Input = DAT_800473ac & 0x7;
+    BATTLE_Controller_Input = SCUS_Custom_Options & 0x7;
     while( true ) {
       BATTLE_get_controller_input_and_copy();
       BATTLE_call_put_screen_to_GTE();
@@ -56994,54 +57755,54 @@ void BATTLE_main(void)
                   );
         break;
       case IllegalRange:
-        FUN_BATTLE_BIN__80076b7c
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_IllegalRange_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case AbilityPrvwHandling:
-        FUN_BATTLE_BIN__80076c50
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_AbilityPrvwHandling_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case AbilityPrvwHelp:
-        FUN_BATTLE_BIN__80076be8
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_AbilityPrvwHelp_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case ConfirmAction:
-        FUN_BATTLE_BIN__80076d84
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_ConfirmAction_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case PreAttackAnim1:
-        FUN_BATTLE_BIN__80076f14
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_PreAttackAnim1_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case ActionCast2Mode:
-        FUN_BATTLE_BIN__80076fd0
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_ActionCast2Mode_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case CommenceAtkPhaseCtrl:
-        FUN_BATTLE_BIN__80077098
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_CommenceAtkPhaseCtrl_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case BattleTargetSelectStartMode:
-        FUN_BATTLE_BIN__80077c38
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_BattleTargetSelectStartMode_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case BattleTargetSelectMode:
-        FUN_BATTLE_BIN__80077ca4
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_BattleTargetSelectMode_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
-      case BattleTargetSelectDeneidMode:
-        FUN_BATTLE_BIN__80077e1c
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+      case BattleTargetSelectDeniedMode:
+        BATTLE_main_BattleTargetSelectDeniedMode_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case BattleTargetSelectConfirmMode:
         FUN_BATTLE_BIN__80077e88
@@ -57074,54 +57835,54 @@ void BATTLE_main(void)
                    (uint)camera_zooms_ptr);
         break;
       case LearnAbilityOnHit:
-        FUN_BATTLE_BIN__800779a0
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_LearnAbilityOnHit_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case DoEffectDamageDisp:
-        FUN_BATTLE_BIN__80077134
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_DoEffectDamageDisp_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case OpenSP2Files:
-        FUN_BATTLE_BIN__800771a0
-                  ((RECT *)rotation_matrix_elements_ptr,(RECT *)camera_angles_ptr,
-                   (int)offset_coords_ptr,(uint)camera_zooms_ptr);
+        BATTLE_main_OpenSP2Files_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case StartEffectFileOpen:
-        FUN_BATTLE_BIN__80077314
-                  ((uint)rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_StartEffectFileOpen_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case SecondaryEffect:
-        FUN_BATTLE_BIN__80077378
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_SecondaryEffect_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case ActionExecuteMode:
-        FUN_BATTLE_BIN__800773f8
-                  (rotation_matrix_elements_ptr,(int *)camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_ActionExecuteMode_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case BattleMessageDisplay:
-        FUN_BATTLE_BIN__80077760
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_BattleMessageDisplay_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case ResumeAttackPhaseControl:
-        FUN_BATTLE_BIN__800777ec
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_ResumeAttackPhaseControl_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case DeepDungeonMeshLoad:
-        FUN_BATTLE_BIN__80077bd8
-                  (rotation_matrix_elements_ptr,(int *)camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_DeepDungeonMeshLoad_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case DeepDungeonMeshFinish:
-        FUN_BATTLE_BIN__80077c08
-                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,
-                   (uint)camera_zooms_ptr);
+        BATTLE_main_DeepDungeonMeshFinish_state_handler
+                  (rotation_matrix_elements_ptr,camera_angles_ptr,offset_coords_ptr,camera_zooms_ptr
+                  );
         break;
       case EffectMode:
         FUN_BATTLE_BIN__80078504
@@ -57183,7 +57944,7 @@ void BATTLE_main(void)
       if ((int)DAT_80045988 < (int)DAT_80045984) {
         DAT_80045988 = DAT_80045984;
       }
-      puVar3 = &DAT_BATTLE_BIN__800a77c4;
+      puVar3 = &BATTLE_VRAM_Slot_ENTD_ID;
       iVar2 = 0;
       do {
         iVar1 = *(int *)((int)&DAT_BATTLE_BIN__800a77c8 + iVar2);
@@ -57274,9 +58035,9 @@ ENTDDisplayUnitData * BATTLE_get_acting_unit_misc_data(void)
 
 
 
-// https://ffhacktics.com/wiki/Get_Misc_Data_at_Map_Coords_from_List
+// https://ffhacktics.com/wiki/Get_Misc_Data_at_Map_Coords_1
 
-ENTDDisplayUnitData * BATTLE_get_misc_data_at_map_coords_from_list(uint map_x,uint map_y,uint map_z)
+ENTDDisplayUnitData * BATTLE_get_misc_data_at_map_coords_1(uint map_x,uint map_y,uint map_z)
 
 {
   ENTDDisplayUnitData *misc_data;
@@ -57296,11 +58057,11 @@ ENTDDisplayUnitData * BATTLE_get_misc_data_at_map_coords_from_list(uint map_x,ui
 
 
 
-// https://ffhacktics.com/wiki/Get_Misc_Data_at_Map_Coords
+// https://ffhacktics.com/wiki/Get_Misc_Data_at_Map_Coords_2
 // 
 // The pseudo-C of this is awful, read the wiki page.
 
-ENTDDisplayUnitData * BATTLE_get_misc_data_at_map_coords(uint x_coord,uint y_coord,uint z_coord)
+ENTDDisplayUnitData * BATTLE_get_misc_data_at_map_coords_2(uint x_coord,uint y_coord,uint z_coord)
 
 {
   uint status56;
@@ -57367,25 +58128,23 @@ ENTDDisplayUnitData * BATTLE_get_misc_data_at_map_coords(uint x_coord,uint y_coo
 
 
 
-// https://ffhacktics.com/wiki/Get_misc_data_of_unit_that_matches_register_inputs_that_isn%27t_crystal/treasure
-// Get misc data of unit that matches register inputs that isn't crystal/treasure
+// https://ffhacktics.com/wiki/Get_Misc_Data_at_Map_Coords_3
 
-ENTDDisplayUnitData *
-BATTLE_get_non_treasure_crystal_misc_data_at_coords(uint x_coord,uint y_coord,uint z_coord)
+ENTDDisplayUnitData * BATTLE_get_misc_data_at_map_coords_3(uint x_coord,uint y_coord,uint z_coord)
 
 {
   uint status56;
-  int iVar1;
-  ENTDDisplayUnitData **ppEVar2;
-  int counter;
+  int inner_count;
+  ENTDDisplayUnitData **stack_list_ptr;
+  int count;
   ENTDDisplayUnitData **misc_data_ptr;
-  ENTDDisplayUnitData *local_48 [18];
+  ENTDDisplayUnitData *stack_list [18];
   ENTDDisplayUnitData *misc_data;
   ENTDDisplayUnitData **prev_misc_data_ptr;
   
-  misc_data_ptr = local_48;
-  ppEVar2 = local_48;
-  counter = 0;
+  misc_data_ptr = stack_list;
+  stack_list_ptr = stack_list;
+  count = 0;
   misc_data = BATTLE_Misc_Data_List;
   if (BATTLE_Misc_Data_List != (ENTDDisplayUnitData *)0x0) {
     do {
@@ -57397,21 +58156,21 @@ BATTLE_get_non_treasure_crystal_misc_data_at_coords(uint x_coord,uint y_coord,ui
          status56._2_2_ = *(undefined2 *)&misc_data->field_0x146, (status56 & 9) != 0)) {
         *misc_data_ptr = misc_data;
         misc_data_ptr = misc_data_ptr + 1;
-        counter = counter + 1;
+        count = count + 1;
       }
       prev_misc_data_ptr = &misc_data->PrevMiscUnitData;
       misc_data = *prev_misc_data_ptr;
     } while (*prev_misc_data_ptr != (ENTDDisplayUnitData *)0x0);
   }
   misc_data = (ENTDDisplayUnitData *)0x0;
-  if ((counter != 0) && (iVar1 = 0, misc_data = local_48[0], 0 < counter)) {
+  if ((count != 0) && (inner_count = 0, misc_data = stack_list[0], 0 < count)) {
     do {
-      iVar1 = iVar1 + 1;
-      if ((*ppEVar2)->ENTDID == BATTLE_Casting_Unit_ENTD_ID) {
-        return *ppEVar2;
+      inner_count = inner_count + 1;
+      if ((*stack_list_ptr)->ENTDID == BATTLE_Casting_Unit_ENTD_ID) {
+        return *stack_list_ptr;
       }
-      ppEVar2 = ppEVar2 + 1;
-    } while (iVar1 < counter);
+      stack_list_ptr = stack_list_ptr + 1;
+    } while (inner_count < count);
   }
   return misc_data;
 }
@@ -57519,7 +58278,7 @@ BATTLE_get_overlapping_unit_misc_data
 // https://ffhacktics.com/wiki/Get_Unit_Misc_Data_Pointer
 // https://ffhacktics.com/wiki/Get_Unit_Misc_Data_Pointer_from_Unit_Misc_ID
 
-ENTDDisplayUnitData * BATTLE_get_unit_misc_data_from_misc_id(ushort unit_misc_id)
+ENTDDisplayUnitData * BATTLE_get_unit_misc_data_from_entd_id(ushort unit_misc_id)
 
 {
   ENTDDisplayUnitData *current_unit_data;
@@ -57595,7 +58354,7 @@ undefined4 FUN_BATTLE_BIN__8007a7b8(ushort param_1)
   ENTDDisplayUnitData *pEVar2;
   ENTDDisplayUnitData *pEVar3;
   
-  pEVar1 = BATTLE_get_unit_misc_data_from_misc_id(param_1);
+  pEVar1 = BATTLE_get_unit_misc_data_from_entd_id(param_1);
   if (pEVar1 != (ENTDDisplayUnitData *)0x0) {
     pEVar3 = (ENTDDisplayUnitData *)&BATTLE_Misc_Data_List;
     do {
@@ -57614,57 +58373,73 @@ undefined4 FUN_BATTLE_BIN__8007a7b8(ushort param_1)
 
 
 
-uint FUN_BATTLE_BIN__8007a840(int param_1,u_long *param_2)
+// https://ffhacktics.com/wiki/Open_SP2
+// 
+// Param 2 is Pointer to 32 KiB of data from Malloc.
+// Returns -1 on early failure, 0 on late failure, 1 on success.
+
+int BATTLE_open_sp2(ENTDDisplayUnitData *misc_data,u_long *param_2)
 
 {
+  int file_head;
   int iVar1;
-  int iVar2;
-  uint uVar3;
+  uint anim_flag;
   
-  uVar3 = (uint)BATTLE_Animation_Flag[*(int *)(param_1 + 0x170)][1];
-  iVar1 = (uint)(byte)(&DAT_BATTLE_BIN__800c7ce9)[(uint)*(byte *)(param_1 + 5) * 0x32d6] * 8;
-  if ((byte)(&DAT_BATTLE_BIN__800c7ce9)[(uint)*(byte *)(param_1 + 5) * 0x32d6] == 0x9a) {
-    iVar1 = (uVar3 - 0x73) * 8;
-    iVar2 = *(int *)(&DAT_BATTLE_BIN__800956c4 + iVar1);
-    if (iVar2 == 0) {
-      return 0xffffffff;
+  anim_flag = (uint)BATTLE_Animation_Flag[*(int *)&misc_data->field_0x170][1];
+  file_head = (uint)(byte)(&DAT_BATTLE_BIN__800c7ce9)[(uint)misc_data->SpritesheetVRAM * 0x32d6] * 8
+  ;
+  if ((byte)(&DAT_BATTLE_BIN__800c7ce9)[(uint)misc_data->SpritesheetVRAM * 0x32d6] == 0x9a) {
+    file_head = (anim_flag - 0x73) * 8;
+    iVar1 = *(int *)(&DAT_BATTLE_BIN__800956c4 + file_head);
+    if (iVar1 == 0) {
+      return -1;
     }
-    if (uVar3 < *(uint *)(*(int *)(param_1 + 0x1f8) + 4) >> 1) {
-      return 0xffffffff;
+    if (anim_flag < *(uint *)((misc_data->UnitSpriteData).SEQPointer + 4) >> 1) {
+      return -1;
     }
-    uVar3 = *(uint *)(&DAT_BATTLE_BIN__800956c8 + iVar1);
+    anim_flag = *(uint *)(&DAT_BATTLE_BIN__800956c8 + file_head);
   }
   else {
-    iVar2 = *(int *)(&DAT_BATTLE_BIN__800951cc + iVar1);
-    if (iVar2 == 0) {
-      return 0xffffffff;
+    iVar1 = *(int *)(&DAT_BATTLE_BIN__800951cc + file_head);
+    if (iVar1 == 0) {
+      return -1;
     }
-    if (uVar3 < *(uint *)(*(int *)(param_1 + 0x1f8) + 4) >> 1) {
-      return 0xffffffff;
+    if (anim_flag < *(uint *)((misc_data->UnitSpriteData).SEQPointer + 4) >> 1) {
+      return -1;
     }
-    uVar3 = *(uint *)(&DAT_BATTLE_BIN__800951d0 + iVar1);
+    anim_flag = *(uint *)(&DAT_BATTLE_BIN__800951d0 + file_head);
   }
-  iVar1 = Call_CalcFileHead_NNL(iVar2,uVar3,param_2);
-  return (uint)(iVar1 != 0);
+  file_head = Call_CalcFileHead_NNL(iVar1,anim_flag,param_2);
+  return (uint)(file_head != 0);
 }
 
 
 
-void FUN_BATTLE_BIN__8007a968(int param_1)
+// https://ffhacktics.com/wiki/Set_SP2_ENTD_ID_Invalid
+// 
+//  In VRAM Slot ENTD ID:
+//  Flag 0x80 = Decompressed textures
+//  Flag 0x40 = SP2
+//  Flag 0x20 = EVTCHR
+//  
+//  If this function sets ENTD ID Invalid (0xff) then after this function returns,
+//  SP2 Data should be freed with [[SCUS MRTA Free]] and set NULL.
+
+void BATTLE_set_sp2_entd_id_invalid(ENTDDisplayUnitData *misc_data)
 
 {
-  uint *puVar1;
-  int iVar2;
+  uint *vram_entd_id;
+  int counter;
   
-  iVar2 = 0;
-  puVar1 = &DAT_BATTLE_BIN__800a77c4;
+  counter = 0;
+  vram_entd_id = &BATTLE_VRAM_Slot_ENTD_ID;
   do {
-    iVar2 = iVar2 + 1;
-    if (((*puVar1 & 0x1f) == (uint)*(byte *)(param_1 + 4)) && ((*puVar1 & 0x40) != 0)) {
-      *puVar1 = 0xff;
+    counter = counter + 1;
+    if (((*vram_entd_id & 0x1f) == (uint)misc_data->ENTDID) && ((*vram_entd_id & 0x40) != 0)) {
+      *vram_entd_id = 0xff;
     }
-    puVar1 = puVar1 + 0x1d59;
-  } while (iVar2 < 2);
+    vram_entd_id = vram_entd_id + 0x1d59;
+  } while (counter < 2);
   return;
 }
 
@@ -58874,7 +59649,7 @@ ENTDDisplayUnitData * BATTLE_get_mount_misc_data(ENTDDisplayUnitData *unit_misc_
 
 {
   if (unit_misc_data->MountVal == CurrentlyRiding) {
-    unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID);
+    unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID);
   }
   return unit_misc_data;
 }
@@ -59564,8 +60339,8 @@ void FUN_BATTLE_BIN__8007e304(SVECTOR *param_1,int param_2)
       DAT_BATTLE_BIN__800961f8 = 0;
     }
   }
-  pEVar3 = BATTLE_get_misc_data_at_map_coords
-                     (BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,BATTLE_Cursor_ZCoord);
+  pEVar3 = BATTLE_get_misc_data_at_map_coords_2
+                     (BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,BATTLE_Cursor_Z_Coord);
   sVar5 = 0x3c;
   if (pEVar3 != (ENTDDisplayUnitData *)0x0) {
     iVar2 = BATTLE_Spritesheet_data[pEVar3->SpritesheetID].GraphicHeight *
@@ -60675,142 +61450,144 @@ void BATTLE_post_action_display_setup(ENTDDisplayUnitData *unit_misc_data)
   ushort uVar4;
   ushort uVar5;
   ushort uVar6;
-  uint uVar7;
+  ENTDCurrentActionDisplayFlags EVar7;
   uint uVar8;
-  undefined *puVar9;
+  ENTDCurrentActionDisplayFlags EVar9;
+  undefined *puVar10;
   BattleUnitData *battle_data;
-  uint uVar10;
-  undefined *puVar11;
-  byte *pbVar12;
-  int iVar13;
-  byte *pbVar14;
+  uint uVar11;
+  undefined *puVar12;
+  byte *pbVar13;
+  uint uVar14;
+  int iVar15;
+  byte *pbVar16;
   
-  puVar11 = unit_misc_data->NumericalDisplayPtr0;
-  puVar9 = unit_misc_data->NumericalDisplayPtr1;
+  puVar12 = unit_misc_data->NumericalDisplayPtr0;
+  puVar10 = unit_misc_data->NumericalDisplayPtr1;
   *(undefined2 *)(unit_misc_data->NumericalDisplayPtr2 + 4) = 0x1f;
-  *(undefined2 *)(puVar9 + 4) = 0x1f;
-  *(undefined2 *)(puVar11 + 4) = 0x1f;
+  *(undefined2 *)(puVar10 + 4) = 0x1f;
+  *(undefined2 *)(puVar12 + 4) = 0x1f;
   battle_data = unit_misc_data->UnitBattleData;
   if ((battle_data->CurActionUnitData).HitFlag != 0) {
     if (((battle_data->CurActionUnitData).AttackType & HPDamage) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 1;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | HPHealing;
     }
     if (((battle_data->CurActionUnitData).AttackType & HPRecovery) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 2;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | MPDamage;
     }
     if (((battle_data->CurActionUnitData).AttackType & MPDamage) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 4;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | SPDamage;
     }
     if (((battle_data->CurActionUnitData).AttackType & MPRecovery) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 8;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | BraveDamage;
     }
     if (((battle_data->CurActionUnitData).AttackType & StatAlter) != 0) {
       if ((battle_data->CurActionUnitData).SPChange != ~(Value|Bonus)) {
         if (((battle_data->CurActionUnitData).SPChange & Bonus) == ~(Value|Bonus)) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x10;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | Missed;
         }
         else {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x20;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | Guarded;
         }
-        *(uint *)&(unit_misc_data->CurActionData).field_0x2c = uVar7;
+        (unit_misc_data->CurActionData).DisplayFlags = EVar7;
       }
       CVar1 = (battle_data->CurActionUnitData).CTChange;
       if (CVar1 != ~Quick) {
         if (CVar1 == Quick) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x100000;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x100000;
         }
         else if (CVar1 == Value) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x200000;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x200000;
         }
         else if (((battle_data->CurActionUnitData).CTChange & 0x80) == 0) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x40;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x40;
         }
         else {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x80;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | LevelDown;
         }
-        *(uint *)&(unit_misc_data->CurActionData).field_0x2c = uVar7;
+        (unit_misc_data->CurActionData).DisplayFlags = EVar7;
       }
       if ((battle_data->CurActionUnitData).PAChange != ~(Value|Bonus)) {
         if (((battle_data->CurActionUnitData).PAChange & Bonus) == ~(Value|Bonus)) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x1000;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x1000;
         }
         else {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x2000;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x2000;
         }
-        *(uint *)&(unit_misc_data->CurActionData).field_0x2c = uVar7;
+        (unit_misc_data->CurActionData).DisplayFlags = EVar7;
       }
       if ((battle_data->CurActionUnitData).MAChange != ~(Value|Bonus)) {
         if (((battle_data->CurActionUnitData).MAChange & Bonus) == ~(Value|Bonus)) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x4000;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x4000;
         }
         else {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x8000;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x8000;
         }
-        *(uint *)&(unit_misc_data->CurActionData).field_0x2c = uVar7;
+        (unit_misc_data->CurActionData).DisplayFlags = EVar7;
       }
       if ((battle_data->CurActionUnitData).BraveChange != ~(Value|Bonus)) {
         if (((battle_data->CurActionUnitData).BraveChange & Bonus) == ~(Value|Bonus)) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x100;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | NoMP;
         }
         else {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x200;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | Use0x18eList;
         }
-        *(uint *)&(unit_misc_data->CurActionData).field_0x2c = uVar7;
+        (unit_misc_data->CurActionData).DisplayFlags = EVar7;
       }
       if ((battle_data->CurActionUnitData).FaithChange != ~(Value|Bonus)) {
         if (((battle_data->CurActionUnitData).FaithChange & Bonus) == ~(Value|Bonus)) {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x400;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x400;
         }
         else {
-          uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x800;
+          EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x800;
         }
-        *(uint *)&(unit_misc_data->CurActionData).field_0x2c = uVar7;
+        (unit_misc_data->CurActionData).DisplayFlags = EVar7;
       }
     }
     uVar3._0_1_ = (battle_data->CurActionUnitData).UniqueEffect1;
     uVar3._1_1_ = (battle_data->CurActionUnitData).UniqueEffect2;
     if ((uVar3 & 0x80) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x20000;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | 0x20000;
     }
     uVar4._0_1_ = (battle_data->CurActionUnitData).UniqueEffect1;
     uVar4._1_1_ = (battle_data->CurActionUnitData).UniqueEffect2;
     if ((uVar4 & 0x100) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x10000;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | 0x10000;
     }
     uVar5._0_1_ = (battle_data->CurActionUnitData).UniqueEffect1;
     uVar5._1_1_ = (battle_data->CurActionUnitData).UniqueEffect2;
     if ((uVar5 & 0x10) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x40000;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | 0x40000;
     }
     uVar6._0_1_ = (battle_data->CurActionUnitData).UniqueEffect1;
     uVar6._1_1_ = (battle_data->CurActionUnitData).UniqueEffect2;
     if ((uVar6 & 0x1004) != 0) {
-      *(uint *)&(unit_misc_data->CurActionData).field_0x2c =
-           *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x80000;
+      (unit_misc_data->CurActionData).DisplayFlags =
+           (unit_misc_data->CurActionData).DisplayFlags | 0x80000;
     }
-    iVar13 = 0;
+    iVar15 = 0;
     if (((battle_data->CurActionUnitData).AttackType & StatusChange) != 0) {
       (unit_misc_data->CurActionData).InflictedRemovedStatusCount = 0;
-      pbVar14 = BATTLE_Status_IDs_for_Display_Type;
+      pbVar16 = BATTLE_Status_IDs_for_Display_Type;
       do {
-        uVar7 = 0;
-        pbVar12 = pbVar14;
+        uVar14 = 0;
+        pbVar13 = pbVar16;
         do {
-          uVar10 = (uint)(unit_misc_data->CurActionData).InflictedRemovedStatusCount;
-          uVar8 = 0x80 >> (uVar7 & 0x1f);
-          if (uVar10 < 0x1b) {
-            if (((&(battle_data->CurActionUnitData).StatusInfliction.Status1)[iVar13] & uVar8) == 0)
+          uVar11 = (uint)(unit_misc_data->CurActionData).InflictedRemovedStatusCount;
+          uVar8 = 0x80 >> (uVar14 & 0x1f);
+          if (uVar11 < 0x1b) {
+            if (((&(battle_data->CurActionUnitData).StatusInfliction.Status1)[iVar15] & uVar8) == 0)
             {
-              if ((((&(battle_data->CurActionUnitData).StatusRemoval.Status1)[iVar13] & uVar8) != 0)
-                 && (bVar2 = *pbVar12,
-                    (unit_misc_data->CurActionData).TargetList[uVar10 + 0x2e] = bVar2, bVar2 != 0))
+              if ((((&(battle_data->CurActionUnitData).StatusRemoval.Status1)[iVar15] & uVar8) != 0)
+                 && (bVar2 = *pbVar13,
+                    (unit_misc_data->CurActionData).TargetList[uVar11 + 0x2e] = bVar2, bVar2 != 0))
               {
                 bVar2 = (unit_misc_data->CurActionData).InflictedRemovedStatusCount;
                 (unit_misc_data->CurActionData).TargetList[bVar2 + 0x2e] =
@@ -60819,8 +61596,8 @@ void BATTLE_post_action_display_setup(ENTDDisplayUnitData *unit_misc_data)
               }
             }
             else {
-              bVar2 = *pbVar12;
-              (unit_misc_data->CurActionData).TargetList[uVar10 + 0x2e] = bVar2;
+              bVar2 = *pbVar13;
+              (unit_misc_data->CurActionData).TargetList[uVar11 + 0x2e] = bVar2;
               if (bVar2 != 0) {
 LAB_BATTLE_BIN__800807b8:
                 (unit_misc_data->CurActionData).InflictedRemovedStatusCount =
@@ -60828,12 +61605,12 @@ LAB_BATTLE_BIN__800807b8:
               }
             }
           }
-          uVar7 = uVar7 + 1;
-          pbVar12 = pbVar12 + 1;
-        } while ((int)uVar7 < 8);
-        iVar13 = iVar13 + 1;
-        pbVar14 = pbVar14 + 8;
-      } while (iVar13 < 5);
+          uVar14 = uVar14 + 1;
+          pbVar13 = pbVar13 + 1;
+        } while ((int)uVar14 < 8);
+        iVar15 = iVar15 + 1;
+        pbVar16 = pbVar16 + 8;
+      } while (iVar15 < 5);
     }
     goto LAB_BATTLE_BIN__8008088c;
   }
@@ -60843,22 +61620,22 @@ LAB_BATTLE_BIN__800807b8:
      (bVar2 == 0xb)) {
     if (((battle_data->CurActionUnitData).StatusMissMessageByte & (Failed|Guarded)) == Failed)
     goto LAB_BATTLE_BIN__8008087c;
-    uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c | 0x800000;
+    EVar7 = (unit_misc_data->CurActionData).DisplayFlags | 0x800000;
   }
   else {
     if (bVar2 == 0xd) {
-      uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c;
-      uVar8 = 0x1000000;
+      EVar7 = (unit_misc_data->CurActionData).DisplayFlags;
+      EVar9 = 0x1000000;
     }
     else {
       if (((bVar2 == 8) || (bVar2 == 0)) || (bVar2 == 9)) goto LAB_BATTLE_BIN__8008088c;
 LAB_BATTLE_BIN__8008087c:
-      uVar7 = *(uint *)&(unit_misc_data->CurActionData).field_0x2c;
-      uVar8 = 0x400000;
+      EVar7 = (unit_misc_data->CurActionData).DisplayFlags;
+      EVar9 = 0x400000;
     }
-    uVar7 = uVar7 | uVar8;
+    EVar7 = EVar7 | EVar9;
   }
-  *(uint *)&(unit_misc_data->CurActionData).field_0x2c = uVar7;
+  (unit_misc_data->CurActionData).DisplayFlags = EVar7;
 LAB_BATTLE_BIN__8008088c:
   if (*(char *)&unit_misc_data->AtkResultGraphicTrigger == '\0') {
     *(undefined2 *)&unit_misc_data->field_0x2c2 = 0;
@@ -60878,7 +61655,7 @@ undefined4 BATTLE_set_xp_jp_display_data(ENTDDisplayUnitData *misc_data)
   undefined uVar2;
   short sVar3;
   ushort uVar4;
-  uint uVar5;
+  ENTDCurrentActionDisplayFlags EVar5;
   undefined *puVar6;
   undefined *puVar7;
   undefined uVar8;
@@ -60892,41 +61669,40 @@ undefined4 BATTLE_set_xp_jp_display_data(ENTDDisplayUnitData *misc_data)
   byte earned_xp;
   byte earned_jp;
   
-  uVar5 = *(uint *)&(misc_data->CurActionData).field_0x2c;
-  if ((uVar5 & 0x2000000) == 0) {
-    if ((uVar5 & 0x4000000) == 0) {
-      if ((uVar5 & 0x8000000) == 0) {
-        if ((uVar5 & 0x10000000) == 0) {
-          if ((uVar5 & 0x20000000) == 0) {
+  EVar5 = (misc_data->CurActionData).DisplayFlags;
+  if ((EVar5 & GainedEXP) == HPDamage) {
+    if ((EVar5 & GainedJP) == HPDamage) {
+      if ((EVar5 & 0x8000000) == HPDamage) {
+        if ((EVar5 & 0x10000000) == HPDamage) {
+          if ((EVar5 & 0x20000000) == HPDamage) {
             return 0;
           }
-          uVar5 = 0xdfffffff;
+          EVar5 = 0xdfffffff;
           sVar3 = 0x100;
         }
         else {
-          uVar5 = 0xefffffff;
+          EVar5 = 0xefffffff;
           sVar3 = 0xf0;
         }
       }
       else {
-        uVar5 = 0xf7ffffff;
+        EVar5 = 0xf7ffffff;
         sVar3 = 0xe0;
       }
       misc_data->DisplayType = sVar3;
       *(undefined *)&misc_data->AtkResultGraphicTrigger = 1;
       bVar1 = *(ushort *)&misc_data->field_0x2c2 < 0x16;
-      *(uint *)&(misc_data->CurActionData).field_0x2c =
-           *(uint *)&(misc_data->CurActionData).field_0x2c & uVar5;
+      (misc_data->CurActionData).DisplayFlags = (misc_data->CurActionData).DisplayFlags & EVar5;
     }
     else {
       earned_jp = (misc_data->CurActionData).EarnedJP;
                     // Possible PsyQ macro: setLineG2()
       misc_data->DisplayType = 0x50;
       *(undefined *)&misc_data->AtkResultGraphicTrigger = 1;
-      uVar5 = *(uint *)&(misc_data->CurActionData).field_0x2c;
+      EVar5 = (misc_data->CurActionData).DisplayFlags;
       misc_data->NumbertoDisplay = (ushort)earned_jp;
       uVar4 = *(ushort *)&misc_data->field_0x2c2;
-      *(uint *)&(misc_data->CurActionData).field_0x2c = uVar5 & 0xfbffffff;
+      (misc_data->CurActionData).DisplayFlags = EVar5 & ~GainedJP;
       bVar1 = uVar4 < 0x16;
     }
   }
@@ -60934,10 +61710,10 @@ undefined4 BATTLE_set_xp_jp_display_data(ENTDDisplayUnitData *misc_data)
     earned_xp = (misc_data->CurActionData).EarnedEXP;
     misc_data->DisplayType = 0x40;
     *(undefined *)&misc_data->AtkResultGraphicTrigger = 1;
-    uVar5 = *(uint *)&(misc_data->CurActionData).field_0x2c;
+    EVar5 = (misc_data->CurActionData).DisplayFlags;
     misc_data->NumbertoDisplay = (ushort)earned_xp;
     uVar4 = *(ushort *)&misc_data->field_0x2c2;
-    *(uint *)&(misc_data->CurActionData).field_0x2c = uVar5 & 0xfdffffff;
+    (misc_data->CurActionData).DisplayFlags = EVar5 & ~GainedEXP;
     bVar1 = uVar4 < 0x16;
   }
   if (!bVar1) {
@@ -61070,27 +61846,31 @@ LAB_BATTLE_BIN__80080f04:
 
 
 
-void FUN_BATTLE_BIN__80080f44(int param_1)
+// https://ffhacktics.com/wiki/Prep_for_Displaying_Earned_Exp/JP
+
+void BATTLE_prep_for_earned_xp_jp_display(ENTDDisplayUnitData *misc_data)
 
 {
-  int iVar1;
-  int iVar2;
+  void *display1;
+  void *display0;
   
-  if ((DAT_800473ac & 0x6000000) == 0) {
-    iVar2 = *(int *)(param_1 + 0x2c4);
-    iVar1 = *(int *)(param_1 + 0x2c8);
-    *(undefined2 *)(*(int *)(param_1 + 0x2cc) + 4) = 0x1f;
-    *(undefined2 *)(iVar1 + 4) = 0x1f;
-    *(undefined2 *)(iVar2 + 4) = 0x1f;
-    if (*(char *)(param_1 + 0x1b0) != '\0') {
-      *(uint *)(param_1 + 0x1b8) = *(uint *)(param_1 + 0x1b8) | 0x2000000;
+                    // if (Display Gained Exp/JP is On) {
+  if ((SCUS_Custom_Options & 0x6000000) == 0) {
+    display0 = misc_data->NumericalDisplayPtr0;
+    display1 = misc_data->NumericalDisplayPtr1;
+                    // 0x1f = FRAME.BIN
+    *(undefined2 *)(misc_data->NumericalDisplayPtr2 + 4) = 0x1f;
+    *(undefined2 *)((int)display1 + 4) = 0x1f;
+    *(undefined2 *)((int)display0 + 4) = 0x1f;
+    if ((misc_data->CurActionData).EarnedEXP != 0) {
+      (misc_data->CurActionData).DisplayFlags = (misc_data->CurActionData).DisplayFlags | GainedEXP;
     }
-    if (*(char *)(param_1 + 0x1b1) != '\0') {
-      *(uint *)(param_1 + 0x1b8) = *(uint *)(param_1 + 0x1b8) | 0x4000000;
+    if ((misc_data->CurActionData).EarnedJP != 0) {
+      (misc_data->CurActionData).DisplayFlags = (misc_data->CurActionData).DisplayFlags | GainedJP;
     }
-    if (*(char *)(param_1 + 700) == '\0') {
-      *(undefined2 *)(param_1 + 0x2c2) = 0;
-      BATTLE_set_xp_jp_display_data((ENTDDisplayUnitData *)param_1);
+    if (*(char *)&misc_data->AtkResultGraphicTrigger == '\0') {
+      *(undefined2 *)&misc_data->field_0x2c2 = 0;
+      BATTLE_set_xp_jp_display_data(misc_data);
     }
   }
   return;
@@ -61103,8 +61883,8 @@ void FUN_BATTLE_BIN__80080f44(int param_1)
 void BATTLE_activate_numerical_sprite_data(ENTDDisplayUnitData *misc_data,int param_2)
 
 {
-  uint uVar1;
-  uint uVar2;
+  ENTDCurrentActionDisplayFlags EVar1;
+  ENTDCurrentActionDisplayFlags EVar2;
   undefined *puVar3;
   undefined *puVar4;
   
@@ -61114,20 +61894,20 @@ void BATTLE_activate_numerical_sprite_data(ENTDDisplayUnitData *misc_data,int pa
   *(undefined2 *)(puVar3 + 4) = 0x1f;
   *(undefined2 *)(puVar4 + 4) = 0x1f;
   if (param_2 == 2) {
-    uVar1 = *(uint *)&(misc_data->CurActionData).field_0x2c;
-    uVar2 = 0x10000000;
+    EVar1 = (misc_data->CurActionData).DisplayFlags;
+    EVar2 = 0x10000000;
   }
   else if (param_2 < 3) {
     if (param_2 != 1) goto LAB_BATTLE_BIN__80081078;
-    uVar1 = *(uint *)&(misc_data->CurActionData).field_0x2c;
-    uVar2 = 0x8000000;
+    EVar1 = (misc_data->CurActionData).DisplayFlags;
+    EVar2 = 0x8000000;
   }
   else {
-    uVar2 = 0x20000000;
+    EVar2 = 0x20000000;
     if (param_2 != 3) goto LAB_BATTLE_BIN__80081078;
-    uVar1 = *(uint *)&(misc_data->CurActionData).field_0x2c;
+    EVar1 = (misc_data->CurActionData).DisplayFlags;
   }
-  *(uint *)&(misc_data->CurActionData).field_0x2c = uVar1 | uVar2;
+  (misc_data->CurActionData).DisplayFlags = EVar1 | EVar2;
 LAB_BATTLE_BIN__80081078:
   if (*(char *)&misc_data->AtkResultGraphicTrigger == '\0') {
     *(undefined2 *)&misc_data->field_0x2c2 = 0;
@@ -61971,7 +62751,7 @@ void BATTLE_palette_mod_and_move_unit_and_rider
     BATTLE_palette_mod_by_status(misc_data,tile_interaction,param_3);
   }
   if (((misc_data->MountVal != NotMounted) &&
-      (mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_data->MountID),
+      (mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_data->MountID),
       mount_misc_data != (ENTDDisplayUnitData *)0x0)) &&
      (uVar2._0_1_ = mount_misc_data->MoveX, uVar2._1_1_ = mount_misc_data->MoveY,
      uVar2._2_1_ = mount_misc_data->MoveZ, uVar2._3_1_ = mount_misc_data->MoveMovementFlags,
@@ -62383,7 +63163,7 @@ void BATTLE_set_anim_based_on_mount_state(ENTDDisplayUnitData *unit_misc_data)
     change_of_anim = 2;
     if (float_fly < 2) {
       if ((unit_misc_data->MountVal == BeingRidden) &&
-         (misc_unit_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID),
+         (misc_unit_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID),
          misc_unit_data != (ENTDDisplayUnitData *)0x0)) {
         BATTLE_store_unit_anim_facing(0x32,unit_misc_data->CurrentFacing,misc_unit_data);
       }
@@ -62424,7 +63204,7 @@ void BATTLE_set_idle_anim_from_status(ENTDDisplayUnitData *unit_misc_data)
         change_of_anim = TravelHasted;
       }
       if ((unit_misc_data->MountVal == BeingRidden) &&
-         (misc_unit_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_data->MountID),
+         (misc_unit_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_data->MountID),
          misc_unit_data != (ENTDDisplayUnitData *)0x0)) {
         BATTLE_store_unit_anim_facing(0x32,unit_misc_data->CurrentFacing,misc_unit_data);
       }
@@ -62910,6 +63690,7 @@ void BATTLE_set_thrown_item_palette(uint item_id,ENTDDisplayUnitData *unit_misc_
 // Possible _OP_VNEW.OBJ/__builtin_vec_new
 // Possible SCNOFF.OBJ/SsSetNoiseOff
 // Possible SSQUIT.OBJ/SsQuit
+// 
 // https://ffhacktics.com/wiki/Call_Set_Animation_Based_on_Status
 
 void BATTLE_call_set_anim_based_on_status(ENTDDisplayUnitData *misc_data)
@@ -63117,29 +63898,27 @@ void BATTLE_set_target_anim_from_attack_type
 
 
 
-// https://ffhacktics.com/wiki/Sprite_display_setting_for_all_units_based_on_attack
+// https://ffhacktics.com/wiki/Update_Anim_Display_for_All_Targets
 
-void BATTLE_sprite_display_setting_for_all_units_on_attack(BattleUnitData *battle_stats)
+void BATTLE_update_anim_display_for_all_targets(ENTDDisplayUnitData *misc_data)
 
 {
-  BattleUnitData *battle_stats2;
-  ENTDDisplayUnitData *misc_data;
-  int counter1;
-  int counter2;
-  byte crit_flag;
+  int counter;
+  byte hit_count;
+  ENTDDisplayUnitData *target_misc_data;
   
-  crit_flag = (battle_stats->CurActionUnitData).CritFlag;
-  if ((crit_flag != 0) && (counter1 = 0, battle_stats2 = battle_stats, crit_flag != 0)) {
+  hit_count = (misc_data->CurActionData).CurActionTargetHitCount;
+  if ((hit_count != 0) && (counter = 0, target_misc_data = misc_data, hit_count != 0)) {
     do {
-      misc_data = BATTLE_get_unit_misc_data_from_battle_id
-                            ((ushort)(battle_stats2->CurActionUnitData).EvadeType);
-      counter2 = counter1 + 1;
-      if (misc_data != (ENTDDisplayUnitData *)0x0) {
-        BATTLE_update_anim_display_by_misc_id((ushort)misc_data->ENTDID);
+      target_misc_data =
+           BATTLE_get_unit_misc_data_from_battle_id
+                     ((ushort)(target_misc_data->CurActionData).TargetList[0]);
+      counter = counter + 1;
+      if (target_misc_data != (ENTDDisplayUnitData *)0x0) {
+        BATTLE_update_anim_display_by_entd_id((ushort)target_misc_data->ENTDID);
       }
-      battle_stats2 = (BattleUnitData *)(&(battle_stats->AllActionUnitData).UnitID + counter1);
-      counter1 = counter2;
-    } while (counter2 < (int)(uint)(battle_stats->CurActionUnitData).CritFlag);
+      target_misc_data = (ENTDDisplayUnitData *)((int)&misc_data->PrevMiscUnitData + counter);
+    } while (counter < (int)(uint)(misc_data->CurActionData).CurActionTargetHitCount);
   }
   return;
 }
@@ -63458,7 +64237,7 @@ void BATTLE_trap_and_unit_gfx_info_loading
     } while( true );
   }
   if (shp_frame_masked < 0xd2) {
-    if ((DAT_BATTLE_BIN__800a77c4 & 0x1f) == (uint)misc_data->ENTDID) {
+    if ((BATTLE_VRAM_Slot_ENTD_ID & 0x1f) == (uint)misc_data->ENTDID) {
       voffset = 4;
       goto LAB_BATTLE_BIN__80084674;
     }
@@ -63648,7 +64427,7 @@ LAB_BATTLE_BIN__800848d0:
     goto switchD_BATTLE_BIN__80084930_caseD_c2;
   case 0xc6:
     uVar2 = (uint)uVar11;
-    if (DAT_BATTLE_BIN__80098db8 != 0) {
+    if (BATTLE_Post_Action != 0) {
       uVar8 = uVar9 + 3;
       goto LAB_BATTLE_BIN__800848d0;
     }
@@ -64285,8 +65064,8 @@ void BATTLE_move_atk_sprites_to_framebuffer(ENTDDisplayUnitData *misc_data,int p
   FUN_BATTLE_BIN__8007aa34
             (&DAT_BATTLE_BIN__800c7cea + (uint)misc_data->SpritesheetVRAM * 0x32d6,
              &DAT_BATTLE_BIN__800a8928 + param_3 * 0x7564);
-  LoadImage((RECT *)(&DAT_BATTLE_BIN__800a77d0 + param_2 * 0x3ab2),
-            (u_long *)(&DAT_BATTLE_BIN__800a8928 + param_3 * 0x7564));
+  SYS_LoadImage((RECT *)(&DAT_BATTLE_BIN__800a77d0 + param_2 * 0x3ab2),
+                &DAT_BATTLE_BIN__800a8928 + param_3 * 0x7564);
   local_28.x = (ushort)(misc_data->SpritesheetVRAM >> 3) * 0x40 + 0x340;
   local_28.w = 0x40;
   local_28.h = 0x20;
@@ -64294,7 +65073,7 @@ void BATTLE_move_atk_sprites_to_framebuffer(ENTDDisplayUnitData *misc_data,int p
   MoveImage(&local_28,(int)(short)(&DAT_BATTLE_BIN__800a77d0)[param_2 * 0x3ab2],
             (short)(&DAT_BATTLE_BIN__800a77d2)[param_2 * 0x3ab2] + 200);
   DAT_80045990 = 1;
-  (&DAT_BATTLE_BIN__800a77c4)[param_2 * 0x1d59] = misc_data->ENTDID | 0x80;
+  (&BATTLE_VRAM_Slot_ENTD_ID)[param_2 * 0x1d59] = misc_data->ENTDID | 0x80;
   (&DAT_BATTLE_BIN__800a77c8)[param_3 * 0x1d59] = 2;
   (&DAT_BATTLE_BIN__800a77cc)[param_2 * 0x1d59] = 1;
   return;
@@ -64307,23 +65086,23 @@ void BATTLE_move_atk_sprites_to_framebuffer(ENTDDisplayUnitData *misc_data,int p
 void BATTLE_mark_unit_vram_slot_unoccupied(ENTDDisplayUnitData *misc_data)
 
 {
-  uint vram_unit_id;
-  uint *vram_slot_unit_id_ptr;
+  uint vram_entd_id;
+  uint *vram_slot_entd_id_ptr;
   int iVar1;
   int counter;
   
   counter = 0;
-  vram_slot_unit_id_ptr = &DAT_BATTLE_BIN__800a77c4;
+  vram_slot_entd_id_ptr = &BATTLE_VRAM_Slot_ENTD_ID;
   iVar1 = 0;
   do {
-    vram_unit_id = *vram_slot_unit_id_ptr;
+    vram_entd_id = *vram_slot_entd_id_ptr;
     counter = counter + 1;
-    if (((1 < vram_unit_id - 0xfe) && ((vram_unit_id & 0x1f) == (uint)misc_data->ENTDID)) &&
-       ((vram_unit_id & 0x40) == 0)) {
-      *vram_slot_unit_id_ptr = 0xff;
+    if (((1 < vram_entd_id - 0xfe) && ((vram_entd_id & 0x1f) == (uint)misc_data->ENTDID)) &&
+       ((vram_entd_id & 0x40) == 0)) {
+      *vram_slot_entd_id_ptr = 0xff;
       *(undefined4 *)((int)&DAT_BATTLE_BIN__800a77cc + iVar1) = 0;
     }
-    vram_slot_unit_id_ptr = vram_slot_unit_id_ptr + 0x1d59;
+    vram_slot_entd_id_ptr = vram_slot_entd_id_ptr + 0x1d59;
     iVar1 = iVar1 + 0x7564;
   } while (counter < 2);
   return;
@@ -64526,7 +65305,7 @@ void BATTLE_update_and_animate_unit_wep_eff(ENTDDisplayUnitData *misc_data)
       else {
         iVar12 = 0;
         do {
-          if ((*(uint *)((int)&DAT_BATTLE_BIN__800a77c4 + iVar12) & 0x1f) == (uint)misc_data->ENTDID
+          if ((*(uint *)((int)&BATTLE_VRAM_Slot_ENTD_ID + iVar12) & 0x1f) == (uint)misc_data->ENTDID
              ) break;
           iVar9 = iVar9 + 1;
           iVar12 = iVar12 + 0x7564;
@@ -64535,7 +65314,7 @@ void BATTLE_update_and_animate_unit_wep_eff(ENTDDisplayUnitData *misc_data)
         if (iVar9 == 2) {
           iVar9 = 0;
           do {
-            if (*(int *)((int)&DAT_BATTLE_BIN__800a77c4 + iVar9) == 0xff) {
+            if (*(int *)((int)&BATTLE_VRAM_Slot_ENTD_ID + iVar9) == 0xff) {
               unaff_s4 = 0;
               iVar9 = 0;
               goto LAB_BATTLE_BIN__80086018;
@@ -64578,7 +65357,7 @@ LAB_BATTLE_BIN__8008605c:
   if (unaff_s4 == 2 || iVar12 == 2) {
     if (1 < DAT_BATTLE_BIN__800aed28 - 0xfeU) {
       mount_misc_data =
-           BATTLE_get_unit_misc_data_from_misc_id((ushort)DAT_BATTLE_BIN__800aed28 & 0x1f);
+           BATTLE_get_unit_misc_data_from_entd_id((ushort)DAT_BATTLE_BIN__800aed28 & 0x1f);
       if (mount_misc_data != (ENTDDisplayUnitData *)0x0) {
         if (((mount_misc_data->UnitSpriteData).CurrentAnim & 1U) == 0) {
           (mount_misc_data->UnitSpriteData).SHPFrame =
@@ -64650,7 +65429,7 @@ LAB_BATTLE_BIN__8008616c:
   misc_data->MoveZ = (char)(uVar7 >> 0x10);
   misc_data->MoveMovementFlags = (char)(uVar7 >> 0x18);
   if (misc_data->MountVal == BeingRidden) {
-    mount_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_data->MountID);
+    mount_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_data->MountID);
     if (mount_misc_data != (ENTDDisplayUnitData *)0x0) {
       (mount_misc_data->UnitSpriteData).SHPInstrIndex = 0;
       (mount_misc_data->UnitSpriteData).WaitTime = 0;
@@ -64799,7 +65578,7 @@ LAB_BATTLE_BIN__80086ab4:
         BATTLE_construct_polygon_data_for_units
                   ((undefined2 *)pSVar12,3,0,(short *)&local_58,0,uVar10,&camera_coord.x,
                    (uint *)((int)pvVar5 + *(int *)&misc_data->field_0x128 * 4));
-        pEVar7 = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_data->MountID);
+        pEVar7 = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_data->MountID);
         if ((pEVar7 != (ENTDDisplayUnitData *)0x0) && (*(short *)&pEVar7->AnimateUnit != 0)) {
           local_50 = *(short *)&pEVar7->field_0x120;
           iVar4 = 0;
@@ -65760,7 +66539,7 @@ FUN_BATTLE_BIN__80087a28
       misc_data->MoveY = (char)(uVar3 >> 8);
       misc_data->MoveZ = (char)(uVar3 >> 0x10);
       misc_data->MoveMovementFlags = (char)(uVar3 >> 0x18);
-      BATTLE_update_anim_display_by_misc_id((ushort)misc_data->ENTDID);
+      BATTLE_update_anim_display_by_entd_id((ushort)misc_data->ENTDID);
       BATTLE_set_anim_from_status(misc_data);
       uVar17._0_1_ = misc_data->MoveX;
       uVar17._1_1_ = misc_data->MoveY;
@@ -65798,7 +66577,7 @@ void FUN_BATTLE_BIN__80088018(void)
   } while (-1 < iVar1);
   iVar1 = 0;
   do {
-    *(undefined4 *)((int)&DAT_BATTLE_BIN__800a77c4 + iVar1) = 0xff;
+    *(undefined4 *)((int)&BATTLE_VRAM_Slot_ENTD_ID + iVar1) = 0xff;
     *(undefined4 *)((int)&DAT_BATTLE_BIN__800a77c8 + iVar1) = 0;
     *(undefined4 *)((int)&DAT_BATTLE_BIN__800a77cc + iVar1) = 0;
     iVar2 = iVar2 + 1;
@@ -65937,7 +66716,7 @@ LAB_BATTLE_BIN__800887e8:
   case 0:
     DAT_BATTLE_BIN__80098d80 =
          (u_long *)
-         BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094c50 + DAT_BATTLE_BIN__80098d7c * 8));
+         SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094c50 + DAT_BATTLE_BIN__80098d7c * 8));
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
@@ -65947,7 +66726,7 @@ LAB_BATTLE_BIN__800887e8:
   case 1:
     DAT_BATTLE_BIN__80098d80 =
          (u_long *)
-         BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094c08 + DAT_BATTLE_BIN__80098d7c * 8));
+         SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094c08 + DAT_BATTLE_BIN__80098d7c * 8));
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
@@ -65957,7 +66736,7 @@ LAB_BATTLE_BIN__800887e8:
   case 2:
     DAT_BATTLE_BIN__80098d80 =
          (u_long *)
-         BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094ca8 + DAT_BATTLE_BIN__80098d7c * 8));
+         SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094ca8 + DAT_BATTLE_BIN__80098d7c * 8));
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
@@ -65967,7 +66746,7 @@ LAB_BATTLE_BIN__800887e8:
   case 3:
     DAT_BATTLE_BIN__80098d80 =
          (u_long *)
-         BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094c98 + DAT_BATTLE_BIN__80098d7c * 8));
+         SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094c98 + DAT_BATTLE_BIN__80098d7c * 8));
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
@@ -65977,7 +66756,7 @@ LAB_BATTLE_BIN__800887e8:
   case 4:
     DAT_BATTLE_BIN__80098d80 =
          (u_long *)
-         BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094cc8 + DAT_BATTLE_BIN__80098d7c * 8));
+         SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094cc8 + DAT_BATTLE_BIN__80098d7c * 8));
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
@@ -65987,7 +66766,7 @@ LAB_BATTLE_BIN__800887e8:
   case 5:
     DAT_BATTLE_BIN__80098d80 =
          (u_long *)
-         BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094cb8 + DAT_BATTLE_BIN__80098d7c * 8));
+         SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094cb8 + DAT_BATTLE_BIN__80098d7c * 8));
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
@@ -65995,14 +66774,14 @@ LAB_BATTLE_BIN__800887e8:
     uVar4 = *(uint *)(&DAT_BATTLE_BIN__80094cb8 + DAT_BATTLE_BIN__80098d7c * 8);
     break;
   case 6:
-    DAT_BATTLE_BIN__80098d80 = (u_long *)BIN_Malloc_FFT(0x15000);
+    DAT_BATTLE_BIN__80098d80 = (u_long *)SCUS_MRTA_Malloc(0x15000);
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
     iVar1 = Call_CalcFileHead_NNL(0xdefa,0x15000,DAT_BATTLE_BIN__80098d80);
     goto joined_r0x800884b0;
   case 7:
-    DAT_BATTLE_BIN__80098d80 = (u_long *)BIN_Malloc_FFT(0x8800);
+    DAT_BATTLE_BIN__80098d80 = (u_long *)SCUS_MRTA_Malloc(0x8800);
     if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) {
       return DAT_BATTLE_BIN__80098d74;
     }
@@ -66172,7 +66951,7 @@ LAB_BATTLE_BIN__80088aa4:
       }
       DAT_BATTLE_BIN__80096120 = uVar1;
       DAT_BATTLE_BIN__80098d80 =
-           (u_long *)BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094c08 + iVar6));
+           (u_long *)SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094c08 + iVar6));
       if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) goto LAB_BATTLE_BIN__80088eb0;
       iVar2 = *(int *)(&DAT_BATTLE_BIN__80094c04 + iVar6);
       uVar1 = *(uint *)(&DAT_BATTLE_BIN__80094c08 + iVar6);
@@ -66185,7 +66964,7 @@ LAB_BATTLE_BIN__80088aa4:
       goto LAB_BATTLE_BIN__80088aa4;
       DAT_BATTLE_BIN__80096124 = uVar1;
       DAT_BATTLE_BIN__80098d80 =
-           (u_long *)BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094c50 + iVar6));
+           (u_long *)SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094c50 + iVar6));
       if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) goto LAB_BATTLE_BIN__80088eb0;
       iVar2 = *(int *)(&DAT_BATTLE_BIN__80094c4c + iVar6);
       uVar1 = *(uint *)(&DAT_BATTLE_BIN__80094c50 + iVar6);
@@ -66205,9 +66984,9 @@ LAB_BATTLE_BIN__80088aa4:
       }
       DAT_BATTLE_BIN__80098d80 =
            (u_long *)
-           BIN_Malloc_FFT(*(uint *)(&DAT_BATTLE_BIN__80094cd8 +
-                                   *(short *)(&DAT_80049c22 + DAT_BATTLE_BIN__80098d7c * 0x14) * 8))
-      ;
+           SCUS_MRTA_Malloc(*(uint *)(&DAT_BATTLE_BIN__80094cd8 +
+                                     *(short *)(&DAT_80049c22 + DAT_BATTLE_BIN__80098d7c * 0x14) * 8
+                                     ));
       if (DAT_BATTLE_BIN__80098d80 == (u_long *)0x0) goto LAB_BATTLE_BIN__80088eb0;
       iVar2 = *(int *)(&DAT_BATTLE_BIN__80094cd4 +
                       *(short *)(&DAT_80049c22 + DAT_BATTLE_BIN__80098d7c * 0x14) * 8);
@@ -66287,14 +67066,14 @@ void BATTLE_some_tile_coord_calc_800890b8
   FUN_BATTLE_BIN__80088eec();
   SetRotMatrix(&BATTLE_Rotation_Matrix_Elements);
   SetTransMatrix(&BATTLE_Rotation_Matrix_Elements);
-  SCUS_save_3_ushort(&screen_coord->x,(short)BATTLE_Cursor_XCoord * 0x1c + 0xe,0,
-                     (short)BATTLE_Cursor_YCoord * 0x1c + 0xe);
+  SCUS_save_3_ushort(&screen_coord->x,(short)BATTLE_Cursor_X_Coord * 0x1c + 0xe,0,
+                     (short)BATTLE_Cursor_Y_Coord * 0x1c + 0xe);
   screen_z = BATTLE_calculate_screen_z_from_tile_slope_and_depth
-                       (screen_coord,BATTLE_Cursor_ZCoord & 0xff);
+                       (screen_coord,BATTLE_Cursor_Z_Coord & 0xff);
   screen_coord->z = (short)screen_z;
   tile_data = BATTLE_get_tile_data_ptr
                         (((int)screen_coord->x / 0x1c) * 0x10000 >> 0x10,
-                         ((int)screen_coord->y / 0x1c) * 0x10000 >> 0x10,BATTLE_Cursor_ZCoord);
+                         ((int)screen_coord->y / 0x1c) * 0x10000 >> 0x10,BATTLE_Cursor_Z_Coord);
   screen_coord->z = screen_coord->z + (ushort)(tile_data->SlopeAndDepth >> 5) * -0xc;
   if ((tile_data->TileType & TileMask) == NaturalSurface) {
     BATTLE_convert_screen_coords_modify_by_1(screen_coord,intermediate);
@@ -66329,10 +67108,10 @@ void BATTLE_some_tile_coord_calc_and_cursor_glow_8008924c(void)
   otag_list1 = SCUS_get_OTAG_list();
   FUN_BATTLE_BIN__8007e304((SVECTOR *)&screen_coord,(int)otag_list1);
   iVar1 = FUN_BATTLE_BIN__8007c444
-                    (&screen_coord,BATTLE_Cursor_ZCoord & 0xff,(short *)(SVECTOR *)coord_array);
+                    (&screen_coord,BATTLE_Cursor_Z_Coord & 0xff,(short *)(SVECTOR *)coord_array);
   tile_data = BATTLE_get_tile_data_ptr
                         (((int)screen_coord.x / 0x1c) * 0x10000 >> 0x10,
-                         ((int)screen_coord.y / 0x1c) * 0x10000 >> 0x10,BATTLE_Cursor_ZCoord);
+                         ((int)screen_coord.y / 0x1c) * 0x10000 >> 0x10,BATTLE_Cursor_Z_Coord);
   otag_list1 = SCUS_get_OTAG_list();
   BATTLE_build_cursor_tile_glow
             (tile_data->TileInteraction >> 1 & 1,iVar1,(SVECTOR *)coord_array,
@@ -66378,7 +67157,7 @@ void FUN_BATTLE_BIN__8008945c(int param_1,int param_2,ushort param_3,ushort para
 {
   ENTDDisplayUnitData *pEVar1;
   
-  pEVar1 = BATTLE_get_unit_misc_data_from_misc_id((ushort)param_1);
+  pEVar1 = BATTLE_get_unit_misc_data_from_entd_id((ushort)param_1);
   if (pEVar1 != (ENTDDisplayUnitData *)0x0) {
     FUN_BATTLE_BIN__8007a7b8((ushort)param_1);
     pEVar1->field_0x13e = 1;
@@ -67879,6 +68658,8 @@ void BATTLE_set_camera_zoom_dest_and_anim_frames(int *dest,uint frame_count)
 
 
 
+// https://ffhacktics.com/wiki/Modify_All_Camera_Zooms_and_Countdown
+
 void BATTLE_modify_all_camera_zooms_and_countdown(void)
 
 {
@@ -67942,11 +68723,11 @@ void FUN_BATTLE_BIN__8008ba8c(short *target,uint frame_count)
   anim_count = (int)(frame_count & 0xffff) / BATTLE_Animation_Speed;
   BATTLE_Camera_Pitch_Countdown = (short)anim_count;
   anim_count = anim_count & 0xffff;
-  DAT_BATTLE_BIN__800a1c6c =
+  BATTLE_Camera_Pitch_Modifier =
        (short)(((int)*target - (int)(short)BATTLE_Camera_Pitch_Angle) / (int)anim_count);
-  DAT_BATTLE_BIN__800a1c6e =
+  BATTLE_Camera_Yaw_Modifier =
        (short)(((int)*target - (int)(short)BATTLE_Camera_Yaw_Angle) / (int)anim_count);
-  DAT_BATTLE_BIN__800a1c70 =
+  BATTLE_Camera_Roll_Modifier =
        (short)(((int)*target - (int)BATTLE_Camera_Roll_Angle) / (int)anim_count);
   return;
 }
@@ -67961,21 +68742,23 @@ void FUN_BATTLE_BIN__8008bb20(short *target,uint frame_count)
   uVar1 = (int)(frame_count & 0xffff) / BATTLE_Animation_Speed;
   BATTLE_Camera_Pitch_Countdown = (short)uVar1;
   uVar1 = uVar1 & 0xffff;
-  DAT_BATTLE_BIN__800a1c6c = (short)((int)*target / (int)uVar1);
-  DAT_BATTLE_BIN__800a1c6e = (short)((int)target[1] / (int)uVar1);
-  DAT_BATTLE_BIN__800a1c70 = (short)((int)target[2] / (int)uVar1);
+  BATTLE_Camera_Pitch_Modifier = (short)((int)*target / (int)uVar1);
+  BATTLE_Camera_Yaw_Modifier = (short)((int)target[1] / (int)uVar1);
+  BATTLE_Camera_Roll_Modifier = (short)((int)target[2] / (int)uVar1);
   return;
 }
 
 
 
-void BATTLE_increment_all_camera_pitch(void)
+// https://ffhacktics.com/wiki/Increment_All_Camera_Pitch_and_Countdown
+
+void BATTLE_increment_all_camera_pitch_and_countdown(void)
 
 {
   if (BATTLE_Camera_Pitch_Countdown != 0) {
-    BATTLE_Camera_Pitch_Angle = BATTLE_Camera_Pitch_Angle + DAT_BATTLE_BIN__800a1c6c;
-    BATTLE_Camera_Yaw_Angle = BATTLE_Camera_Yaw_Angle + DAT_BATTLE_BIN__800a1c6e;
-    BATTLE_Camera_Roll_Angle = BATTLE_Camera_Roll_Angle + DAT_BATTLE_BIN__800a1c70;
+    BATTLE_Camera_Pitch_Angle = BATTLE_Camera_Pitch_Angle + BATTLE_Camera_Pitch_Modifier;
+    BATTLE_Camera_Yaw_Angle = BATTLE_Camera_Yaw_Angle + BATTLE_Camera_Yaw_Modifier;
+    BATTLE_Camera_Roll_Angle = BATTLE_Camera_Roll_Angle + BATTLE_Camera_Roll_Modifier;
     BATTLE_Camera_Pitch_Countdown = BATTLE_Camera_Pitch_Countdown + -1;
   }
   return;
@@ -68065,7 +68848,7 @@ void FUN_BATTLE_BIN__8008bd0c(short param_1,char param_2,short param_3)
 void BATTLE_call_update_anim_display_by_misc_id(ushort unit_misc_id)
 
 {
-  BATTLE_update_anim_display_by_misc_id(unit_misc_id);
+  BATTLE_update_anim_display_by_entd_id(unit_misc_id);
   return;
 }
 
@@ -68078,7 +68861,7 @@ void BATTLE_set_mounted_anim_state_from_misc_id(ushort misc_id)
 {
   ENTDDisplayUnitData *unit_misc_data;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   BATTLE_set_anim_based_on_mount_state(unit_misc_data);
   return;
 }
@@ -68092,7 +68875,7 @@ void BATTLE_set_idle_anim_from_misc_id(ushort misc_id)
 {
   ENTDDisplayUnitData *unit_misc_data;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   BATTLE_set_idle_anim_from_status(unit_misc_data);
   return;
 }
@@ -68106,7 +68889,7 @@ void BATTLE_set_unit_anim_from_misc_id(ushort misc_id)
 {
   ENTDDisplayUnitData *unit_misc_data;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   BATTLE_set_anim_from_status(unit_misc_data);
   return;
 }
@@ -68120,7 +68903,7 @@ void BATTLE_set_anim_value_from_misc_id(ushort misc_id,short anim_value)
 {
   ENTDDisplayUnitData *misc_unit_data;
   
-  misc_unit_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_unit_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_unit_data != (ENTDDisplayUnitData *)0x0) {
     BATTLE_store_unit_anim_facing(anim_value,misc_unit_data->CurrentFacing,misc_unit_data);
   }
@@ -68172,7 +68955,7 @@ int BATTLE_get_current_facing_short_from_misc_id(ushort misc_id)
   int facing_hint;
   int result;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     result = -1;
   }
@@ -68205,7 +68988,7 @@ int BATTLE_set_anim_from_facing_hint(int misc_id,int facing_hint)
   ENTDDisplayUnitData *unit_misc_data;
   ENTDChangeOfAnim anim_change;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_id);
   if (unit_misc_data == (ENTDDisplayUnitData *)0x0) {
     misc_id = -1;
   }
@@ -68235,7 +69018,7 @@ int BATTLE_get_unknown_facing_short_from_misc_id(ushort misc_id)
   int result;
   int facing;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     result = -1;
   }
@@ -68297,7 +69080,7 @@ int BATTLE_get_current_facing_byte_from_misc_id(ushort misc_id)
   int facing_byte;
   int result;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     result = -1;
   }
@@ -68328,7 +69111,7 @@ int BATTLE_call_store_anim_facing_move(int unit_misc_id,int facing_hint)
   ENTDDisplayUnitData *unit_misc_data;
   ENTDChangeOfAnim anim_change;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)unit_misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)unit_misc_id);
   if (unit_misc_data == (ENTDDisplayUnitData *)0x0) {
     unit_misc_id = -1;
   }
@@ -68356,7 +69139,7 @@ int FUN_BATTLE_BIN__8008c18c(ushort misc_id)
   int result;
   int maybe_facing_dir;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     result = -1;
   }
@@ -68416,7 +69199,7 @@ bool BATTLE_set_shadow_graphic_trigger_from_misc_id(ushort misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     *(undefined *)&misc_data->ShadowGraphicTrigger = 1;
   }
@@ -68432,7 +69215,7 @@ bool BATTLE_unset_shadow_graphic_trigger_from_misc_id(ushort misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     *(undefined *)&misc_data->ShadowGraphicTrigger = 0;
   }
@@ -68531,7 +69314,7 @@ short * BATTLE_get_screen_data_pointer_from_misc_id(ushort unit_misc_id)
   ENTDDisplayUnitData *misc_data;
   short *screen_x_ptr;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(unit_misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(unit_misc_id);
   screen_x_ptr = &misc_data->ScreenX;
   if (misc_data == (ENTDDisplayUnitData *)NULL) {
     screen_x_ptr = (short *)NULL;
@@ -68660,7 +69443,7 @@ bool BATTLE_walk_to(ushort misc_id,CoordShort *dest,uint elevation_addend,byte a
   sbyte *misc_tiles_final_move_ptr;
   undefined4 *puVar4;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     SCUS_exception_pointer_DEPRECATED();
   }
@@ -68720,7 +69503,7 @@ bool BATTLE_rider_dismount_prep(ushort misc_id,uint param_2,uint param_3)
   uint uVar2;
   uint uVar3;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     misc_data->NumTilesFinalMove = 1;
     *(undefined4 *)&misc_data->WalkSpeed = 0x2000;
@@ -68763,8 +69546,8 @@ bool BATTLE_mount_by_misc_ids(ushort rider_misc_id,ushort mount_misc_id)
   ENTDDisplayUnitData *rider_unit_data;
   ENTDDisplayUnitData *mount_unit_data;
   
-  rider_unit_data = BATTLE_get_unit_misc_data_from_misc_id(rider_misc_id);
-  mount_unit_data = BATTLE_get_unit_misc_data_from_misc_id(mount_misc_id);
+  rider_unit_data = BATTLE_get_unit_misc_data_from_entd_id(rider_misc_id);
+  mount_unit_data = BATTLE_get_unit_misc_data_from_entd_id(mount_misc_id);
   if ((rider_unit_data == (ENTDDisplayUnitData *)0x0) ||
      (mount_unit_data == (ENTDDisplayUnitData *)0x0)) {
     mount_success = false;
@@ -68785,7 +69568,7 @@ bool BATTLE_increment_another_coords_by_misc_id_2(ushort misc_id,CoordShort *dat
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     misc_data->AnotherX = misc_data->AnotherX + data->x;
     misc_data->AnotherZ = misc_data->AnotherZ + data->z;
@@ -68806,7 +69589,7 @@ bool BATTLE_increment_another_coords_by_misc_id(ushort misc_id,CoordShort *data)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     misc_data->AnotherX = misc_data->AnotherX + data->x;
     misc_data->AnotherZ = misc_data->AnotherZ + data->z;
@@ -68828,7 +69611,7 @@ short * BATTLE_get_another_coord_pointer_from_misc_id(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   short *another_x_coord_ptr;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   another_x_coord_ptr = &misc_data->AnotherX;
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     SCUS_exception_pointer_DEPRECATED();
@@ -68849,7 +69632,7 @@ bool BATTLE_place_unit_in_new_location(ushort misc_id,CoordShort *map_coord,int 
   int screen_z;
   byte map_coord_byte;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     done = false;
   }
@@ -68900,7 +69683,7 @@ bool BATTLE_does_misc_unit_id_exist(ushort misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   return misc_data != (ENTDDisplayUnitData *)NULL;
 }
 
@@ -68914,7 +69697,7 @@ void BATTLE_flip_misc_data_move_flag_bit_1(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   uint move_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     move_data._0_1_ = misc_data->MoveX;
     move_data._1_1_ = misc_data->MoveY;
@@ -68940,7 +69723,7 @@ void BATTLE_unset_misc_data_move_flag_bit_1(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   uint move_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     move_data._0_1_ = misc_data->MoveX;
     move_data._1_1_ = misc_data->MoveY;
@@ -68964,7 +69747,7 @@ void BATTLE_set_misc_data_0x13f_to_2(ushort misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     misc_data->field_0x13f = 2;
   }
@@ -68980,7 +69763,7 @@ void BATTLE_set_misc_data_0x13f_to_0(ushort misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     misc_data->field_0x13f = 0;
   }
@@ -68997,7 +69780,7 @@ void BATTLE_flip_misc_data_move_flag_bit_3(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   uint move_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     move_data._0_1_ = misc_data->MoveX;
     move_data._1_1_ = misc_data->MoveY;
@@ -69022,7 +69805,7 @@ void BATTLE_unset_misc_data_move_flag_bit_3(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   uint move_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     move_data._0_1_ = misc_data->MoveX;
     move_data._1_1_ = misc_data->MoveY;
@@ -69046,7 +69829,7 @@ void BATTLE_weather_time_tile_palette_mod_by_misc_id(ushort misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     BATTLE_weather_time_tile_palette_mod(misc_data,0,1);
   }
@@ -69063,7 +69846,7 @@ void BATTLE_flip_misc_data_move_flag_bit_2(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   uint move_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     move_data._0_1_ = misc_data->MoveX;
     move_data._1_1_ = misc_data->MoveY;
@@ -69088,7 +69871,7 @@ void BATTLE_unset_misc_data_move_flag_bit_2(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   uint move_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     move_data._0_1_ = misc_data->MoveX;
     move_data._1_1_ = misc_data->MoveY;
@@ -69112,7 +69895,7 @@ int BATTLE_get_battle_id_by_misc_id(ushort misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     SCUS_exception_pointer_DEPRECATED();
   }
@@ -69195,7 +69978,7 @@ bool BATTLE_unit_moving_check_by_misc_id(ushort misc_id)
   bool result;
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     SCUS_exception_pointer_DEPRECATED();
     result = false;
@@ -69215,7 +69998,7 @@ void BATTLE_set_thrown_item_palette_by_misc_id(uint item_id,ushort misc_id)
 {
   ENTDDisplayUnitData *unit_misc_data;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (unit_misc_data != (ENTDDisplayUnitData *)0x0) {
     BATTLE_set_thrown_item_palette(item_id,unit_misc_data);
   }
@@ -69236,7 +70019,7 @@ bool BATTLE_event_instruction_add_ghost_unit
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     DAT_80049c18 = 0;
     DAT_BATTLE_BIN__80098d74 = 0;
@@ -69311,7 +70094,7 @@ bool BATTLE_animate_and_set_enemy_level_data_by_misc_id(ushort misc_id)
   ENTDDisplayUnitData *misc_data;
   BattleUnitData *battle_stats;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(misc_id);
   if (misc_data == (ENTDDisplayUnitData *)0x0) {
     success = false;
   }
@@ -69336,7 +70119,7 @@ bool BATTLE_reset_unit_misc_gfx_trigger(ushort unit_misc_id)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(unit_misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(unit_misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     *(undefined2 *)&misc_data->AnimateUnit = 0;
     (misc_data->UnitSpriteData).GraphicTrigger = 0;
@@ -69377,7 +70160,7 @@ bool FUN_BATTLE_BIN__8008d228(ushort param_1)
 {
   ENTDDisplayUnitData *misc_data;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id(param_1);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id(param_1);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     FUN_BATTLE_BIN__80086f2c(misc_data);
   }
@@ -69497,11 +70280,11 @@ bool FUN_BATTLE_BIN__8008d5c8(int param_1)
 {
   int iVar1;
   
-  iVar1 = (&DAT_BATTLE_BIN__800a77c4)[param_1 * 0x1d59];
+  iVar1 = (&BATTLE_VRAM_Slot_ENTD_ID)[param_1 * 0x1d59];
   if (iVar1 == 0xff) {
-    LoadImage((RECT *)(&DAT_BATTLE_BIN__800a77d0 + param_1 * 0x3ab2),
-              (u_long *)(&DAT_BATTLE_BIN__800a8928 + param_1 * 0x7564));
-    (&DAT_BATTLE_BIN__800a77c4)[param_1 * 0x1d59] = 0xfe;
+    SYS_LoadImage((RECT *)(&DAT_BATTLE_BIN__800a77d0 + param_1 * 0x3ab2),
+                  &DAT_BATTLE_BIN__800a8928 + param_1 * 0x7564);
+    (&BATTLE_VRAM_Slot_ENTD_ID)[param_1 * 0x1d59] = 0xfe;
   }
   return iVar1 == 0xff;
 }
@@ -69513,9 +70296,9 @@ bool FUN_BATTLE_BIN__8008d650(int param_1)
 {
   int iVar1;
   
-  iVar1 = (&DAT_BATTLE_BIN__800a77c4)[param_1 * 0x1d59];
+  iVar1 = (&BATTLE_VRAM_Slot_ENTD_ID)[param_1 * 0x1d59];
   if (iVar1 == 0xfe) {
-    (&DAT_BATTLE_BIN__800a77c4)[param_1 * 0x1d59] = 0xff;
+    (&BATTLE_VRAM_Slot_ENTD_ID)[param_1 * 0x1d59] = 0xff;
   }
   return iVar1 == 0xfe;
 }
@@ -69545,8 +70328,8 @@ undefined4 FUN_BATTLE_BIN__8008d708(int param_1,int param_2)
   int iVar3;
   RECT local_28;
   
-  pEVar1 = BATTLE_get_unit_misc_data_from_misc_id((ushort)param_1);
-  if ((&DAT_BATTLE_BIN__800a77c4)[param_2 * 0x1d59] == 0xfe) {
+  pEVar1 = BATTLE_get_unit_misc_data_from_entd_id((ushort)param_1);
+  if ((&BATTLE_VRAM_Slot_ENTD_ID)[param_2 * 0x1d59] == 0xfe) {
     iVar2 = 0;
     iVar3 = 0;
     do {
@@ -69555,15 +70338,15 @@ undefined4 FUN_BATTLE_BIN__8008d708(int param_1,int param_2)
         FUN_BATTLE_BIN__8007aa34
                   (&DAT_BATTLE_BIN__800c7cea + (uint)pEVar1->SpritesheetVRAM * 0x32d6,
                    &DAT_BATTLE_BIN__800a8928 + iVar3);
-        LoadImage((RECT *)(&DAT_BATTLE_BIN__800a77d0 + param_2 * 0x3ab2),
-                  (u_long *)(&DAT_BATTLE_BIN__800a8928 + iVar3));
+        SYS_LoadImage((RECT *)(&DAT_BATTLE_BIN__800a77d0 + param_2 * 0x3ab2),
+                      &DAT_BATTLE_BIN__800a8928 + iVar3);
         local_28.x = (ushort)(pEVar1->SpritesheetVRAM >> 3) * 0x40 + 0x340;
         local_28.w = 0x40;
         local_28.h = 0x20;
         local_28.y = (pEVar1->SpritesheetVRAM & 7) * 0x20 + 0x100;
         MoveImage(&local_28,(int)(short)(&DAT_BATTLE_BIN__800a77d0)[param_2 * 0x3ab2],
                   (short)(&DAT_BATTLE_BIN__800a77d2)[param_2 * 0x3ab2] + 200);
-        (&DAT_BATTLE_BIN__800a77c4)[param_2 * 0x1d59] = param_1 + 0x80;
+        (&BATTLE_VRAM_Slot_ENTD_ID)[param_2 * 0x1d59] = param_1 + 0x80;
         (&DAT_BATTLE_BIN__800a77c8)[param_2 * 0x1d59] = 2;
         (&DAT_BATTLE_BIN__800a77cc)[param_2 * 0x1d59] = 1;
         return 1;
@@ -69581,9 +70364,9 @@ bool FUN_BATTLE_BIN__8008d8e4(int param_1)
 {
   bool bVar1;
   
-  bVar1 = ((&DAT_BATTLE_BIN__800a77c4)[param_1 * 0x1d59] & 0x80) != 0;
+  bVar1 = ((&BATTLE_VRAM_Slot_ENTD_ID)[param_1 * 0x1d59] & 0x80) != 0;
   if (bVar1) {
-    (&DAT_BATTLE_BIN__800a77c4)[param_1 * 0x1d59] = 0xff;
+    (&BATTLE_VRAM_Slot_ENTD_ID)[param_1 * 0x1d59] = 0xff;
     (&DAT_BATTLE_BIN__800a77cc)[param_1 * 0x1d59] = 0;
   }
   return bVar1;
@@ -69600,7 +70383,7 @@ undefined4 FUN_BATTLE_BIN__8008d950(void)
   iVar2 = 0;
   iVar1 = 0;
   do {
-    *(undefined4 *)((int)&DAT_BATTLE_BIN__800a77c4 + iVar1) = 0xff;
+    *(undefined4 *)((int)&BATTLE_VRAM_Slot_ENTD_ID + iVar1) = 0xff;
     *(undefined4 *)((int)&DAT_BATTLE_BIN__800a77c8 + iVar1) = 0;
     *(undefined4 *)((int)&DAT_BATTLE_BIN__800a77cc + iVar1) = 0;
     iVar2 = iVar2 + 1;
@@ -69657,7 +70440,7 @@ int BATTLE_get_unit_spritesheet_height_from_misc_id(ushort unit_id)
   ENTDDisplayUnitData *unit_misc_data;
   int spritesheet_height;
   
-  unit_misc_data = BATTLE_get_unit_misc_data_from_misc_id(unit_id);
+  unit_misc_data = BATTLE_get_unit_misc_data_from_entd_id(unit_id);
   spritesheet_height = BATTLE_get_unit_spritesheet_height_from_misc_data(unit_misc_data);
   return spritesheet_height;
 }
@@ -69800,8 +70583,8 @@ int BATTLE_Set_Event_Speed_Inner(int speed)
 void FUN_BATTLE_BIN__8008df10(undefined2 *param_1)
 
 {
-  SCUS_save_3_ushort(param_1,(ushort)BATTLE_Cursor_XCoord,(ushort)BATTLE_Cursor_ZCoord,
-                     (ushort)BATTLE_Cursor_YCoord);
+  SCUS_save_3_ushort(param_1,(ushort)BATTLE_Cursor_X_Coord,(ushort)BATTLE_Cursor_Z_Coord,
+                     (ushort)BATTLE_Cursor_Y_Coord);
   return;
 }
 
@@ -69821,7 +70604,7 @@ void FUN_BATTLE_BIN__8008df78(ushort param_1)
 {
   ENTDDisplayUnitData *pEVar1;
   
-  pEVar1 = BATTLE_get_unit_misc_data_from_misc_id(param_1);
+  pEVar1 = BATTLE_get_unit_misc_data_from_entd_id(param_1);
   BATTLE_get_tile_data_ptr((uint)pEVar1->MapX,(uint)pEVar1->MapY,(uint)pEVar1->MapZ);
   return;
 }
@@ -69845,7 +70628,7 @@ void FUN_BATTLE_BIN__8008dfe0(ushort param_1)
 {
   ENTDDisplayUnitData *pEVar1;
   
-  pEVar1 = BATTLE_get_unit_misc_data_from_misc_id(param_1);
+  pEVar1 = BATTLE_get_unit_misc_data_from_entd_id(param_1);
   BATTLE_get_tile_data_ptr
             (((int)pEVar1->ScreenX / 0x1c) * 0x10000 >> 0x10,
              ((int)pEVar1->ScreenY / 0x1c) * 0x10000 >> 0x10,(uint)pEVar1->MapZ);
@@ -69866,16 +70649,14 @@ bool FUN_BATTLE_BIN__8008e068(void)
 
 
 // https://ffhacktics.com/wiki/0008e094_-_0008e0b8
-// 
-// return value is used as a unit misc id
 
-int BATTLE_call_load_map_data(void)
+int BATTLE_load_deep_dungeon_map_data(void)
 
 {
-  int misc_id;
+  int result;
   
-  misc_id = BATTLE_load_map_data(DAT_BATTLE_BIN__80096104,0x76);
-  return misc_id;
+  result = BATTLE_load_map_data(DAT_BATTLE_BIN__80096104,0x76);
+  return result;
 }
 
 
@@ -69986,10 +70767,10 @@ void FUN_BATTLE_BIN__8008e358(short *param_1,ushort *param_2)
                 param_1[2] * -0x1000);
   SCUS_save_3_ushort((short *)&BATTLE_Camera_Pitch_Angle,*param_2 & 0x1fff,param_2[1] & 0x1fff,
                      param_2[2] & 0x1fff);
-  BATTLE_Cursor_ZCoord = 0;
-  BATTLE_Cursor_XCoord = BATTLE_Current_Real_Coords.x / 0x1c000;
-  BATTLE_Cursor_YCoord = BATTLE_Current_Real_Coords.y / 0x1c000;
-  pMVar1 = BATTLE_get_tile_data_ptr(BATTLE_Cursor_XCoord,BATTLE_Cursor_YCoord,0);
+  BATTLE_Cursor_Z_Coord = 0;
+  BATTLE_Cursor_X_Coord = BATTLE_Current_Real_Coords.x / 0x1c000;
+  BATTLE_Cursor_Y_Coord = BATTLE_Current_Real_Coords.y / 0x1c000;
+  pMVar1 = BATTLE_get_tile_data_ptr(BATTLE_Cursor_X_Coord,BATTLE_Cursor_Y_Coord,0);
   BATTLE_Current_Real_Coords.z = (uint)pMVar1->Height * -0xc000;
   return;
 }
@@ -70008,9 +70789,9 @@ void BATTLE_init_camera_draw_defaults(void)
   Store_3_Words(&BATTLE_Current_Real_Coords.x,0,0,0);
   BATTLE_Current_Acting_Unit_ENTD_ID = 0xff;
   BATTLE_Casting_Unit_ENTD_ID = 0xff;
-  BATTLE_Cursor_YCoord = 0;
-  BATTLE_Cursor_ZCoord = 0;
-  BATTLE_Cursor_XCoord = 0;
+  BATTLE_Cursor_Y_Coord = 0;
+  BATTLE_Cursor_Z_Coord = 0;
+  BATTLE_Cursor_X_Coord = 0;
   BATTLE_Map_Rotation_Action = MapNotRotating;
   BATTLE_Map_Zooming_Action = MapNotZooming;
   BATTLE_Map_Zoom_Target = MapZoomedIn;
@@ -70483,10 +71264,12 @@ void FUN_BATTLE_BIN__8008f130(void)
 
 
 
+// https://ffhacktics.com/wiki/0008f208_-_0008f31c
+
 void FUN_BATTLE_BIN__8008f208(void)
 
 {
-  void *pvVar1;
+  void *otag_list;
   
   if ((byte)(DAT_BATTLE_BIN__800961ca | DAT_BATTLE_BIN__800961c8 | DAT_BATTLE_BIN__800961c9) != 0) {
     *(byte *)(&DAT_BATTLE_BIN__800c7c74 + ScreenPolarity * 6) = DAT_BATTLE_BIN__800961c8;
@@ -70494,10 +71277,10 @@ void FUN_BATTLE_BIN__8008f208(void)
     ;
     *(byte *)((int)&DAT_BATTLE_BIN__800c7c74 + ScreenPolarity * 0x18 + 2) = DAT_BATTLE_BIN__800961ca
     ;
-    pvVar1 = SCUS_get_OTAG_list();
-    AddPrim(pvVar1,&DAT_BATTLE_BIN__800c7c70 + ScreenPolarity * 6);
-    pvVar1 = SCUS_get_OTAG_list();
-    AddPrim(pvVar1,&DAT_BATTLE_BIN__800e6aa8 + ScreenPolarity * 3);
+    otag_list = SCUS_get_OTAG_list();
+    AddPrim(otag_list,&DAT_BATTLE_BIN__800c7c70 + ScreenPolarity * 6);
+    otag_list = SCUS_get_OTAG_list();
+    AddPrim(otag_list,&DAT_BATTLE_BIN__800e6aa8 + ScreenPolarity * 3);
   }
   return;
 }
@@ -72505,7 +73288,7 @@ void FUN_BATTLE_BIN__80092f98(void)
     local_10.w = 0x100;
     local_10.x = 0;
     local_10.h = 0xe;
-    LoadImage(&local_10,(u_long *)&BATTLE_Modified_Palette);
+    SYS_LoadImage(&local_10,&BATTLE_Modified_Palette);
     DAT_BATTLE_BIN__800995ec = 0;
     DAT_BATTLE_BIN__800995f0 = 1;
   }
@@ -72588,7 +73371,7 @@ void BATTLE_call_palette_mod_based_on_tile_height
   MapTileData *tile_data;
   CoordShort coord;
   
-  misc_data = BATTLE_get_unit_misc_data_from_misc_id((ushort)misc_id);
+  misc_data = BATTLE_get_unit_misc_data_from_entd_id((ushort)misc_id);
   if (misc_data != (ENTDDisplayUnitData *)0x0) {
     BATTLE_copy_misc_data_screen_xyz_values(&coord,misc_data);
     tile_data = BATTLE_get_tile_data_ptr
@@ -77103,7 +77886,7 @@ void FUN_BATTLE_BIN__800f26bc(undefined param_1,int *param_2)
     DAT_BATTLE_BIN__800f682c = 0x40;
     DAT_BATTLE_BIN__800f682a = 0;
     DAT_BATTLE_BIN__800f682e = 0x100;
-    LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,(u_long *)param_2);
+    SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,param_2);
     do {
       iVar3 = DrawSync(1);
     } while (iVar3 != 0);
@@ -77113,7 +77896,7 @@ void FUN_BATTLE_BIN__800f26bc(undefined param_1,int *param_2)
     DAT_BATTLE_BIN__800f682c = 0x40;
     DAT_BATTLE_BIN__800f682a = 0;
     DAT_BATTLE_BIN__800f682e = 0x100;
-    LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,(u_long *)param_2);
+    SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,param_2);
     do {
       iVar3 = DrawSync(1);
     } while (iVar3 != 0);
@@ -77123,7 +77906,7 @@ void FUN_BATTLE_BIN__800f26bc(undefined param_1,int *param_2)
     DAT_BATTLE_BIN__800f682c = 0x40;
     DAT_BATTLE_BIN__800f682a = 0;
     DAT_BATTLE_BIN__800f682e = 0x100;
-    LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,(u_long *)param_2);
+    SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,param_2);
     do {
       iVar3 = DrawSync(1);
     } while (iVar3 != 0);
@@ -77133,7 +77916,7 @@ void FUN_BATTLE_BIN__800f26bc(undefined param_1,int *param_2)
     DAT_BATTLE_BIN__800f682c = 0x40;
     DAT_BATTLE_BIN__800f682a = 0;
     DAT_BATTLE_BIN__800f682e = 0x100;
-    LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,(u_long *)param_2);
+    SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__800f6828,param_2);
     do {
       iVar3 = DrawSync(1);
     } while (iVar3 != 0);
@@ -77549,8 +78332,6 @@ u_long * FUN_BATTLE_BIN__800f36c4(undefined4 param_1,int param_2,u_long *param_3
 
 
 // https://ffhacktics.com/wiki/Load_Map_Data
-// 
-// return value is used as a unit misc id
 
 int BATTLE_load_map_data(uint map,uint param_2)
 
@@ -77595,7 +78376,7 @@ int BATTLE_load_map_data(uint map,uint param_2)
       if (iVar11 != 0) {
         return 0;
       }
-      DAT_BATTLE_BIN__80121ffc = (u_long *)BIN_Malloc_FFT(0x20000);
+      DAT_BATTLE_BIN__80121ffc = (u_long *)SCUS_MRTA_Malloc(0x20000);
       if (DAT_BATTLE_BIN__80121ffc == (u_long *)0x0) {
         param_2 = 0x3c2;
         SCUS_do_nothing_80044a00();
@@ -77614,7 +78395,7 @@ switchD_BATTLE_BIN__800f3764_caseD_75:
       if (iVar11 != 0) {
         return 0;
       }
-      DAT_BATTLE_BIN__80121ffc = (u_long *)BIN_Malloc_FFT(0x20000);
+      DAT_BATTLE_BIN__80121ffc = (u_long *)SCUS_MRTA_Malloc(0x20000);
       uVar13 = 2;
       if (DAT_BATTLE_BIN__80121ffc == (u_long *)0x0) {
         param_2 = 0x3c2;
@@ -77954,7 +78735,7 @@ LAB_BATTLE_BIN__800f384c:
     BATTLE_Map_Data_Load_Command = 0;
     BATTLE_Map_Data_Reload_Command = 0x77;
     FUN_BATTLE_BIN__800eeaf8(0x8b);
-    SCUS_MRTA_free((int)DAT_BATTLE_BIN__80121ffc);
+    SCUS_MRTA_free(DAT_BATTLE_BIN__80121ffc);
     return BATTLE_Map_Data_Load_Command;
   }
   iVar11 = BATTLE_Map_Data_Load_Command;
@@ -78199,7 +78980,7 @@ int FUN_BATTLE_BIN__800f4acc(int param_1)
         } while (*pbVar7 < 0x80);
       }
     }
-    DAT_BATTLE_BIN__801251d0 = (u_long *)BIN_Malloc_FFT(0x20000);
+    DAT_BATTLE_BIN__801251d0 = (u_long *)SCUS_MRTA_Malloc(0x20000);
     if (DAT_BATTLE_BIN__801251d0 == (u_long *)0x0) {
       SCUS_do_nothing_80044a00();
     }
@@ -78210,7 +78991,7 @@ int FUN_BATTLE_BIN__800f4acc(int param_1)
   else if ((DAT_BATTLE_BIN__800f6678 == 0x8d) && (iVar6 = Check_File_Still_Loading(), iVar6 != 0)) {
     FUN_BATTLE_BIN__8008f498
               (param_1,1,0,1,(ushort *)(DAT_BATTLE_BIN__801251d0 + DAT_BATTLE_BIN__801251d0[0x11]));
-    SCUS_MRTA_free((int)DAT_BATTLE_BIN__801251d0);
+    SCUS_MRTA_free(DAT_BATTLE_BIN__801251d0);
     DAT_BATTLE_BIN__800f6678 = 0;
   }
   return DAT_BATTLE_BIN__800f6678;
@@ -79936,7 +80717,7 @@ void BATTLE_valloc_tpage_7(RECT *UnitStatRect,int BlankRect,u_long *param_3)
             if (param_3 == (u_long *)0xffffffff) {
               return;
             }
-            LoadImage(UnitStatRect,param_3);
+            SYS_LoadImage(UnitStatRect,param_3);
             return;
           }
 LAB_BATTLE_BIN__8012ec40:
@@ -80398,13 +81179,13 @@ void BATTLE_some_text_and_sfx_handling(int param_1,undefined2 param_2,int param_
   undefined4 uVar6;
   u_long uVar7;
   int *piVar8;
-  int iVar9;
+  undefined *puVar9;
   uint uVar10;
   uint uVar11;
   int iVar12;
   int iVar13;
   uint uVar14;
-  u_long *p;
+  undefined *src;
   int iVar15;
   undefined *dest;
   
@@ -80443,8 +81224,8 @@ void BATTLE_some_text_and_sfx_handling(int param_1,undefined2 param_2,int param_
     Thread_doNext();
   } while( true );
   uVar11 = DAT_BATTLE_BIN__8016dad4 & 3;
-  p = (u_long *)
-      (iVar15 * 0x2a0 + (uint)*(byte *)(&DAT_BATTLE_BIN__80166090 + iVar15) * 0x54 + -0x7fe92500);
+  src = (undefined *)
+        (iVar15 * 0x2a0 + (uint)*(byte *)(&DAT_BATTLE_BIN__80166090 + iVar15) * 0x54 + -0x7fe92500);
   dest = (undefined *)(iVar15 * 0x54 + -0x7fe91d20);
   cVar2 = (&DAT_BATTLE_BIN__801660fc)[DAT_BATTLE_BIN__8016dad8];
   if ((cVar2 == '\x04') || (DAT_BATTLE_BIN__8016dad8 == 0xfa)) {
@@ -80486,7 +81267,7 @@ void BATTLE_some_text_and_sfx_handling(int param_1,undefined2 param_2,int param_
     do {
       puVar1 = &DAT_BATTLE_BIN__8016e3dc + iVar13;
       iVar13 = iVar13 + 1;
-      *(undefined1 *)((int)p + iVar12 / 2) = *puVar1;
+      src[iVar12 / 2] = *puVar1;
       iVar12 = iVar12 + uVar10;
     } while (iVar13 < 0xe);
   }
@@ -80525,20 +81306,20 @@ LAB_BATTLE_BIN__8012f9dc:
   do {
     uVar14 = (int)uVar11 >> 1;
     if (uVar14 < uVar10 >> 1) {
-      iVar9 = uVar14 + (int)p;
+      puVar9 = src + uVar14;
       do {
         if (DAT_BATTLE_BIN__8016dae0 == 0) {
-          *(undefined *)(iVar9 + iVar13 / 2) = 0;
+          puVar9[iVar13 / 2] = 0;
         }
         else {
-          *(undefined *)(iVar9 + iVar13 / 2) =
+          puVar9[iVar13 / 2] =
                *(undefined *)
                 (iVar12 * 0x80 +
                  DAT_BATTLE_BIN__80173f5c +
                  ((int)(((uint)DAT_BATTLE_BIN__8016dad4 + uVar14 * 2 & 0xf) + 8) >> 1) + 0x400);
         }
         uVar14 = uVar14 + 1;
-        iVar9 = iVar9 + 1;
+        puVar9 = puVar9 + 1;
       } while ((int)uVar14 < (int)(uVar10 >> 1));
     }
     iVar12 = iVar12 + 1;
@@ -80551,17 +81332,17 @@ LAB_BATTLE_BIN__8012f9dc:
     iVar12 = BATTLE_get_script_variable(TotalCharPrintNum);
     BATTLE_set_script_variable(TotalCharPrintNum,iVar12 + 1);
     FUN_BATTLE_BIN__8014bd88
-              ((byte *)((uint)DAT_BATTLE_BIN__8016dad8 * 0x23 + DAT_BATTLE_BIN__80173c98),(int)p,
+              ((byte *)((uint)DAT_BATTLE_BIN__8016dad8 * 0x23 + DAT_BATTLE_BIN__80173c98),(int)src,
                &DAT_BATTLE_BIN__8016dae8,(char)DAT_BATTLE_BIN__8016dae2);
     uVar6 = BATTLE_get_script_variable(0x59);
     DAT_BATTLE_BIN__8016daf8 = (short)(param_1 >> 2) + (short)uVar6 + 0x1c0;
     DAT_BATTLE_BIN__8016dafe = 0xe;
     DAT_BATTLE_BIN__8016dafa = param_2;
-    LoadImage((RECT *)&DAT_BATTLE_BIN__8016daf8,p);
+    SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__8016daf8,src);
   }
   piVar8 = &DAT_BATTLE_BIN__80166090 + iVar15;
   *piVar8 = *piVar8 + 1;
-  BATTLE_copy_bytes(dest,(undefined *)p,0x54);
+  BATTLE_copy_bytes(dest,src,0x54);
   if (param_3 == 0) {
     DrawSync(0);
     *piVar8 = 0;
@@ -80571,12 +81352,12 @@ LAB_BATTLE_BIN__8012f9dc:
       uVar7 = SCUS_get_inverted_button_input(1);
       DAT_BATTLE_BIN__80166080 = 8;
       if ((uVar7 & 0x20) == 0) {
-        if ((DAT_800473ac & 0x7000) == 0) {
+        if ((SCUS_Custom_Options & 0x7000) == 0) {
           DAT_BATTLE_BIN__80166080 = 8;
         }
         else {
           DAT_BATTLE_BIN__80166080 = 1;
-          if ((DAT_800473ac & 0x7000) == 0x1000) {
+          if ((SCUS_Custom_Options & 0x7000) == 0x1000) {
             DAT_BATTLE_BIN__80166080 = 2;
           }
         }
@@ -80952,7 +81733,7 @@ void FUN_BATTLE_BIN__80130628(u_long **param_1)
     DAT_BATTLE_BIN__80166020 = (uint)*(ushort *)((int)param_1 + 0x22);
     DAT_BATTLE_BIN__80166024 = (uint)*(ushort *)(param_1 + 9);
     FUN_BATTLE_BIN__8014b2f0(param_1[4],*param_1,&DAT_BATTLE_BIN__80165fa0);
-    LoadImage((RECT *)(param_1 + 2),*param_1);
+    SYS_LoadImage((RECT *)(param_1 + 2),*param_1);
     Thread_doNext();
     FUN_BATTLE_BIN__8012f04c((undefined *)*param_1);
   }
@@ -83696,7 +84477,7 @@ void BATTLE_display_simple_selection_menu(void)
   FUN_BATTLE_BIN__8014a6cc(8,9);
   DAT_BATTLE_BIN__80165f8c = 0;
   FUN_BATTLE_BIN__8014b2f0((int)(short)puVar1[0xe],p,&DAT_BATTLE_BIN__80165fa0);
-  LoadImage(&RStack_128,p);
+  SYS_LoadImage(&RStack_128,p);
   while( true ) {
     Thread_doNext();
     if (uVar4 == 0) {
@@ -84077,7 +84858,7 @@ LAB_BATTLE_BIN__80139ab4:
   FUN_BATTLE_BIN__8014bed8(p,((int)param_1[2] * (int)param_1[3]) / 2);
   FUN_BATTLE_BIN__801395ac((int)param_1,param_2,(int)p);
   *param_3 = 0;
-  LoadImage(&local_30,p);
+  SYS_LoadImage(&local_30,p);
   BATTLE_copy_bytes((undefined *)&local_28,(undefined *)&local_30,8);
   local_28.h = 2;
   local_28.x = local_30.x;
@@ -84116,17 +84897,16 @@ void BATTLE_maybe_build_scrollable_menu(void)
   int iVar10;
   int iVar11;
   undefined *puVar12;
-  u_long *puVar13;
-  undefined *puVar14;
-  undefined2 *puVar15;
-  POLY_FT4 *pPVar16;
-  char cVar17;
-  undefined *puVar18;
-  POLY_FT4 *pPVar19;
+  undefined *puVar13;
+  undefined2 *puVar14;
+  POLY_FT4 *pPVar15;
+  char cVar16;
+  undefined *puVar17;
+  POLY_FT4 *pPVar18;
+  short *psVar19;
   short *psVar20;
-  short *psVar21;
-  int iVar22;
-  uint uVar23;
+  int iVar21;
+  uint uVar22;
   u_long *p;
   short local_118;
   undefined2 local_116;
@@ -84156,14 +84936,14 @@ void BATTLE_maybe_build_scrollable_menu(void)
   local_30 = 0;
   local_40 = 0;
   if (DAT_BATTLE_BIN__80166018 == 0) {
-    pPVar19 = (POLY_FT4 *)(DAT_BATTLE_BIN__80174048 + 0x388);
+    pPVar18 = (POLY_FT4 *)(DAT_BATTLE_BIN__80174048 + 0x388);
   }
   else {
-    pPVar19 = (POLY_FT4 *)(exe_dest_ptr_arr[2] + 0x1000);
+    pPVar18 = (POLY_FT4 *)(exe_dest_ptr_arr[2] + 0x1000);
   }
   local_70[0] = 0;
   DAT_BATTLE_BIN__80166018 = DAT_BATTLE_BIN__80166018 + 1;
-  local_60 = pPVar19;
+  local_60 = pPVar18;
   puVar8 = (ushort *)Thread_getParam1();
   local_58 = *(short **)(puVar8 + 0x18);
   puVar8[7] = *local_58 * 0x10 + 0x1c;
@@ -84188,75 +84968,75 @@ void BATTLE_maybe_build_scrollable_menu(void)
   local_80.w = (short)(iVar10 >> 2);
   local_80.h = 2;
   ClearImage(&local_80,'\0','\0','\0');
-  iVar22 = 0;
-  puVar18 = auStack_f8;
+  iVar21 = 0;
+  puVar17 = auStack_f8;
   iVar10 = 0;
   local_100.x = 0;
   local_100.y = 0x80;
   local_100.w = 0x100;
   local_100.h = 0x80;
-  pPVar16 = local_60;
+  pPVar15 = local_60;
   do {
-    *(undefined **)&pPVar16[6].u0 = auStack_d0 + iVar10;
-    *(undefined **)&pPVar16[6].x0 = puVar18;
-    *(undefined **)&pPVar16[6].x1 = auStack_a8 + iVar10;
-    FUN_BATTLE_BIN__80138174((ushort *)&local_108,puVar8,(DR_MODE *)&pPVar16[3].x2);
-    puVar18 = puVar18 + 0x14;
-    pPVar16 = (POLY_FT4 *)&pPVar16[7].u2;
-    iVar22 = iVar22 + 1;
+    *(undefined **)&pPVar15[6].u0 = auStack_d0 + iVar10;
+    *(undefined **)&pPVar15[6].x0 = puVar17;
+    *(undefined **)&pPVar15[6].x1 = auStack_a8 + iVar10;
+    FUN_BATTLE_BIN__80138174((ushort *)&local_108,puVar8,(DR_MODE *)&pPVar15[3].x2);
+    puVar17 = puVar17 + 0x14;
+    pPVar15 = (POLY_FT4 *)&pPVar15[7].u2;
+    iVar21 = iVar21 + 1;
     iVar10 = iVar10 + 0x14;
-  } while (iVar22 < 2);
+  } while (iVar21 < 2);
   uVar7 = GetTPage(0,2,0x3c0,0x100);
-  SetDrawMode((DR_MODE *)&pPVar19[3].u0,0,0,(uint)uVar7,&BATTLE_DefaultRECT);
-  iVar22 = 0;
-  cVar17 = -0x28;
+  SetDrawMode((DR_MODE *)&pPVar18[3].u0,0,0,(uint)uVar7,&BATTLE_DefaultRECT);
+  iVar21 = 0;
+  cVar16 = -0x28;
   iVar10 = 0x14;
   uVar7 = GetTPage(0,1,(int)(short)*puVar8 & 0xffc0,(int)(short)puVar8[1] & 0xff00);
-  SetDrawMode((DR_MODE *)(pPVar19 + 3),1,0,(uint)uVar7,&local_100);
-  pPVar16 = pPVar19;
+  SetDrawMode((DR_MODE *)(pPVar18 + 3),1,0,(uint)uVar7,&local_100);
+  pPVar15 = pPVar18;
   do {
-    BATTLE_makeDefaultSprite((SPRT *)((int)&pPVar19->tag + iVar10));
-    pPVar16->y3 = 0x7d7c;
-    pPVar16->u3 = '\b';
-    pPVar16->v3 = '\0';
-    pPVar16->pad2 = 0x10;
-    *(char *)&pPVar16->x3 = cVar17;
-    *(undefined *)((int)&pPVar16->x3 + 1) = 0;
-    *(ushort *)&pPVar16->u2 = puVar8[4] + puVar8[6] + -0xf;
-    sVar2 = (short)iVar22;
-    cVar17 = cVar17 + '\b';
+    BATTLE_makeDefaultSprite((SPRT *)((int)&pPVar18->tag + iVar10));
+    pPVar15->y3 = 0x7d7c;
+    pPVar15->u3 = '\b';
+    pPVar15->v3 = '\0';
+    pPVar15->pad2 = 0x10;
+    *(char *)&pPVar15->x3 = cVar16;
+    *(undefined *)((int)&pPVar15->x3 + 1) = 0;
+    *(ushort *)&pPVar15->u2 = puVar8[4] + puVar8[6] + -0xf;
+    sVar2 = (short)iVar21;
+    cVar16 = cVar16 + '\b';
     iVar10 = iVar10 + 0x14;
-    iVar22 = iVar22 + 1;
-    pPVar16->pad1 = puVar8[5] + sVar2 * (puVar8[7] - 0x32) + 0x10;
-    pPVar16 = (POLY_FT4 *)&pPVar16->u1;
-  } while (iVar22 < 2);
-  BATTLE_makeDefaultSprite((SPRT *)&pPVar19[2].u1);
-  *(undefined *)&pPVar19[2].x3 = 0x10;
-  *(undefined *)((int)&pPVar19[2].x3 + 1) = 0x10;
-  pPVar19[2].u3 = '\b';
-  pPVar19[2].v3 = '\0';
-  pPVar19[2].pad2 = 8;
-  pPVar19[2].y3 = 0x7d7c;
-  BATTLE_makeDefaultSprite((SPRT *)pPVar19);
-  FUN_BATTLE_BIN__8014a834(pPVar19,(short *)puVar8,(short *)(puVar8 + 4),&local_118);
-  BATTLE_makeDefaultSprites_withCLUT((SPRT *)&pPVar19[1].u1,2,0x7c3c);
-  pPVar19[1].u3 = '\x06';
-  pPVar19[1].v3 = '\0';
-  pPVar19[1].pad2 = 0xc;
-  pPVar19[2].x1 = 4;
-  pPVar19[2].y1 = 4;
-  *(undefined *)&pPVar19[1].x3 = 0xe8;
-  pPVar19[2].u0 = 0xe8;
-  sVar2 = *(short *)&pPVar19->u2;
-  sVar3 = pPVar19[1].x0;
-  pPVar19[2]._2 = '\f';
-  sVar4 = pPVar19[1].y0;
-  *(undefined *)((int)&pPVar19[1].x3 + 1) = 0;
-  *(short *)&pPVar19[1].u2 = sVar2 + -1;
-  uVar7 = pPVar19->pad1;
-  pPVar19[2].x0 = sVar3;
-  pPVar19[2].y0 = sVar4 + 0xe;
-  pPVar19[1].pad1 = uVar7 + 3;
+    iVar21 = iVar21 + 1;
+    pPVar15->pad1 = puVar8[5] + sVar2 * (puVar8[7] - 0x32) + 0x10;
+    pPVar15 = (POLY_FT4 *)&pPVar15->u1;
+  } while (iVar21 < 2);
+  BATTLE_makeDefaultSprite((SPRT *)&pPVar18[2].u1);
+  *(undefined *)&pPVar18[2].x3 = 0x10;
+  *(undefined *)((int)&pPVar18[2].x3 + 1) = 0x10;
+  pPVar18[2].u3 = '\b';
+  pPVar18[2].v3 = '\0';
+  pPVar18[2].pad2 = 8;
+  pPVar18[2].y3 = 0x7d7c;
+  BATTLE_makeDefaultSprite((SPRT *)pPVar18);
+  FUN_BATTLE_BIN__8014a834(pPVar18,(short *)puVar8,(short *)(puVar8 + 4),&local_118);
+  BATTLE_makeDefaultSprites_withCLUT((SPRT *)&pPVar18[1].u1,2,0x7c3c);
+  pPVar18[1].u3 = '\x06';
+  pPVar18[1].v3 = '\0';
+  pPVar18[1].pad2 = 0xc;
+  pPVar18[2].x1 = 4;
+  pPVar18[2].y1 = 4;
+  *(undefined *)&pPVar18[1].x3 = 0xe8;
+  pPVar18[2].u0 = 0xe8;
+  sVar2 = *(short *)&pPVar18->u2;
+  sVar3 = pPVar18[1].x0;
+  pPVar18[2]._2 = '\f';
+  sVar4 = pPVar18[1].y0;
+  *(undefined *)((int)&pPVar18[1].x3 + 1) = 0;
+  *(short *)&pPVar18[1].u2 = sVar2 + -1;
+  uVar7 = pPVar18->pad1;
+  pPVar18[2].x0 = sVar3;
+  pPVar18[2].y0 = sVar4 + 0xe;
+  pPVar18[1].pad1 = uVar7 + 3;
   FUN_BATTLE_BIN__8014c4a8((int)(short)puVar8[2],(int)(short)puVar8[3],&local_108.x,2);
   if (DAT_BATTLE_BIN__80166018 == 2) {
     p = (u_long *)(exe_dest_ptr_arr[2] + 0x2000);
@@ -84283,39 +85063,39 @@ void BATTLE_maybe_build_scrollable_menu(void)
     iVar10 = iVar10 + 3;
   }
   local_108.y = 0x80;
-  iVar22 = (int)local_114;
+  iVar21 = (int)local_114;
   local_108.x = (short)(iVar10 >> 2) + *puVar8;
-  if (iVar22 < 0) {
-    iVar22 = iVar22 + 3;
+  if (iVar21 < 0) {
+    iVar21 = iVar21 + 3;
   }
   iVar10 = 0;
-  local_108.w = (short)(iVar22 >> 2);
+  local_108.w = (short)(iVar21 >> 2);
   local_108.h = local_112;
-  LoadImage(&local_108,p);
+  SYS_LoadImage(&local_108,p);
   BATTLE_copy_bytes(&local_60[7].u2,(undefined *)local_60,0x134);
-  puVar14 = auStack_a8;
+  puVar13 = auStack_a8;
   puVar12 = auStack_d0;
-  puVar18 = auStack_f8;
-  pPVar19 = local_60;
+  puVar17 = auStack_f8;
+  pPVar18 = local_60;
   do {
-    *(undefined **)&pPVar19[6].x1 = puVar14;
-    puVar14 = puVar14 + 0x14;
-    *(undefined **)&pPVar19[6].u0 = puVar12;
+    *(undefined **)&pPVar18[6].x1 = puVar13;
+    puVar13 = puVar13 + 0x14;
+    *(undefined **)&pPVar18[6].u0 = puVar12;
     puVar12 = puVar12 + 0x14;
-    *(undefined **)&pPVar19[6].x0 = puVar18;
-    puVar18 = puVar18 + 0x14;
+    *(undefined **)&pPVar18[6].x0 = puVar17;
+    puVar17 = puVar17 + 0x14;
     iVar10 = iVar10 + 1;
-    pPVar19 = (POLY_FT4 *)&pPVar19[7].u2;
+    pPVar18 = (POLY_FT4 *)&pPVar18[7].u2;
   } while (iVar10 < 2);
-  uVar23 = 0;
+  uVar22 = 0;
   local_50 = 0;
   local_48 = 0;
   uVar9 = 0;
   do {
-    pPVar19 = (POLY_FT4 *)((int)local_60 + uVar9 * 0x134);
-    local_74 = pPVar19;
+    pPVar18 = (POLY_FT4 *)((int)local_60 + uVar9 * 0x134);
+    local_74 = pPVar18;
     SetSemiTrans(&local_74,1);
-    if (((local_48 == 0) && (iVar10 = FUN_BATTLE_BIN__80137b98(), iVar10 != 0)) && (uVar23 != 0)) {
+    if (((local_48 == 0) && (iVar10 = FUN_BATTLE_BIN__80137b98(), iVar10 != 0)) && (uVar22 != 0)) {
       if ((local_58[5] == 0) && (local_58[6] == 0)) {
         if ((DAT_BATTLE_BIN__801697d0 & 0xa000) != 0) {
           local_70[0] = local_70[0] ^ 1;
@@ -84323,25 +85103,25 @@ void BATTLE_maybe_build_scrollable_menu(void)
         *(ushort **)(local_58 + 0xc) = local_70;
       }
       else if (((((DAT_BATTLE_BIN__801697d0 & 0xa000) != 0) &&
-                ((DAT_BATTLE_BIN__80166018 == 1 && (local_58[6] != 2)))) && (uVar23 != 0)) &&
+                ((DAT_BATTLE_BIN__80166018 == 1 && (local_58[6] != 2)))) && (uVar22 != 0)) &&
               (*(short *)((short)puVar8[0x1c] * 2 + *(int *)(local_58 + 8)) != 0x7000)) {
         iVar10 = 0;
         Thread_doNext();
         BATTLE_set_sound_effect_to_cursor_move();
         Thread_initialize(BATTLE_Current_Thread + -1,FUN_BATTLE_BIN__8013957c);
         Thread_storeParams3(BATTLE_Current_Thread + -1,DAT_BATTLE_BIN__80173cb8 + 0xc30,0,0);
-        while (iVar22 = BATTLE_is_thread_running(BATTLE_Current_Thread + -1), iVar22 != 0) {
+        while (iVar21 = BATTLE_is_thread_running(BATTLE_Current_Thread + -1), iVar21 != 0) {
           if (iVar10 % 0x1e < 0x18) {
-            puVar13 = (u_long *)&DAT_801cc094;
+            puVar14 = &DAT_801cc094;
           }
           else {
-            puVar13 = (u_long *)&DAT_801cc0b4;
+            puVar14 = &DAT_801cc0b4;
           }
           iVar10 = iVar10 + 1;
-          LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,puVar13);
+          SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,puVar14);
           Thread_doNext();
         }
-        LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,(u_long *)&DAT_801cc0d4);
+        SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,&DAT_801cc0d4);
       }
       if (((DAT_BATTLE_BIN__801697d0 & 0x1000) == 0) ||
          (((DAT_BATTLE_BIN__8016d9a0 & 0x80) != 0 && (BATTLE_Tutorial_Value == 0)))) {
@@ -84384,7 +85164,7 @@ LAB_BATTLE_BIN__8013a43c:
           BATTLE_set_sound_effect_to_cursor_move();
         }
       }
-      psVar20 = local_58;
+      psVar19 = local_58;
       if (local_48 != 0) {
         if (local_48 < 1) {
           local_108.y = (((short)local_6c + -1) * 0x10 & 0x7fU) + puVar8[1];
@@ -84399,44 +85179,44 @@ LAB_BATTLE_BIN__8013a43c:
         FUN_BATTLE_BIN__8014bed8(p,(int)local_114 << 3);
         DAT_BATTLE_BIN__80165fa8 = (int)local_114;
         iVar10 = 0;
-        psVar21 = local_58;
+        psVar20 = local_58;
         do {
-          iVar22 = local_68[0] + local_78 + local_48;
-          FUN_BATTLE_BIN__8014a6cc(psVar21[2],0);
-          if (psVar21[5] != 2) {
-            DAT_BATTLE_BIN__80165f8c = (int)*(short *)(iVar22 * 2 + *(int *)(psVar20 + 0xe));
+          iVar21 = local_68[0] + local_78 + local_48;
+          FUN_BATTLE_BIN__8014a6cc(psVar20[2],0);
+          if (psVar20[5] != 2) {
+            DAT_BATTLE_BIN__80165f8c = (int)*(short *)(iVar21 * 2 + *(int *)(psVar19 + 0xe));
           }
           DAT_BATTLE_BIN__80165fac = 0;
           if (DAT_BATTLE_BIN__80165f8c == 4) {
             DAT_BATTLE_BIN__80165fac = 0x44444444;
           }
-          sVar2 = psVar21[5];
+          sVar2 = psVar20[5];
           if (sVar2 == 0) {
             FUN_BATTLE_BIN__8014b2f0
-                      ((int)*(short *)(iVar22 * 2 + *(int *)(psVar20 + 8)),p,
+                      ((int)*(short *)(iVar21 * 2 + *(int *)(psVar19 + 8)),p,
                        &DAT_BATTLE_BIN__80165fa0);
-            DAT_BATTLE_BIN__80165f8c = (int)*(short *)(iVar22 * 2 + *(int *)(psVar20 + 0xe));
+            DAT_BATTLE_BIN__80165f8c = (int)*(short *)(iVar21 * 2 + *(int *)(psVar19 + 0xe));
             if ((BATTLE_Thread_Data[BATTLE_Current_Thread].isAvailable != 0) &&
-               ((*(byte *)(DAT_BATTLE_BIN__80174048 + iVar22 + 0x290) & 1) != 0)) {
-              FUN_BATTLE_BIN__8014a6cc(psVar21[2] + 0x50,0);
+               ((*(byte *)(DAT_BATTLE_BIN__80174048 + iVar21 + 0x290) & 1) != 0)) {
+              FUN_BATTLE_BIN__8014a6cc(psVar20[2] + 0x50,0);
               FUN_BATTLE_BIN__8014b2f0(0x5088,p,&DAT_BATTLE_BIN__80165fa0);
             }
           }
           else if (sVar2 == 1) {
             FUN_BATTLE_BIN__8014ab58
-                      ((int)*(short *)(iVar22 * 2 + *(int *)(psVar20 + 8)),2,(int)p,
+                      ((int)*(short *)(iVar21 * 2 + *(int *)(psVar19 + 8)),2,(int)p,
                        (ushort *)&DAT_BATTLE_BIN__80165fa0);
           }
           else if (sVar2 == 3) {
             if (((iVar10 == 2) || ((iVar10 == 1 && (local_58[7] == 2)))) &&
-               ((*(ushort *)(iVar22 * 2 + *(int *)(psVar20 + 8)) < 2 &&
-                ((cVar17 = *(char *)(DAT_BATTLE_BIN__80174048 + iVar22 + 0x334), cVar17 == -1 ||
-                 (cVar17 == '\0')))))) {
+               ((*(ushort *)(iVar21 * 2 + *(int *)(psVar19 + 8)) < 2 &&
+                ((cVar16 = *(char *)(DAT_BATTLE_BIN__80174048 + iVar21 + 0x334), cVar16 == -1 ||
+                 (cVar16 == '\0')))))) {
               DAT_BATTLE_BIN__80165fa2 = DAT_BATTLE_BIN__80165fa2 + 2;
               FUN_BATTLE_BIN__8014b264((int)p,(ushort *)&DAT_BATTLE_BIN__80165fa0);
             }
             else {
-              uVar5 = *(ushort *)(iVar22 * 2 + *(int *)(psVar20 + 8));
+              uVar5 = *(ushort *)(iVar21 * 2 + *(int *)(psVar19 + 8));
               if ((uVar5 & 0x7ff) != 0) {
                 if ((uVar5 & 0x7ff) < 100) {
                   FUN_BATTLE_BIN__8014ac30
@@ -84450,13 +85230,13 @@ LAB_BATTLE_BIN__8013a43c:
               }
             }
           }
-          psVar20 = psVar20 + 2;
+          psVar19 = psVar19 + 2;
           iVar10 = iVar10 + 1;
-          psVar21 = psVar21 + 1;
+          psVar20 = psVar20 + 1;
         } while (iVar10 < 3);
         DAT_BATTLE_BIN__80165f8c = 0;
         DAT_BATTLE_BIN__80165fac = 0;
-        LoadImage(&local_108,p);
+        SYS_LoadImage(&local_108,p);
         local_80.h = 2;
         local_80.x = local_108.x;
         local_80.y = (local_108.y - 2U & 0xff) + (local_108.y & 0xff00U);
@@ -84465,33 +85245,33 @@ LAB_BATTLE_BIN__8013a43c:
       }
     }
     Thread_doNext();
-    if (uVar23 == 0) {
+    if (uVar22 == 0) {
       iVar10 = 0;
-      puVar15 = &DAT_801cc074;
+      puVar14 = &DAT_801cc074;
       do {
-        puVar15[0x10] = *puVar15;
-        puVar15[0x20] = *puVar15;
-        puVar15[0x30] = *puVar15;
-        puVar15[0x40] = *puVar15;
+        puVar14[0x10] = *puVar14;
+        puVar14[0x20] = *puVar14;
+        puVar14[0x30] = *puVar14;
+        puVar14[0x40] = *puVar14;
         if (iVar10 - 4U < 4) {
-          puVar15[0x20] = 0x8000;
-          puVar15[0x10] = puVar15[-4];
+          puVar14[0x20] = 0x8000;
+          puVar14[0x10] = puVar14[-4];
         }
         else if (7 < iVar10) {
-          puVar15[0x40] = puVar15[0x38];
+          puVar14[0x40] = puVar14[0x38];
         }
         iVar10 = iVar10 + 1;
-        puVar15 = puVar15 + 1;
+        puVar14 = puVar14 + 1;
       } while (iVar10 < 0x10);
     }
     if (DAT_BATTLE_BIN__80166018 == 1) {
-      if ((int)uVar23 % 0x1e < 0x18) {
-        puVar13 = (u_long *)&DAT_801cc0d4;
+      if ((int)uVar22 % 0x1e < 0x18) {
+        puVar14 = &DAT_801cc0d4;
       }
       else {
-        puVar13 = (u_long *)&DAT_801cc0f4;
+        puVar14 = &DAT_801cc0f4;
       }
-      LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,puVar13);
+      SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,puVar14);
     }
     if (local_38 != (u_long *)0x0) {
       FUN_BATTLE_BIN__8012f04c((undefined *)p);
@@ -84510,7 +85290,7 @@ LAB_BATTLE_BIN__8013a43c:
     iVar10 = FUN_BATTLE_BIN__80138094(&DAT_BATTLE_BIN__801697d0);
     if (iVar10 != 0) {
       if (DAT_BATTLE_BIN__80166018 != 2) {
-        LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,(u_long *)&DAT_801cc074);
+        SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__80168eec,&DAT_801cc074);
       }
       if (local_30 != 0) {
         FUN_BATTLE_BIN__8012f04c((undefined *)p);
@@ -84523,42 +85303,42 @@ LAB_BATTLE_BIN__8013a43c:
       }
       return;
     }
-    FUN_BATTLE_BIN__80138460((int)&pPVar19[3].x2);
-    iVar10._0_2_ = pPVar19[6].x0;
-    iVar10._2_2_ = pPVar19[6].y0;
+    FUN_BATTLE_BIN__80138460((int)&pPVar18[3].x2);
+    iVar10._0_2_ = pPVar18[6].x0;
+    iVar10._2_2_ = pPVar18[6].y0;
     FUN_BATTLE_BIN__80138414(iVar10);
-    iVar22._0_1_ = pPVar19[6].u0;
-    iVar22._1_1_ = pPVar19[6]._2;
-    iVar22._2_2_ = pPVar19[6].clut;
-    FUN_BATTLE_BIN__80138414(iVar22);
-    iVar11._0_2_ = pPVar19[6].x1;
-    iVar11._2_2_ = pPVar19[6].y1;
+    iVar21._0_1_ = pPVar18[6].u0;
+    iVar21._1_1_ = pPVar18[6]._2;
+    iVar21._2_2_ = pPVar18[6].clut;
+    FUN_BATTLE_BIN__80138414(iVar21);
+    iVar11._0_2_ = pPVar18[6].x1;
+    iVar11._2_2_ = pPVar18[6].y1;
     FUN_BATTLE_BIN__80138414(iVar11);
     iVar10 = Thread_checkPrevRunning();
     if ((iVar10 != 0) || (uVar7 = 0x7ffc, DAT_BATTLE_BIN__80166028 == 1)) {
       uVar7 = 0x7f7d;
     }
     local_74->clut = uVar7;
-    FUN_BATTLE_BIN__80138570(puVar8,(int)&pPVar19[3].x2,uVar23,local_68[0]);
+    FUN_BATTLE_BIN__80138570(puVar8,(int)&pPVar18[3].x2,uVar22,local_68[0]);
     if ((local_58[1] != 0) && (iVar10 = Thread_checkPrevRunning(), iVar10 == 0)) {
       if (local_78 != 0) {
-        FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19->u1);
-        FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[1].u1);
+        FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18->u1);
+        FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[1].u1);
       }
       if (local_78 != local_58[1]) {
-        FUN_BATTLE_BIN__8014a5e8(&pPVar19[1].tag);
-        FUN_BATTLE_BIN__8014a5e8(&pPVar19[2].tag);
+        FUN_BATTLE_BIN__8014a5e8(&pPVar18[1].tag);
+        FUN_BATTLE_BIN__8014a5e8(&pPVar18[2].tag);
       }
-      sVar2 = pPVar19[1].y0;
-      uVar6 = pPVar19->v2;
-      iVar10 = (int)(short)pPVar19->pad1 + (int)(short)pPVar19->pad2;
-      pPVar19[2].u2 = pPVar19->u2;
-      pPVar19[2].v2 = uVar6;
-      pPVar19[2].pad1 =
+      sVar2 = pPVar18[1].y0;
+      uVar6 = pPVar18->v2;
+      iVar10 = (int)(short)pPVar18->pad1 + (int)(short)pPVar18->pad2;
+      pPVar18[2].u2 = pPVar18->u2;
+      pPVar18[2].v2 = uVar6;
+      pPVar18[2].pad1 =
            ((short)iVar10 +
            (short)(((sVar2 - iVar10) * (int)(short)puVar8[0x1c]) /
                   ((int)*local_58 + (int)local_58[1]))) - 2;
-      FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[2].u1);
+      FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[2].u1);
     }
     if ((DAT_BATTLE_BIN__80166018 < 2) && (local_48 == 0)) {
       FUN_BATTLE_BIN__80137c10((int)puVar8,local_68[0]);
@@ -84586,35 +85366,35 @@ LAB_BATTLE_BIN__8013a43c:
       local_30 = 0;
     }
     local_74->_2 = ((char)local_6c * '\x10' + (char)local_50) - 2U & 0x7f;
-    if ((int)(uVar23 * BATTLE_New_Event_Speed) < 0xc) {
-      FUN_BATTLE_BIN__8014a834(pPVar19,(short *)puVar8,(short *)(puVar8 + 4),&local_118);
-      FUN_BATTLE_BIN__8013876c(puVar8,(int)local_74,uVar23 * BATTLE_New_Event_Speed);
+    if ((int)(uVar22 * BATTLE_New_Event_Speed) < 0xc) {
+      FUN_BATTLE_BIN__8014a834(pPVar18,(short *)puVar8,(short *)(puVar8 + 4),&local_118);
+      FUN_BATTLE_BIN__8013876c(puVar8,(int)local_74,uVar22 * BATTLE_New_Event_Speed);
     }
     if ((local_58[6] == 0) && (local_70[0] == 1)) {
-      *(short *)&pPVar19[4].u3 = *(short *)&pPVar19[4].u3 + *(short *)(*(int *)(puVar8 + 0x18) + 6);
-      pPVar19[5].x1 = pPVar19[5].x1 + *(short *)(*(int *)(puVar8 + 0x18) + 6);
+      *(short *)&pPVar18[4].u3 = *(short *)&pPVar18[4].u3 + *(short *)(*(int *)(puVar8 + 0x18) + 6);
+      pPVar18[5].x1 = pPVar18[5].x1 + *(short *)(*(int *)(puVar8 + 0x18) + 6);
     }
-    sVar2 = pPVar19[5].y1;
-    pPVar19[4].pad2 = pPVar19[4].pad2 + 4;
-    pPVar19[5].y1 = sVar2 + 4;
+    sVar2 = pPVar18[5].y1;
+    pPVar18[4].pad2 = pPVar18[4].pad2 + 4;
+    pPVar18[5].y1 = sVar2 + 4;
     if (4 < (short)puVar8[0x16]) {
-      FUN_BATTLE_BIN__8014a5e8(*(uint **)&pPVar19[6].x0);
-      FUN_BATTLE_BIN__8014a5e8(*(uint **)&pPVar19[6].u0);
+      FUN_BATTLE_BIN__8014a5e8(*(uint **)&pPVar18[6].x0);
+      FUN_BATTLE_BIN__8014a5e8(*(uint **)&pPVar18[6].u0);
       if (BATTLE_Thread_Data[BATTLE_Current_Thread].isAvailable != 0) {
-        FUN_BATTLE_BIN__8014a5e8(*(uint **)&pPVar19[6].x1);
+        FUN_BATTLE_BIN__8014a5e8(*(uint **)&pPVar18[6].x1);
       }
     }
-    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[5].u2);
-    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[4].u2);
-    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[5].x0);
-    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[3].u0);
-    uVar23 = uVar23 + 1;
+    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[5].u2);
+    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[4].u2);
+    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[5].x0);
+    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[3].u0);
+    uVar22 = uVar22 + 1;
     FUN_BATTLE_BIN__8014a5e8(&local_74->tag);
-    FUN_BATTLE_BIN__8014a5e8(&pPVar19[3].tag);
-    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[3].u3);
-    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[4].x0);
-    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar19[3].x2);
-    uVar9 = uVar23 & 1;
+    FUN_BATTLE_BIN__8014a5e8(&pPVar18[3].tag);
+    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[3].u3);
+    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[4].x0);
+    FUN_BATTLE_BIN__8014a5e8((uint *)&pPVar18[3].x2);
+    uVar9 = uVar22 & 1;
   } while( true );
 }
 
@@ -84697,7 +85477,7 @@ void FUN_BATTLE_BIN__8013b280(void)
   DAT_BATTLE_BIN__80165fa8 = (int)local_28;
   FUN_BATTLE_BIN__8014a6cc(8,9);
   FUN_BATTLE_BIN__8014b2f0((int)(short)puVar1[0xe],p,&DAT_BATTLE_BIN__80165fa0);
-  LoadImage(&RStack_128,p);
+  SYS_LoadImage(&RStack_128,p);
   while( true ) {
     Thread_doNext();
     if (uVar5 == 0) {
@@ -84958,7 +85738,7 @@ void BATTLE_call_realloc(uint size)
 void BATTLE_call_free(void)
 
 {
-  SCUS_MRTA_free((int)exe_dest_ptr_arr[4]);
+  SCUS_MRTA_free(exe_dest_ptr_arr[4]);
   return;
 }
 
@@ -85065,13 +85845,13 @@ void FUN_BATTLE_BIN__8013bdcc(void)
     param1 = 0x12;
   }
   uVar2 = Thread_getParam2();
-  DAT_BATTLE_BIN__8016601c = BIN_Malloc_FFT(0x4000);
+  DAT_BATTLE_BIN__8016601c = SCUS_MRTA_Malloc(0x4000);
   FUN_BATTLE_BIN__8013bcbc(4);
   DAT_BATTLE_BIN__80173fe0 = DAT_BATTLE_BIN__8016601c;
   Thread_initialize(8,BATTLE_text_character_handling);
   Thread_storeParams3(8,param1,uVar2 | 0xa800,(uint)bVar1);
   Thread_waitFor(8);
-  SCUS_MRTA_free((int)DAT_BATTLE_BIN__8016601c);
+  SCUS_MRTA_free(DAT_BATTLE_BIN__8016601c);
   DAT_BATTLE_BIN__80165ee4 = 7;
   BATTLE_Set_Event_Speed(1);
   DAT_BATTLE_BIN__8016607c = 0;
@@ -85418,14 +86198,14 @@ void FUN_BATTLE_BIN__8013c740(void)
 void FUN_BATTLE_BIN__8013c748(int param_1)
 
 {
-  u_long *p;
+  undefined *p;
   
-  p = (u_long *)FUN_BATTLE_BIN__8012eeb0(0x2000);
+  p = (undefined *)FUN_BATTLE_BIN__8012eeb0(0x2000);
   callOnCurrentThread_Func = Get_DAT_BIN_as_File;
   BATTLE_call_inner_subroutine(param_1 * 4 + 0x164b,0x2000,p);
-  LoadImage((RECT *)&DAT_BATTLE_BIN__80165ebc,p);
-  LoadImage((RECT *)&DAT_BATTLE_BIN__80165ec4,p + 0x600);
-  FUN_BATTLE_BIN__8012f04c((undefined *)p);
+  SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__80165ebc,p);
+  SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__80165ec4,p + 0x1800);
+  FUN_BATTLE_BIN__8012f04c(p);
   return;
 }
 
@@ -85436,16 +86216,16 @@ void Open_EVTCHR(void)
 {
   int EVTCHR_block;
   int EVTCHR_Slot;
-  undefined *_evtchr_addr;
+  void *_evtchr_addr;
   int iVar1;
   int evtchr_LBA;
   undefined4 filesize;
-  undefined *_evtchr_addr_arg;
+  void *_evtchr_addr_arg;
   
   EVTCHR_block = Thread_getParam1();
   EVTCHR_Slot = Thread_getParam2();
   Set_Thread_Task_ID(0x34);
-  _evtchr_addr = BIN_Malloc_FFT(0x7800);
+  _evtchr_addr = SCUS_MRTA_Malloc(0x7800);
   do {
     Thread_doNext();
     callOnCurrentThread_Func = Call_CalcFileHead_NNL;
@@ -85462,7 +86242,7 @@ void Open_EVTCHR(void)
   Current_EVTCHR_block = EVTCHR_block;
   Current_EVTCHR_addr = _evtchr_addr;
   Thread_doNext();
-  SCUS_MRTA_free((int)_evtchr_addr);
+  SCUS_MRTA_free(_evtchr_addr);
   BATTLE_stop_current_thread();
   return;
 }
@@ -85472,14 +86252,14 @@ void Open_EVTCHR(void)
 void FUN_BATTLE_BIN__8013c8a8(int param_1)
 
 {
-  u_long *puVar1;
+  undefined *puVar1;
   int iVar2;
   int iVar3;
   undefined4 uVar4;
-  u_long *puVar5;
+  undefined *puVar5;
   RECT local_20;
   
-  puVar1 = (u_long *)FUN_BATTLE_BIN__8012eeb0(0x2000);
+  puVar1 = (undefined *)FUN_BATTLE_BIN__8012eeb0(0x2000);
   do {
     Thread_doNext();
     callOnCurrentThread_Func = Call_CalcFileHead_NNL;
@@ -85499,13 +86279,13 @@ void FUN_BATTLE_BIN__8013c8a8(int param_1)
   local_20.h = 0x30;
   puVar5 = puVar1;
   do {
-    LoadImage(&local_20,puVar5);
+    SYS_LoadImage(&local_20,puVar5);
     iVar2 = iVar2 + 1;
     local_20.x = local_20.x + 8;
-    puVar5 = puVar5 + 0xc0;
+    puVar5 = puVar5 + 0x300;
   } while (iVar2 < 8);
-  LoadImage((RECT *)&DAT_BATTLE_BIN__80165ec4,puVar1 + 0x600);
-  FUN_BATTLE_BIN__8012f04c((undefined *)puVar1);
+  SYS_LoadImage((RECT *)&DAT_BATTLE_BIN__80165ec4,puVar1 + 0x1800);
+  FUN_BATTLE_BIN__8012f04c(puVar1);
   Thread_doNext();
   return;
 }
@@ -85925,8 +86705,8 @@ bool BATTLE_open_ATTACK_OUT_deployment(void)
   }
   else {
     DAT_BATTLE_BIN__8016603c = 0xff;
-    DAT_BATTLE_BIN__8016d99c = DAT_800473ac;
-    DAT_800473ac = DAT_800473ac & 0xe6667e38 | 0x80040;
+    DAT_BATTLE_BIN__8016d99c = SCUS_Custom_Options;
+    SCUS_Custom_Options = SCUS_Custom_Options & 0xe6667e38 | 0x80040;
   }
   Determine_Fieldable_Units();
   if (conditional == 0) {
@@ -87448,12 +88228,12 @@ void FUN_BATTLE_BIN__8013f900(uint param_1)
 
 
 
-// https://ffhacktics.com/wiki/Set_r2_to_0x80169828
+// https://ffhacktics.com/wiki/Get_Selected_Ability_Address
 
-int * BATTLE_return_80169828(void)
+int * BATTLE_get_selected_ability_address(void)
 
 {
-  return &DAT_BATTLE_BIN__80169828;
+  return &BATTLE_Selected_Ability;
 }
 
 
@@ -88171,7 +88951,7 @@ void FUN_BATTLE_BIN__80140b04(void)
     FUN_BATTLE_BIN__80140980();
   }
   else {
-    if (((DAT_800473ac & 0x18000) == 0x8000) && ((uVar3 & 0xff00) == 0x8000)) {
+    if (((SCUS_Custom_Options & 0x18000) == 0x8000) && ((uVar3 & 0xff00) == 0x8000)) {
       FUN_BATTLE_BIN__80140980();
     }
     else if (DAT_BATTLE_BIN__8014d324 == '\0') {
@@ -88239,7 +89019,7 @@ void FUN_BATTLE_BIN__80140cd4(int param_1,short param_2,int param_3)
     FUN_BATTLE_BIN__801409a4(iVar1);
   }
   else {
-    if (((DAT_800473ac & 0x18000) != 0x8000) || ((uVar2 & 0xff00) != 0x8000)) {
+    if (((SCUS_Custom_Options & 0x18000) != 0x8000) || ((uVar2 & 0xff00) != 0x8000)) {
       iVar1 = BATTLE_Current_Thread + -1;
       *(ushort *)(DAT_BATTLE_BIN__80173cb8 + 0x850) = uVar2;
       Thread_initialize(iVar1,FUN_BATTLE_BIN__8013b280);
@@ -88250,7 +89030,7 @@ void FUN_BATTLE_BIN__80140cd4(int param_1,short param_2,int param_3)
       return;
     }
     BATTLE_set_sound_effect_to_invalid();
-    if ((DAT_800473ac & 0x18000) == 0) {
+    if ((SCUS_Custom_Options & 0x18000) == 0) {
       Thread_waitFor(BATTLE_Current_Thread + -1);
     }
   }
@@ -88294,31 +89074,30 @@ uint FUN_BATTLE_BIN__801411b4(void)
   int iVar6;
   uint uVar7;
   
-  DAT_BATTLE_BIN__80169828 = (uint)(byte)DAT_BATTLE_BIN__80165ee4;
+  BATTLE_Selected_Ability = (uint)(byte)DAT_BATTLE_BIN__80165ee4;
   uVar3 = (uint)(byte)DAT_BATTLE_BIN__80165ee6;
   uVar7 = (uint)DAT_BATTLE_BIN__80165ee8;
   uVar5 = uVar3;
-  if ((DAT_BATTLE_BIN__80169828 != 0x12) && (iVar6 = 0, (DAT_BATTLE_BIN__80169828 & 0xfe) != 0xfe))
-  {
+  if ((BATTLE_Selected_Ability != 0x12) && (iVar6 = 0, (BATTLE_Selected_Ability & 0xfe) != 0xfe)) {
     ppuVar1 = &PTR_DAT_BATTLE_BIN__8014d32c_BATTLE_BIN__8014d378;
     iVar2 = 0;
     do {
       uVar4 = uVar3;
       if (DAT_BATTLE_BIN__80165f84 == *(ushort *)((int)&DAT_BATTLE_BIN__8014d374 + iVar2)) {
-        if (DAT_BATTLE_BIN__80169828 == 0xff) {
-          DAT_BATTLE_BIN__80169828 = (uint)(byte)**ppuVar1;
+        if (BATTLE_Selected_Ability == 0xff) {
+          BATTLE_Selected_Ability = (uint)(byte)**ppuVar1;
         }
         else if (DAT_BATTLE_BIN__80165f84 == 0x69) {
           DAT_BATTLE_BIN__80169834 = DAT_BATTLE_BIN__80165f7c;
-          DAT_BATTLE_BIN__80169828 = DAT_BATTLE_BIN__80165f78;
+          BATTLE_Selected_Ability = DAT_BATTLE_BIN__80165f78;
           uVar4 = 0xfffe;
         }
         else if ((DAT_BATTLE_BIN__80165f84 == 0x19) || (99 < (int)DAT_BATTLE_BIN__80165f84)) {
-          DAT_BATTLE_BIN__80169828 = (uint)(byte)(*ppuVar1)[uVar3 + 1];
+          BATTLE_Selected_Ability = (uint)(byte)(*ppuVar1)[uVar3 + 1];
           uVar4 = 0xfffe;
         }
         else {
-          DAT_BATTLE_BIN__80169828 = (uint)(byte)(*ppuVar1)[DAT_BATTLE_BIN__80169828 + 1];
+          BATTLE_Selected_Ability = (uint)(byte)(*ppuVar1)[BATTLE_Selected_Ability + 1];
         }
         break;
       }
@@ -88327,26 +89106,26 @@ uint FUN_BATTLE_BIN__801411b4(void)
       iVar2 = iVar2 + 8;
     } while (iVar6 < 0x1f);
     if (iVar6 == 0x1f) {
-      DAT_BATTLE_BIN__80169828 = 7;
+      BATTLE_Selected_Ability = 7;
     }
-    uVar5 = DAT_BATTLE_BIN__80169828;
-    if ((0xf < iVar6) && (uVar5 = DAT_BATTLE_BIN__8014d314, DAT_BATTLE_BIN__80169828 - 5 < 2)) {
-      DAT_BATTLE_BIN__80169836 = (undefined)DAT_BATTLE_BIN__80169828;
+    uVar5 = BATTLE_Selected_Ability;
+    if ((0xf < iVar6) && (uVar5 = DAT_BATTLE_BIN__8014d314, BATTLE_Selected_Ability - 5 < 2)) {
+      DAT_BATTLE_BIN__80169836 = (undefined)BATTLE_Selected_Ability;
     }
     DAT_BATTLE_BIN__8014d314 = uVar5;
-    if (DAT_BATTLE_BIN__80169828 == 1) {
+    if (BATTLE_Selected_Ability == 1) {
       DAT_BATTLE_BIN__8014d324 = 1;
     }
-    if (DAT_BATTLE_BIN__80169828 == 0xc) {
+    if (BATTLE_Selected_Ability == 0xc) {
       if (uVar4 < 3) {
-        DAT_BATTLE_BIN__80169828 = (uVar4 - 1) * 2 + uVar7 + 0xc;
+        BATTLE_Selected_Ability = (uVar4 - 1) * 2 + uVar7 + 0xc;
       }
       else {
-        DAT_BATTLE_BIN__80169828 = uVar4 + 0xd;
+        BATTLE_Selected_Ability = uVar4 + 0xd;
       }
       uVar4 = 0xfffe;
       uVar7 = 0xfffe;
-      DAT_BATTLE_BIN__8014d314 = DAT_BATTLE_BIN__80169828;
+      DAT_BATTLE_BIN__8014d314 = BATTLE_Selected_Ability;
     }
     uVar5 = uVar4 & 0xff;
     if ((uVar4 & 0xfe) != 0xfe) {
@@ -88374,7 +89153,7 @@ uint FUN_BATTLE_BIN__801411b4(void)
       }
     }
   }
-  return DAT_BATTLE_BIN__80169828 | uVar5 << 8 | uVar7 << 0x10;
+  return BATTLE_Selected_Ability | uVar5 << 8 | uVar7 << 0x10;
 }
 
 
@@ -88437,7 +89216,7 @@ void BATTLE_get_spell_quote(int target_id,uint unit_id,int entd_flags)
      (((job_id != Mime && ((short)*(ushort *)(target_id + 2) < 0x170)) &&
       (((secondary_ability->Flags3 & Quote) != NoFlags3 &&
        ((((unit_battle_data->AllActionUnitData).CurrentStatuses.Status3 & (Frog|Transparent)) ==
-         empty && ((DAT_800473ac & 0x60000) == 0)))))))) {
+         empty && ((SCUS_Custom_Options & 0x60000) == 0)))))))) {
     uVar2 = BATTLE_get_script_variable(RandomEvent);
     iVar1 = 5;
     if ((uVar2 & 0xf) < 4) {
@@ -88452,7 +89231,7 @@ void BATTLE_get_spell_quote(int target_id,uint unit_id,int entd_flags)
     iVar1 = FUN_BATTLE_BIN__80141160((uint)*(byte *)(target_id + 1));
   }
   if ((((iVar1 != 0) || ((primary_ability->field_0x3 & 0x40) == 0)) ||
-      ((DAT_800473ac & 0x60000) != 0)) &&
+      ((SCUS_Custom_Options & 0x60000) != 0)) &&
      ((*(char *)(target_id + 1) != '\x06' && (*(char *)(target_id + 1) != '\x14')))) {
     entd_flags = 0;
   }
@@ -88467,7 +89246,7 @@ out:
 // https://ffhacktics.com/wiki/System_function_setup_routine
 
 void BATTLE_system_function_setup
-               (int param_1,uint param_2,uint unit_id2a,uint unit_id2b,int entd_flags)
+               (int param_1,uint message_type,uint unit_id2a,uint unit_id2b,int entd_flags)
 
 {
   int *target_id;
@@ -88480,12 +89259,12 @@ void BATTLE_system_function_setup
     }
     if (param_1 == 7) {
       param_1 = 7;
-      param_2 = 0;
+      message_type = 0;
       unit_id2b = 0;
       entd_flags = 0;
     }
   }
-  BATTLE_system_functions(param_1,param_2,unit_id2a,unit_id2b,entd_flags,(int)target_id);
+  BATTLE_system_functions(param_1,message_type,unit_id2a,unit_id2b,entd_flags,(int)target_id);
   return;
 }
 
@@ -88881,7 +89660,7 @@ LAB_BATTLE_BIN__80142494:
           DAT_BATTLE_BIN__8014d31c = param_2;
           return 1;
         }
-        if ((DAT_800473ac & 0x180000) == 0) {
+        if ((SCUS_Custom_Options & 0x180000) == 0) {
           DAT_BATTLE_BIN__80165ef4 = unit_id_2b & 0xff;
           DAT_BATTLE_BIN__80169506 = (short)param_2;
           FUN_BATTLE_BIN__80141654(0x1d);
@@ -89078,9 +89857,9 @@ undefined4 FUN_BATTLE_BIN__80142694(int param_1,uint param_2,uint param_3,uint p
         }
       }
       if (((((param_1 != 0x12) ||
-            (iVar3 = BATTLE_get_script_variable(NumInjured), iVar3 < (int)param_2)) &&
+            (iVar3 = BATTLE_get_script_variable(NumCasualties), iVar3 < (int)param_2)) &&
            ((param_1 != 0x13 ||
-            (iVar3 = BATTLE_get_script_variable(NumInjured), (int)param_2 < iVar3)))) &&
+            (iVar3 = BATTLE_get_script_variable(NumCasualties), (int)param_2 < iVar3)))) &&
           ((param_1 != 0x16 || (uVar2 = FUN_BATTLE_BIN__80183374(), uVar2 != 0)))) &&
          ((param_1 != 0x18 ||
           ((((pBVar4 = FUN_BATTLE_BIN__80142508(param_2), pBVar4 == (BattleUnitData *)0xffffffff ||
@@ -89240,7 +90019,7 @@ short FUN_BATTLE_BIN__80142d58(void *otag_list,uint param_2)
     local_18.x = 0;
     local_18.h = 0xf0;
     local_18.y = ((ushort)ScreenPolarity & 1) * 0xf0;
-    LoadImage(&local_18,(u_long *)exe_dest_ptr_arr[4]);
+    SYS_LoadImage(&local_18,exe_dest_ptr_arr[4]);
   }
   DAT_BATTLE_BIN__80173f44 = otag_list;
   FUN_BATTLE_BIN__8013ba68
@@ -89492,7 +90271,7 @@ LAB_BATTLE_BIN__801435a0:
     }
   }
   else if (DAT_BATTLE_BIN__80165fde == 2) {
-    iVar3 = BATTLE_call_load_map_data();
+    iVar3 = BATTLE_load_deep_dungeon_map_data();
     goto LAB_BATTLE_BIN__801435a0;
   }
   if ((DAT_BATTLE_BIN__80165fe0 == 1) && (DAT_BATTLE_BIN__8016605c == 0)) {
@@ -90977,8 +91756,8 @@ LAB_BATTLE_BIN__80145ef8:
                 pBVar4 = _instruction_arg_1;
                 if (Instruction != Unknown_0x8f) {
                   if (Instruction == TutorialCoordinateConfirmWait) {
-                    while (((((BattleUnitData *)BATTLE_Cursor_XCoord != _instruction_arg_1 ||
-                             ((BattleUnitData *)BATTLE_Cursor_YCoord != _instruction_arg_2)) ||
+                    while (((((BattleUnitData *)BATTLE_Cursor_X_Coord != _instruction_arg_1 ||
+                             ((BattleUnitData *)BATTLE_Cursor_Y_Coord != _instruction_arg_2)) ||
                             ((controller_input_event & ButtonCircle) == NoButtons)) ||
                            (pBVar4 = DAT_BATTLE_BIN__80166028, pBVar5 = DAT_BATTLE_BIN__80166054,
                            (controller_input_event & (ButtonUp|ButtonRight|ButtonDown|ButtonLeft))
@@ -91090,7 +91869,7 @@ LAB_BATTLE_BIN__80144504:
   tutorial_event = BATTLE_check_if_tutorial_event();
   if (CONCAT31(extraout_var_00,tutorial_event) != 0) {
     BATTLE_tutorial_thread_switching_for_event_end();
-    DAT_800473ac = DAT_BATTLE_BIN__8016d99c;
+    SCUS_Custom_Options = DAT_BATTLE_BIN__8016d99c;
     BATTLE_set_script_variable(BraveStoryRecord,0);
     FUN_BATTLE_BIN__8008c3a0(0x20);
   }
@@ -95205,7 +95984,7 @@ LAB_BATTLE_BIN__8014c2ac:
     }
   }
   if (param_6 == 0) {
-    LoadImage(param_3,p);
+    SYS_LoadImage(param_3,p);
     Thread_wait(1);
     p = (u_long *)FUN_BATTLE_BIN__8012f04c((undefined *)p);
   }
@@ -95263,7 +96042,7 @@ LAB_BATTLE_BIN__8014c590:
           local_40.h = 0x60;
         }
         else {
-          LoadImage(&local_40,p);
+          SYS_LoadImage(&local_40,p);
           Thread_wait(1);
           local_40.y = local_40.y + 0x60;
           local_40.h = (short)param_2 - (short)uVar5;
@@ -95300,7 +96079,7 @@ LAB_BATTLE_BIN__8014c698:
     } while ((int)uVar5 < param_2);
   }
   if ((param_4 == 0) || (param_4 == 2)) {
-    LoadImage(&local_40,p);
+    SYS_LoadImage(&local_40,p);
     Thread_wait(1);
     FUN_BATTLE_BIN__8012f04c((undefined *)p);
   }
@@ -100938,7 +101717,7 @@ int BATTLE_attack_preparation
     break;
   case Defend:
     return 0;
-  case EqChng:
+  case EquipChange:
     return 2;
   }
   AVar4 = local_target_data.AttackToUse;
@@ -102347,10 +103126,10 @@ int BATTLE_award_xp_and_jp(int unit_id,byte *earned_xp_data)
 
 {
   JobID job_id_00;
-  int iVar1;
-  uint uVar2;
+  int result;
+  uint uVar1;
   uint new_xp;
-  int iVar3;
+  int iVar2;
   int battle_id;
   BattleUnitData *current_battle_data;
   JobID job_id;
@@ -102381,8 +103160,8 @@ int BATTLE_award_xp_and_jp(int unit_id,byte *earned_xp_data)
         new_xp = 0xff;
       }
       UnitBattleData[unit_id].AllActionUnitData.Exp = (byte)new_xp;
-      iVar1 = CheckUnit_LevelUp((int)current_battle_data);
-      if ((iVar1 != 0) || (CurrentAbilityData._112_1_ != '\0')) {
+      result = CheckUnit_LevelUp((int)current_battle_data);
+      if ((result != 0) || (CurrentAbilityData._112_1_ != '\0')) {
         earned_xp_data[2] = UnitBattleData[unit_id].AllActionUnitData.Level;
       }
       *earned_xp_data = CurrentAbilityData.EarnedEXP;
@@ -102391,43 +103170,43 @@ int BATTLE_award_xp_and_jp(int unit_id,byte *earned_xp_data)
       }
       job_id_00 = UnitBattleData[unit_id].AllActionUnitData.JobID;
       new_xp = BATTLE_load_job_level(current_battle_data,job_id_00,local_30);
-      iVar1 = new_xp * 2 + (level >> 2) + 8;
+      result = new_xp * 2 + (level >> 2) + 8;
       if (CurrentAbilityData.EarnedEXP == 0) {
-        iVar1 = 0;
+        result = 0;
       }
       team_flags = UnitBattleData[unit_id].AllActionUnitData.EntdTeamFlags;
       battle_id = 0;
       do {
         if (battle_id != unit_id) {
-          iVar3 = iVar1;
-          if (iVar1 < 0) {
-            iVar3 = iVar1 + 3;
+          iVar2 = result;
+          if (result < 0) {
+            iVar2 = result + 3;
           }
           BATTLE_store_jp_and_unlock_jobs
-                    (battle_id,iVar3 >> 2,team_flags & LightBlueTeam,local_30[0]);
+                    (battle_id,iVar2 >> 2,team_flags & LightBlueTeam,local_30[0]);
         }
         battle_id = battle_id + 1;
       } while (battle_id < 0x15);
       if ((UnitBattleData[unit_id].AllActionUnitData.Supports2 & Gained_JP-UP) != None) {
-        iVar1 = (iVar1 * 3) / 2;
+        result = (result * 3) / 2;
       }
       BATTLE_store_jp_and_unlock_jobs
-                (unit_id,iVar1,
+                (unit_id,result,
                  UnitBattleData[unit_id].CurActionUnitData.ModifiedENTDTeam & LightBlueTeam,
                  local_30[0]);
-      uVar2 = BATTLE_load_job_level(current_battle_data,job_id_00,local_30);
-      if (uVar2 != new_xp) {
-        earned_xp_data[3] = (byte)uVar2;
+      uVar1 = BATTLE_load_job_level(current_battle_data,job_id_00,local_30);
+      if (uVar1 != new_xp) {
+        earned_xp_data[3] = (byte)uVar1;
       }
-      earned_xp_data[1] = (byte)iVar1;
+      earned_xp_data[1] = (byte)result;
     }
-    iVar1 = 0;
+    result = 0;
   }
   else {
 LAB_BATTLE_BIN__8017e894:
-    iVar1 = -1;
+    result = -1;
   }
-  return iVar1;
+  return result;
 }
 
 
@@ -104351,7 +105130,7 @@ FUN_BATTLE_BIN__801813c0(uint param_1,SkillsetID *param_2,undefined *param_3,Ski
           pSVar8 = pSVar8 + 1;
         }
         if ((SVar7 & Equip_Change) != None) {
-          *pSVar8 = EquimentChange;
+          *pSVar8 = EquipmentChange;
           pSVar8 = pSVar8 + 1;
         }
         *pSVar8 = ~NONE;
@@ -113412,7 +114191,10 @@ int FUN_BATTLE_BIN__8018e660(void)
 
 
 
-int FUN_BATTLE_BIN__8018e6b8(int param_1,short *param_2)
+// https://ffhacktics.com/wiki/Process_Learn_on_Hit
+// https://ffhacktics.com/wiki/Learn_on_hit_1
+
+int BATTLE_learn_ability_on_hit_1(int battle_id,short *param_2)
 
 {
   ENTD_gender EVar1;
@@ -113439,7 +114221,7 @@ int FUN_BATTLE_BIN__8018e6b8(int param_1,short *param_2)
     }
     iVar11 = 0;
     do {
-      if ((((param_1 != iVar10) &&
+      if ((((battle_id != iVar10) &&
            (_unit_data = (BattleUnitData *)(&UnitBattleData[0].AllActionUnitData.BaseClass + iVar11)
            , ((&UnitBattleData[0].CurActionTargetData.TurnFlags)[iVar11] & 2) != 0)) &&
           (EVar1 = (&UnitBattleData[0].AllActionUnitData.EntdGenderFlags)[iVar11],
@@ -113486,48 +114268,52 @@ int FUN_BATTLE_BIN__8018e6b8(int param_1,short *param_2)
 
 
 
-void FUN_BATTLE_BIN__8018e8ac(int param_1)
+// https://ffhacktics.com/wiki/Learn_Used_Ability
+// https://ffhacktics.com/wiki/Learn_on_hit_2
+
+void BATTLE_learn_ability_on_hit_2(BattleUnitData *battle_stats)
 
 {
-  byte bVar1;
-  uint uVar2;
+  uint ability;
+  byte *pbVar1;
+  int iVar2;
   byte *pbVar3;
+  uint job_id;
   int iVar4;
-  byte *pbVar5;
-  int iVar6;
-  int iVar7;
-  uint uVar8;
+  int iVar5;
   byte local_20 [8];
+  SkillsetID primary_skillset;
   
-  bVar1 = *(byte *)(param_1 + 0x12);
-  iVar6 = *(byte *)(param_1 + 3) - 0x4a;
-  if (*(byte *)(param_1 + 3) < 0x4a) {
-    iVar6 = 0;
+  job_id = (uint)(battle_stats->AllActionUnitData).JobID;
+  primary_skillset = (battle_stats->AllActionUnitData).PrimarySkillset;
+  iVar4 = job_id - 0x4a;
+  if (job_id < 0x4a) {
+    iVar4 = 0;
   }
-  pbVar3 = local_20;
-  pbVar5 = (byte *)(iVar6 * 3 + param_1 + 0x99);
+  pbVar1 = local_20;
+  pbVar3 = (battle_stats->AllActionUnitData).JobLevels + iVar4 * 3 + -0x39;
   do {
-    *pbVar3 = *pbVar5;
+    *pbVar1 = *pbVar3;
+    pbVar1 = pbVar1 + 1;
     pbVar3 = pbVar3 + 1;
-    pbVar5 = pbVar5 + 1;
-  } while ((int)pbVar3 < (int)(local_20 + 3));
-  iVar7 = 0;
+  } while ((int)pbVar1 < (int)(local_20 + 3));
+  iVar5 = 0;
   do {
-    iVar4 = iVar7;
-    if (iVar7 < 0) {
-      iVar4 = iVar7 + 7;
+    iVar2 = iVar5;
+    if (iVar5 < 0) {
+      iVar2 = iVar5 + 7;
     }
-    iVar4 = iVar4 >> 3;
-    uVar8 = 0x80 >> (iVar7 + iVar4 * -8 & 0x1fU);
-    if ((local_20[iVar4] & uVar8) == 0) {
-      uVar2 = Get_Abiltity_from_Skillset((uint)bVar1,iVar7);
-      pbVar3 = (byte *)(iVar6 * 3 + param_1 + 0x99 + iVar4);
-      if ((uVar2 & 0xffff) == (int)(short)BATTLE_Acting_Unit_Used_Ability_ID) {
-        *pbVar3 = (byte)uVar8 | *pbVar3;
+    iVar2 = iVar2 >> 3;
+    job_id = 0x80 >> (iVar5 + iVar2 * -8 & 0x1fU);
+    if ((local_20[iVar2] & job_id) == 0) {
+      ability = Get_Abiltity_from_Skillset((uint)primary_skillset,iVar5);
+      pbVar1 = (battle_stats->AllActionUnitData).JobLevels + iVar2 + iVar4 * 3 + -0x39;
+      if ((ability & 0xffff) == (int)(short)BATTLE_Acting_Unit_Used_Ability_ID) {
+        *pbVar1 = (byte)job_id | *pbVar1;
       }
     }
-    iVar7 = iVar7 + 1;
-  } while (iVar7 < 0x18);
+    iVar5 = iVar5 + 1;
+  } while (iVar5 < 0x18);
   return;
 }
 
@@ -113745,7 +114531,9 @@ bool FUN_BATTLE_BIN__8018eed8(int param_1,int param_2)
 
 
 
-void FUN_BATTLE_BIN__8018ef2c(void)
+// https://ffhacktics.com/wiki/Action_Facing_Exception_Handler
+
+void BATTLE_action_facing_exception_handler(BattleUnitData *battle_stats,short facing_dir)
 
 {
   return;
@@ -120841,7 +121629,7 @@ void get_vfx_PAL(int vfx_ID)
   }
   local_10.x = 0x180;
   local_10.y = 0;
-  LoadImage(&local_10,(u_long *)(_vfx_pal_addr + 0x202));
+  SYS_LoadImage(&local_10,_vfx_pal_addr + 0x202);
   return;
 }
 
@@ -121080,6 +121868,9 @@ void FUN_BATTLE_BIN__801a134c(void)
 
 
 
+// https://ffhacktics.com/wiki/Effect_Related_(0x1a13bc)
+// https://ffhacktics.com/wiki/Effect_prep,_default_to_cure_if_invalid_LBA_Sector
+
 bool begin_open_VFX(uint file_loading)
 
 {
@@ -121185,7 +121976,7 @@ void BATTLE_ability_animation(uint elements_and_anim,EffectID effect_id,byte *ca
       }
     }
     else {
-      sVar1 = *(short *)(&DAT_BATTLE_BIN__801b63f0 + effect_id * 2);
+      sVar1 = *(short *)(&BATTLE_Ability_Effect + effect_id * 2);
     }
   }
   else {
@@ -121257,35 +122048,45 @@ LAB_BATTLE_BIN__801a165c:
 
 
 
-uint FUN_BATTLE_BIN__801a1814(int param_1)
+// https://ffhacktics.com/wiki/Load_ability_effect
+// 
+// Returns : r2 = 0x01 if Ability effect is 0xffff / Else 0x00
+// 
+// (no it doesn't, it returns 0 if ability has no effect, otherwise returns an Effect)
+
+uint BATTLE_load_ability_effect(AbilityIDWord ability)
 
 {
-  uint uVar1;
+  uint result;
   
-  uVar1 = 0;
-  if (8 < param_1 - 0x195U) {
-    if (param_1 == 0x92) {
-      uVar1 = 0;
+  result = 0;
+  if (8 < ability + ~VerticalJump7) {
+                    // if ability is not a charge ability
+    if (ability == Accumulate) {
+      result = 0;
     }
     else {
-      uVar1 = (uint)(int)*(short *)(&DAT_BATTLE_BIN__801b63f0 + param_1 * 2) >> 0x1f;
+      result = (uint)(int)*(short *)(&BATTLE_Ability_Effect + ability * 2) >> 0x1f;
     }
   }
-  return uVar1;
+  return result;
 }
 
 
 
-bool FUN_BATTLE_BIN__801a1854(int param_1)
+// https://ffhacktics.com/wiki/Check_flag_0x0800_on_Ability_Effect
+
+bool4 BATTLE_check_if_ability_is_item_or_throw_ball(AbilityIDWord ability_id)
 
 {
-  ushort uVar1;
+  short effect_id;
   
-  uVar1 = *(ushort *)(&DAT_BATTLE_BIN__801b63f0 + param_1 * 2);
-  if ((short)uVar1 < 0) {
-    uVar1 = ~uVar1;
+  effect_id = *(short *)(&BATTLE_Ability_Effect + ability_id * 2);
+  if (effect_id < 0) {
+    effect_id = ~effect_id;
   }
-  return (uVar1 & 0x800) != 0;
+  effect_id = effect_id & 0x800;
+  return (uint)(effect_id != 0);
 }
 
 
@@ -122302,7 +123103,7 @@ void FUN_BATTLE_BIN__801a31a8(uint param_1,uint param_2,int param_3)
 
 {
   int iVar1;
-  ushort unit_misc_id;
+  ushort unit_entd_id;
   uint uVar2;
   
   if ((param_1 & 8) == 0) {
@@ -122317,18 +123118,18 @@ void FUN_BATTLE_BIN__801a31a8(uint param_1,uint param_2,int param_3)
       uVar2 = (uint)DAT_BATTLE_BIN__801badb2;
     }
   }
-  unit_misc_id = (ushort)uVar2;
+  unit_entd_id = (ushort)uVar2;
   if (((param_1 & 0x10) != 0) && (uVar2 != 0xffffffff)) {
-    BATTLE_jump_to_post_action_display(unit_misc_id);
+    BATTLE_jump_to_post_action_display(unit_entd_id);
   }
   if (((param_1 & 0x20) != 0) && (uVar2 != 0xffffffff)) {
-    BATTLE_update_anim_display_by_misc_id(unit_misc_id);
+    BATTLE_update_anim_display_by_entd_id(unit_entd_id);
   }
   if (((param_1 & 0x40) != 0) && (uVar2 != 0xffffffff)) {
-    BATTLE_set_target_anim_by_misc_id(unit_misc_id);
+    BATTLE_set_target_anim_by_misc_id(unit_entd_id);
   }
   if (((param_1 & 0xff00) != 0) && (uVar2 != 0xffffffff)) {
-    BATTLE_set_anim_value_from_misc_id(unit_misc_id,(short)((param_1 & 0xff00) >> 8));
+    BATTLE_set_anim_value_from_misc_id(unit_entd_id,(short)((param_1 & 0xff00) >> 8));
   }
   if ((param_1 & 7) != 0) {
     uVar2 = (param_1 & 7) - 1 & 0xffff;
@@ -122669,7 +123470,7 @@ void FUN_BATTLE_BIN__801a3d30(uint param_1,int param_2)
 {
   uint uVar1;
   int iVar2;
-  ushort unit_misc_id;
+  ushort unit_entd_id;
   short anim_value;
   int iVar3;
   uint unaff_s3;
@@ -122677,7 +123478,7 @@ void FUN_BATTLE_BIN__801a3d30(uint param_1,int param_2)
   if (((param_1 & 8) != 0) && (unaff_s3 = 0xffffffff, DAT_BATTLE_BIN__801badb0 == 0)) {
     unaff_s3 = (uint)DAT_BATTLE_BIN__801badb2;
   }
-  unit_misc_id = (ushort)unaff_s3;
+  unit_entd_id = (ushort)unaff_s3;
   if ((param_1 & 0x10) != 0) {
     if ((param_1 & 8) == 0) {
       iVar2 = 0;
@@ -122693,7 +123494,7 @@ void FUN_BATTLE_BIN__801a3d30(uint param_1,int param_2)
       }
     }
     else if (unaff_s3 != 0xffffffff) {
-      BATTLE_jump_to_post_action_display(unit_misc_id);
+      BATTLE_jump_to_post_action_display(unit_entd_id);
     }
   }
   if ((param_1 & 0x20) != 0) {
@@ -122704,14 +123505,14 @@ void FUN_BATTLE_BIN__801a3d30(uint param_1,int param_2)
         do {
           iVar2 = iVar2 + 1;
           if (*(short *)((int)&DAT_BATTLE_BIN__801bad10 + iVar3) == 0) {
-            BATTLE_update_anim_display_by_misc_id((ushort)(byte)(&DAT_BATTLE_BIN__801bad12)[iVar3]);
+            BATTLE_update_anim_display_by_entd_id((ushort)(byte)(&DAT_BATTLE_BIN__801bad12)[iVar3]);
           }
           iVar3 = iVar3 + 10;
         } while (iVar2 < (int)(uint)DAT_BATTLE_BIN__801bad0c);
       }
     }
     else if (unaff_s3 != 0xffffffff) {
-      BATTLE_update_anim_display_by_misc_id(unit_misc_id);
+      BATTLE_update_anim_display_by_entd_id(unit_entd_id);
     }
   }
   if ((param_1 & 0x40) != 0) {
@@ -122729,7 +123530,7 @@ void FUN_BATTLE_BIN__801a3d30(uint param_1,int param_2)
       }
     }
     else if (unaff_s3 != 0xffffffff) {
-      BATTLE_set_target_anim_by_misc_id(unit_misc_id);
+      BATTLE_set_target_anim_by_misc_id(unit_entd_id);
     }
   }
   if ((param_1 & 0xff00) != 0) {
@@ -122749,7 +123550,7 @@ void FUN_BATTLE_BIN__801a3d30(uint param_1,int param_2)
       }
     }
     else if (unaff_s3 != 0xffffffff) {
-      BATTLE_set_anim_value_from_misc_id(unit_misc_id,anim_value);
+      BATTLE_set_anim_value_from_misc_id(unit_entd_id,anim_value);
     }
   }
   if ((param_1 & 7) != 0) {
@@ -127826,8 +128627,8 @@ void FUN_BATTLE_BIN__801ad944(byte param_1)
     SCUS_do_nothing_800449f8();
   }
   else {
-    if ((&DAT_BATTLE_BIN__801b8bec)[uVar2 * 0x15] != 0) {
-      SCUS_MRTA_free((&DAT_BATTLE_BIN__801b8bec)[uVar2 * 0x15]);
+    if ((void *)(&DAT_BATTLE_BIN__801b8bec)[uVar2 * 0x15] != (void *)0x0) {
+      SCUS_MRTA_free((void *)(&DAT_BATTLE_BIN__801b8bec)[uVar2 * 0x15]);
       (&DAT_BATTLE_BIN__801b8bec)[uVar2 * 0x15] = 0;
     }
     if ((byte)(&DAT_BATTLE_BIN__801b8b9d)[iVar1] == 0) {
@@ -129439,7 +130240,7 @@ undefined4 BATTLE_return_zero(void)
 void FUN_BATTLE_BIN__801b0ffc(void)
 
 {
-  int *piVar1;
+  void **ppvVar1;
   byte *pbVar2;
   short sVar3;
   long lVar4;
@@ -129540,12 +130341,12 @@ void FUN_BATTLE_BIN__801b0ffc(void)
     local_68.vy = DAT_BATTLE_BIN__801b8b28;
     DAT_BATTLE_BIN__801b9254 = iVar6 * (iVar5 >> 8) >> 4;
     RotMatrix(&local_68,(MATRIX *)&DAT_BATTLE_BIN__801bacec);
-    piVar1 = (int *)(DAT_BATTLE_BIN__801bc098 + 0x50);
+    ppvVar1 = (void **)(DAT_BATTLE_BIN__801bc098 + 0x50);
     *(undefined4 *)(DAT_BATTLE_BIN__801bc098 + 8) = 2;
-    if (*piVar1 != 0) {
-      SCUS_MRTA_free(*piVar1);
+    if (*ppvVar1 != (void *)0x0) {
+      SCUS_MRTA_free(*ppvVar1);
     }
-    pPVar7 = (POLY_G3 *)BIN_Malloc_FFT(0xc88);
+    pPVar7 = (POLY_G3 *)SCUS_MRTA_Malloc(0xc88);
     iVar6 = 0xe0;
     iVar5 = 0;
     *(POLY_G3 **)(DAT_BATTLE_BIN__801bc098 + 0x50) = pPVar7;
@@ -129687,10 +130488,10 @@ void FUN_BATTLE_BIN__801b153c(void)
         return;
       }
       iVar9 = 7;
-      if (*(int *)(DAT_BATTLE_BIN__801bc098 + 0x50) != 0) {
-        SCUS_MRTA_free(*(int *)(DAT_BATTLE_BIN__801bc098 + 0x50));
+      if (*(void **)(DAT_BATTLE_BIN__801bc098 + 0x50) != (void *)0x0) {
+        SCUS_MRTA_free(*(void **)(DAT_BATTLE_BIN__801bc098 + 0x50));
       }
-      puVar4 = (undefined4 *)BIN_Malloc_FFT(0x28);
+      puVar4 = (undefined4 *)SCUS_MRTA_Malloc(0x28);
       iVar7 = (int)puVar4 + 7;
       *(undefined4 **)(DAT_BATTLE_BIN__801bc098 + 0x50) = puVar4;
       *puVar4 = 0;
@@ -130197,7 +130998,7 @@ undefined4 FUN_BATTLE_BIN__801b1c04(undefined4 param_1,undefined4 param_2)
     uVar9 = 1;
   }
   else {
-    AccumulateChannelsToPause(MagCharge);
+    SCUS_AccumulateChannelsToPause(MagCharge);
     uVar9 = 0;
   }
   return uVar9;
@@ -130810,7 +131611,7 @@ undefined4 FUN_BATTLE_BIN__801b33d4(undefined4 param_1,undefined4 param_2)
     local_20.w = 6;
     local_20.h = 1;
     local_20.x = (*(byte *)(DAT_BATTLE_BIN__801bc098 + 2) - 1) * 0x10 + 1;
-    LoadImage(&local_20,(u_long *)(iVar18 + DAT_BATTLE_BIN__801bc090 * 0xc));
+    SYS_LoadImage(&local_20,(void *)(iVar18 + DAT_BATTLE_BIN__801bc090 * 0xc));
     psVar7 = BATTLE_get_screen_data_pointer_from_misc_id
                        ((ushort)*(byte *)(DAT_BATTLE_BIN__801bc098 + 0x12));
     psVar8 = BATTLE_get_screen_data_pointer_from_misc_id
@@ -130850,10 +131651,10 @@ undefined4 FUN_BATTLE_BIN__801b33d4(undefined4 param_1,undefined4 param_2)
   else if (uVar10 < 3) {
     if (uVar10 == 1) {
       iVar17 = 0;
-      if (*(int *)(DAT_BATTLE_BIN__801bc098 + 0x50) != 0) {
-        SCUS_MRTA_free(*(int *)(DAT_BATTLE_BIN__801bc098 + 0x50));
+      if (*(void **)(DAT_BATTLE_BIN__801bc098 + 0x50) != (void *)0x0) {
+        SCUS_MRTA_free(*(void **)(DAT_BATTLE_BIN__801bc098 + 0x50));
       }
-      puVar5 = (ushort *)BIN_Malloc_FFT(0x798);
+      puVar5 = (ushort *)SCUS_MRTA_Malloc(0x798);
       iVar18 = 0x18;
       *(ushort **)(DAT_BATTLE_BIN__801bc098 + 0x50) = puVar5;
       do {
@@ -130964,7 +131765,7 @@ uint FUN_BATTLE_BIN__801b3820(undefined4 param_1,undefined4 param_2,uint param_3
 undefined4 FUN_BATTLE_BIN__801b3938(undefined4 param_1)
 
 {
-  int *piVar1;
+  void **ppvVar1;
   ushort uVar2;
   u_long *puVar3;
   int iVar4;
@@ -131103,7 +131904,7 @@ undefined4 FUN_BATTLE_BIN__801b3938(undefined4 param_1)
     DAT_BATTLE_BIN__801b8b40 =
          SquareRoot12((iVar13 * iVar13 + iVar9 * iVar9 + iVar4 * iVar4) * 0x1000);
     DAT_BATTLE_BIN__801b8b5c = local_74;
-    piVar1 = (int *)(DAT_BATTLE_BIN__801bc098 + 0x50);
+    ppvVar1 = (void **)(DAT_BATTLE_BIN__801bc098 + 0x50);
     DAT_BATTLE_BIN__801b8b44 = 0;
     DAT_BATTLE_BIN__801b8b48 = 0x8000;
     DAT_BATTLE_BIN__801b8b4c = DAT_BATTLE_BIN__801bbf3c;
@@ -131111,13 +131912,13 @@ undefined4 FUN_BATTLE_BIN__801b3938(undefined4 param_1)
     DAT_BATTLE_BIN__801b8b54 = iVar9;
     DAT_BATTLE_BIN__801b8b58 = iVar4;
     *(undefined4 *)(DAT_BATTLE_BIN__801bc098 + 8) = 2;
-    if (*piVar1 != 0) {
-      SCUS_MRTA_free(*piVar1);
+    if (*ppvVar1 != (void *)0x0) {
+      SCUS_MRTA_free(*ppvVar1);
     }
     uVar2 = *(ushort *)
              (&DAT_BATTLE_BIN__801b84de + (uint)*(ushort *)(DAT_BATTLE_BIN__801bc098 + 4) * 4);
     if ((uVar2 & 0xff) == 0) {
-      pPVar5 = (POLY_G3 *)BIN_Malloc_FFT(0xc88);
+      pPVar5 = (POLY_G3 *)SCUS_MRTA_Malloc(0xc88);
       iVar4 = 0;
       iVar9 = 0xe0;
       *(POLY_G3 **)(DAT_BATTLE_BIN__801bc098 + 0x50) = pPVar5;
@@ -131143,7 +131944,7 @@ undefined4 FUN_BATTLE_BIN__801b3938(undefined4 param_1)
       } while (iVar4 < 2);
     }
     if ((uVar2 & 0xff) == 1) {
-      pPVar6 = (POLY_G3 *)BIN_Malloc_FFT(0x2a0);
+      pPVar6 = (POLY_G3 *)SCUS_MRTA_Malloc(0x2a0);
       iVar4 = 0;
       *(POLY_G3 **)(DAT_BATTLE_BIN__801bc098 + 0x50) = pPVar6;
       do {
@@ -131160,7 +131961,7 @@ undefined4 FUN_BATTLE_BIN__801b3938(undefined4 param_1)
     }
     if (uVar2 == 0xffff) {
       if (*(uint *)(DAT_BATTLE_BIN__801bc098 + 0x24) - 0x7a < 3) {
-        pPVar6 = (POLY_G3 *)BIN_Malloc_FFT(0x380);
+        pPVar6 = (POLY_G3 *)SCUS_MRTA_Malloc(0x380);
         iVar4 = 0;
         *(POLY_G3 **)(DAT_BATTLE_BIN__801bc098 + 0x50) = pPVar6;
         do {
@@ -131472,7 +132273,7 @@ undefined4 FUN_BATTLE_BIN__801b4234(undefined4 param_1,undefined4 param_2)
       }
       iVar7 = iVar7 + 1;
     } while (iVar7 < 0x1e);
-    AccumulateChannelsToPause(Summon);
+    SCUS_AccumulateChannelsToPause(Summon);
     uVar9 = 0;
   }
   return uVar9;
@@ -131848,7 +132649,7 @@ void FUN_OPEN__80067c1c(void)
     }
     if ((DAT_OPEN__8008e53c & 0x20000) == 0) {
       if ((DAT_OPEN__8008e53c & 0x40000) == 0) {
-        LoadImage(&local_18,DAT_OPEN__800855a8);
+        SYS_LoadImage(&local_18,DAT_OPEN__800855a8);
       }
       else {
         local_10.x = 0x200;
@@ -132561,7 +133362,7 @@ void FUN_OPEN__80069b6c(void)
   local_10.x = 0x200;
   local_10.w = 0x200;
   local_10.h = 0xf0;
-  LoadImage(&local_10,DAT_OPEN__800852a4);
+  SYS_LoadImage(&local_10,DAT_OPEN__800852a4);
   DrawSync(0);
   OPEN_NewFileHeader(&MRTA_fileopenhdr,0x150d3,0x170,DAT_OPEN__800852a4);
   OPEN_OpenFile();
@@ -132618,7 +133419,7 @@ void Put_OPNTEX_To_FrameBuffer(int param_1)
     local_28[0].y = *(short *)(param_1 + 0xe);
     local_28[0].w = (short)*(undefined4 *)(param_1 + 0x10) * *(short *)(param_1 + 0x12);
     local_28[0].h = 1;
-    LoadImage(local_28,(u_long *)(param_1 + 0x14));
+    SYS_LoadImage(local_28,(void *)(param_1 + 0x14));
     iVar3 = ((uVar1 >> 2) + 2) * 4;
   }
   iVar2 = iVar3 + param_1;
@@ -132626,7 +133427,7 @@ void Put_OPNTEX_To_FrameBuffer(int param_1)
   local_28[0].y = *(short *)(iVar2 + 6);
   local_28[0].w = (short)*(undefined4 *)(iVar2 + 8);
   local_28[0].h = *(short *)(iVar2 + 10);
-  LoadImage(local_28,(u_long *)(param_1 + iVar3 + 0xc));
+  SYS_LoadImage(local_28,(void *)(param_1 + iVar3 + 0xc));
   DrawSync(0);
   return;
 }
@@ -132697,7 +133498,7 @@ void FUN_OPEN__8006a174(undefined4 param_1)
   iVar5 = 0;
   puVar6 = &DAT_OPEN__80085328;
   iVar7 = 0x1e;
-  LoadImage(local_38,DAT_OPEN__800855a8);
+  SYS_LoadImage(local_38,DAT_OPEN__800855a8);
   DrawSync(0);
   iVar1 = FUN_OPEN__800696c8((int)&DAT_OPEN__80085f44,&DAT_OPEN__80085fc4);
   *(int *)(&DAT_OPEN__80085324 + DAT_OPEN__8008fc04 * 100) = iVar1;
@@ -134823,7 +135624,7 @@ void FUN_WLDCORE__80067a78(void)
   FUN_WORLD__800e1710();
   if ((DAT_8004d950 & 0x200) == 0) {
     FUN_WLDCORE__80068d74((uint)(Cur_GsBuff == 0),&RStack_10.x);
-    LoadImage(&RStack_10,DAT_WLDCORE__800c72f4);
+    SYS_LoadImage(&RStack_10,DAT_WLDCORE__800c72f4);
   }
   GsDrawOt((GsOT *)(&DAT_WLDCORE__800bb364 + Cur_GsBuff * 5));
   return;
@@ -134912,22 +135713,22 @@ void FUN_WLDCORE__80067e38(void)
 {
   undefined4 *puVar1;
   u_long uVar2;
-  PartyUnit *pPVar3;
-  uint uVar4;
-  undefined4 *puVar5;
-  undefined4 *puVar6;
-  int iVar7;
-  int iVar8;
+  PartyUnit *ramza_datapointer;
+  EventVar _update_bs;
+  undefined4 *puVar3;
+  undefined4 *puVar4;
+  int iVar5;
+  int iVar6;
   byte local_18;
   undefined local_17;
   uint local_10;
   uint local_c;
   
-  iVar8 = 0;
+  iVar6 = 0;
   puVar1 = &DAT_WLDCORE__800d0ab8;
-  puVar5 = &DAT_WLDCORE__800d0ad0;
-  iVar7 = 0;
-  puVar6 = &DAT_WLDCORE__800d0ac0;
+  puVar3 = &DAT_WLDCORE__800d0ad0;
+  iVar5 = 0;
+  puVar4 = &DAT_WLDCORE__800d0ac0;
   DAT_WLDCORE__800c72f4 = &DAT_801d0000;
   DAT_WLDCORE__800d0af4 = 0xffffffff;
   DAT_WLDCORE__800d0af0 = 0xffffffff;
@@ -134947,30 +135748,30 @@ void FUN_WLDCORE__80067e38(void)
   DAT_WLDCORE__800d4674 = PTR_DAT_WLDCORE__80097234_WLDCORE__80096a54;
   do {
     *puVar1 = 0;
-    *puVar6 = 0xf;
-    *(undefined4 *)((int)&DAT_WLDCORE__800d0ad0 + iVar7) = 0x60000000;
-    *(undefined2 *)(puVar5 + 1) = 0xff80;
-    *(undefined2 *)((int)puVar5 + 6) = 0xff88;
-    *(undefined2 *)(puVar5 + 2) = 0x100;
-    *(undefined2 *)((int)puVar5 + 10) = 0xf0;
-    *(undefined *)(puVar5 + 3) = 0;
-    *(undefined *)((int)puVar5 + 0xd) = 0;
-    *(undefined *)((int)puVar5 + 0xe) = 0;
-    puVar5 = puVar5 + 4;
-    iVar7 = iVar7 + 0x10;
-    puVar6 = puVar6 + 1;
-    iVar8 = iVar8 + 1;
+    *puVar4 = 0xf;
+    *(undefined4 *)((int)&DAT_WLDCORE__800d0ad0 + iVar5) = 0x60000000;
+    *(undefined2 *)(puVar3 + 1) = 0xff80;
+    *(undefined2 *)((int)puVar3 + 6) = 0xff88;
+    *(undefined2 *)(puVar3 + 2) = 0x100;
+    *(undefined2 *)((int)puVar3 + 10) = 0xf0;
+    *(undefined *)(puVar3 + 3) = 0;
+    *(undefined *)((int)puVar3 + 0xd) = 0;
+    *(undefined *)((int)puVar3 + 0xe) = 0;
+    puVar3 = puVar3 + 4;
+    iVar5 = iVar5 + 0x10;
+    puVar4 = puVar4 + 1;
+    iVar6 = iVar6 + 1;
     puVar1 = puVar1 + 1;
-  } while (iVar8 < 2);
+  } while (iVar6 < 2);
   DAT_WLDCORE__800d0ab8 = 2;
   puVar1 = &DAT_WLDCORE__800d07d8;
-  iVar7 = 0;
+  iVar5 = 0;
   do {
     puVar1[1] = 0;
-    *(undefined4 *)((int)&DAT_WLDCORE__800d07d8 + iVar7) = 0;
-    iVar7 = iVar7 + 8;
+    *(undefined4 *)((int)&DAT_WLDCORE__800d07d8 + iVar5) = 0;
+    iVar5 = iVar5 + 8;
     puVar1 = puVar1 + 2;
-  } while (iVar7 < 0xa8);
+  } while (iVar5 < 0xa8);
   DAT_WLDCORE__8009f2ac = 0x80;
   DAT_WLDCORE__8009f2ad = 0x80;
   DAT_WLDCORE__8009f2ae = 0x80;
@@ -134993,87 +135794,88 @@ void FUN_WLDCORE__80067e38(void)
   DAT_WLDCORE__800bb4f8 = 0;
   DAT_WLDCORE__800d0b24 = 0;
   if ((DAT_8004d950 & 0x400000) != 0) {
-    uVar4 = 0x3c0;
-    iVar7 = 0;
+    _update_bs = BioRamza;
+    iVar5 = 0;
     do {
-      WORLD_SetScriptVar(uVar4,1);
-      iVar8 = iVar7 + 1;
-      uVar4 = iVar7 + 0x3c1;
-      iVar7 = iVar8;
-    } while (iVar8 < 0x40);
-    uVar4 = 0x2d1;
-    iVar7 = 0;
+      WORLD_SetScriptVar(_update_bs,1);
+      iVar6 = iVar5 + 1;
+      _update_bs = iVar5 + BioDelita;
+      iVar5 = iVar6;
+    } while (iVar6 < 0x40);
+    _update_bs = RumorDeathCorps;
+    iVar5 = 0;
     do {
-      WORLD_SetScriptVar(uVar4,1);
-      iVar8 = iVar7 + 1;
-      uVar4 = iVar7 + 0x2d2;
-      iVar7 = iVar8;
-    } while (iVar8 < 0x40);
-    uVar4 = 0x22c;
-    iVar7 = 0;
+      WORLD_SetScriptVar(_update_bs,1);
+      iVar6 = iVar5 + 1;
+      _update_bs = iVar5 + RumorKingOmdoria;
+      iVar5 = iVar6;
+    } while (iVar6 < 0x40);
+    _update_bs = IgrosCZeakdenF;
+    iVar5 = 0;
     do {
-      WORLD_SetScriptVar(uVar4,1);
-      iVar8 = iVar7 + 1;
-      uVar4 = iVar7 + 0x22d;
-      iVar7 = iVar8;
-    } while (iVar8 < 0x30);
-    uVar4 = 0x200;
-    iVar7 = 0;
+      WORLD_SetScriptVar(_update_bs,1);
+      iVar6 = iVar5 + 1;
+      _update_bs = iVar5 + IgrosCMandaliaP;
+      iVar5 = iVar6;
+    } while (iVar6 < 0x30);
+    _update_bs = LesaliaImperialCastle;
+    iVar5 = 0;
     do {
-      WORLD_SetScriptVar(uVar4,1);
-      iVar8 = iVar7 + 1;
-      uVar4 = iVar7 + 0x201;
-      iVar7 = iVar8;
-    } while (iVar8 < 0x2b);
-    uVar4 = 0x1bc;
-    iVar7 = 0;
+      WORLD_SetScriptVar(_update_bs,1);
+      iVar6 = iVar5 + 1;
+      _update_bs = iVar5 + RiovanesCastle;
+      iVar5 = iVar6;
+    } while (iVar6 < 0x2b);
+    _update_bs = RecordCadets;
+    iVar5 = 0;
     do {
-      WORLD_SetScriptVar(uVar4,1);
-      iVar8 = iVar7 + 1;
-      uVar4 = iVar7 + 0x1bd;
-      iVar7 = iVar8;
-    } while (iVar8 < 0x40);
+      WORLD_SetScriptVar(_update_bs,1);
+      iVar6 = iVar5 + 1;
+      _update_bs = iVar5 + RecordsBalbanesDeath;
+      iVar5 = iVar6;
+    } while (iVar6 < 0x40);
     uVar2 = SCUS_get_inverted_button_input(0);
     if ((uVar2 & 0x800) == 0) {
       local_18 = 1;
       local_17 = 1;
-      uVar4 = 0x321;
-      iVar7 = 0;
+      _update_bs = FourGods;
+      iVar5 = 0;
       do {
-        WORLD_SetScriptVar(uVar4,1);
-        FUN_WLDCORE__80069e58((int)&DAT_80057cec,iVar7,&local_18);
-        iVar8 = iVar7 + 1;
-        uVar4 = iVar7 + 0x322;
-        iVar7 = iVar8;
-      } while (iVar8 < 0x2f);
-      uVar4 = 0x350;
-      iVar7 = 0;
+        WORLD_SetScriptVar(_update_bs,1);
+        FUN_WLDCORE__80069e58((int)&DAT_80057cec,iVar5,&local_18);
+        iVar6 = iVar5 + 1;
+        _update_bs = iVar5 + StatueLylis;
+        iVar5 = iVar6;
+      } while (iVar6 < 0x2f);
+      _update_bs = ChaosShrine;
+      iVar5 = 0;
       do {
-        WORLD_SetScriptVar(uVar4,1);
-        FUN_WLDCORE__80069e58((int)&DAT_800596ac,iVar7,&local_18);
-        iVar8 = iVar7 + 1;
-        uVar4 = iVar7 + 0x351;
-        iVar7 = iVar8;
-      } while (iVar8 < 0x10);
-      iVar7 = 0;
+        WORLD_SetScriptVar(_update_bs,1);
+        FUN_WLDCORE__80069e58((int)&DAT_800596ac,iVar5,&local_18);
+        iVar6 = iVar5 + 1;
+        _update_bs = iVar5 + ForbiddenLandEureka;
+        iVar5 = iVar6;
+      } while (iVar6 < 0x10);
+      iVar5 = 0;
       do {
-        WORLD_SetScriptVar(iVar7 + 0x360,4);
-        iVar7 = iVar7 + 1;
-      } while (iVar7 < 0x60);
+        WORLD_SetScriptVar(iVar5 + CompanyDestiny,4);
+        iVar5 = iVar5 + 1;
+      } while (iVar5 < 0x60);
     }
-    WORLD_SetScriptVar(0x2c,30000);
-    WORLD_SetScriptVar(0x6f,0x14);
-    WORLD_SetScriptVar(0x91,1);
-    WORLD_SetScriptVar(0x90,1);
+    WORLD_SetScriptVar(WarFunds,30000);
+    WORLD_SetScriptVar(ShopAvailability,0x14);
+    WORLD_SetScriptVar(PropositionsOpen,1);
+    WORLD_SetScriptVar(FurShopOpen,1);
     local_10 = 1;
     local_c = 1;
     WORLD_SetScriptVar(0x5f,1);
     WORLD_SetScriptVar(0x60,local_c);
-    iVar7 = FUN_WLDCORE__8006a0ac(local_10,local_c);
+    iVar5 = WLDCORE_GetDayofYear(local_10,local_c);
     FUN_WLDCORE__80069bb0(&local_10,(int *)&local_c);
-    pPVar3 = Get_Party_Data_Pointer(0);
-    pPVar3->field_0x5 = (char)iVar7;
-    pPVar3->field_0x6 = (byte)((uint)iVar7 >> 8) & 1 | ((char)local_10 + -1) * '\x10';
+    ramza_datapointer = Get_Party_Data_Pointer(0);
+    *(char *)&ramza_datapointer->birthday_zodiac = (char)iVar5;
+    *(byte *)((int)&ramza_datapointer->birthday_zodiac + 1) =
+         (byte)((uint)iVar5 >> 8) & 1 | ((char)local_10 + -1) * '\x10';
   }
   return;
 }
@@ -135090,7 +135892,7 @@ void FUN_WLDCORE__800682a0(void)
   if ((DAT_8004d950 & 0x200000) == 0) {
     Unload_ScenarioSongs_and_SFX();
   }
-  WORLD_SetScriptVar(0x33,DAT_WLDCORE__800bbc6c);
+  WORLD_SetScriptVar(CurrentMap,DAT_WLDCORE__800bbc6c);
   return;
 }
 
@@ -135145,7 +135947,7 @@ void FUN_WLDCORE__800683fc(void)
   if ((DAT_8004d950 & 0x40000) == 0) {
     if ((DAT_8004d950 & 0x200000) != 0) {
       DAT_8004d950 = uVar3 ^ 0x200000;
-      WORLD_SetScriptVar(0x23,DAT_8004d9b0);
+      WORLD_SetScriptVar(Weather,DAT_8004d9b0);
       uVar4 = 0x2d;
       uVar5 = 1;
       DAT_WLDCORE__800d4634 = 0x1b;
@@ -135170,7 +135972,7 @@ void FUN_WLDCORE__800683fc(void)
   }
   else {
     DAT_8004d950 = uVar3 ^ 0x40000;
-    WORLD_SetScriptVar(0x23,DAT_8004d9b0);
+    WORLD_SetScriptVar(Weather,DAT_8004d9b0);
     uVar4 = 0x1d;
   }
   uVar5 = 0;
@@ -135328,7 +136130,7 @@ LAB_WLDCORE__8006888c:
           iVar3 = (iVar1 + 1) * 4;
           local_30.w = (short)*(undefined4 *)(iVar3 + *(int *)(param_1 + 0x20));
           local_30.h = (short)((uint)*(undefined4 *)(iVar3 + *(int *)(param_1 + 0x20)) >> 0x10);
-          LoadImage(&local_30,(u_long *)(*(int *)(param_1 + 0x20) + (iVar1 + 2) * 4));
+          SYS_LoadImage(&local_30,(void *)(*(int *)(param_1 + 0x20) + (iVar1 + 2) * 4));
           iVar4 = iVar4 + 1;
           iVar1 = iVar1 + 2 + ((int)local_30.w * (int)local_30.h) / 2;
         } while (iVar4 < iVar5);
@@ -135716,8 +136518,8 @@ void FUN_WLDCORE__80069adc(void)
       uVar1 = 1;
     }
   }
-  WORLD_SetScriptVar(0x2e,uVar1);
-  WORLD_SetScriptVar(0x2f,uVar3);
+  WORLD_SetScriptVar(Month,uVar1);
+  WORLD_SetScriptVar(Day,uVar3);
   if ((uVar1 == 3) && (uVar3 == 0x15)) {
     iVar2 = WORLD_GetScriptVar(0x67);
     uVar1 = iVar2 + 1;
@@ -135778,31 +136580,31 @@ void FUN_WLDCORE__80069d40(void)
 
 {
   byte *pbVar1;
+  uint _day;
+  uint _month;
   uint uVar2;
   uint uVar3;
-  uint uVar4;
-  uint uVar5;
-  byte *pbVar6;
-  int iVar7;
+  byte *pbVar4;
+  int iVar5;
   
   pbVar1 = PTR_DAT_WLDCORE__80097028_WLDCORE__80096a48;
-  uVar2 = WORLD_GetScriptVar(Day);
-  uVar3 = WORLD_GetScriptVar(Month);
-  uVar4 = WORLD_GetScriptVar(0x5f);
-  uVar5 = WORLD_GetScriptVar(0x60);
-  if (((uVar3 == uVar4) && (uVar2 == uVar5)) && ((byte)DAT_80057f34 < 99)) {
+  _day = WORLD_GetScriptVar(Day);
+  _month = WORLD_GetScriptVar(Month);
+  uVar2 = WORLD_GetScriptVar(0x5f);
+  uVar3 = WORLD_GetScriptVar(0x60);
+  if (((_month == uVar2) && (_day == uVar3)) && ((byte)DAT_80057f34 < 99)) {
     DAT_80057f34._0_1_ = (byte)DAT_80057f34 + 1;
   }
-  iVar7 = 1;
-  pbVar6 = (byte *)((int)&DAT_80057f34 + 1);
+  iVar5 = 1;
+  pbVar4 = (byte *)((int)&DAT_80057f34 + 1);
   do {
-    if (((uVar3 == pbVar1[2]) && (uVar2 == pbVar1[3])) && (*pbVar6 < 99)) {
-      *pbVar6 = *pbVar6 + 1;
+    if (((_month == pbVar1[2]) && (_day == pbVar1[3])) && (*pbVar4 < 99)) {
+      *pbVar4 = *pbVar4 + 1;
     }
-    pbVar6 = pbVar6 + 1;
-    iVar7 = iVar7 + 1;
+    pbVar4 = pbVar4 + 1;
+    iVar5 = iVar5 + 1;
     pbVar1 = pbVar1 + 2;
-  } while (iVar7 < 0x40);
+  } while (iVar5 < 0x40);
   return;
 }
 
@@ -135866,23 +136668,23 @@ void FUN_WLDCORE__8006a018(int param_1)
 
 
 
-int FUN_WLDCORE__8006a0ac(int param_1,int param_2)
+int WLDCORE_GetDayofYear(int month,int day_of_month)
 
 {
-  byte *pbVar1;
-  int iVar2;
-  int iVar3;
+  byte *total_birthday;
+  int month_count;
+  int day_of_year;
   
-  iVar2 = 0;
-  iVar3 = 0;
-  if (0 < param_1 + -1) {
+  month_count = 0;
+  day_of_year = 0;
+  if (0 < month + -1) {
     do {
-      pbVar1 = &DAT_WLDCORE__8009e66c + iVar2;
-      iVar2 = iVar2 + 1;
-      iVar3 = iVar3 + (uint)*pbVar1;
-    } while (iVar2 < param_1 + -1);
+      total_birthday = days_per_month + month_count;
+      month_count = month_count + 1;
+      day_of_year = day_of_year + (uint)*total_birthday;
+    } while (month_count < month + -1);
   }
-  return iVar3 + -1 + param_2;
+  return day_of_year + -1 + day_of_month;
 }
 
 
@@ -135897,8 +136699,8 @@ void FUN_WLDCORE__8006a0f8(int param_1,int *param_2,int *param_3)
   do {
     iVar2 = iVar1;
     iVar1 = iVar2 + 1;
-    if (param_1 < (int)(uint)(byte)(&DAT_WLDCORE__8009e66c)[iVar2]) goto LAB_WLDCORE__8006a130;
-    param_1 = param_1 - (uint)(byte)(&DAT_WLDCORE__8009e66c)[iVar2];
+    if (param_1 < (int)(uint)days_per_month[iVar2]) goto LAB_WLDCORE__8006a130;
+    param_1 = param_1 - (uint)days_per_month[iVar2];
     iVar1 = iVar2 + 1;
   } while (iVar2 + 1 < 0xc);
   iVar1 = iVar2 + 2;
@@ -136930,7 +137732,7 @@ void FUN_WLDCORE__8006c1fc(void)
   iVar1 = WORLD_GetScriptVar(PostCombatDateAdvance);
   if (iVar1 != 0) {
     FUN_WLDCORE__8009de1c(iVar1);
-    WORLD_SetScriptVar(0x54,0);
+    WORLD_SetScriptVar(PostCombatDateAdvance,0);
   }
   return;
 }
@@ -137544,11 +138346,11 @@ void FUN_WLDCORE__80080e54(void)
   FUN_WLDCORE__8008f72c(iVar2,&DAT_WLDCORE__800c87d8);
   iVar1 = FUN_WLDCORE__8006b548((int)&DAT_WLDCORE__8009ef80,&DAT_WLDCORE__8009f198);
   *(int *)(&DAT_WLDCORE__800bb998 + DAT_WLDCORE__800bb4f0 * 0x5c) = iVar1;
-  DAT_801531d8 = WORLD_GetScriptVar(0x61);
+  DAT_801531d8 = WORLD_GetScriptVar(NumInjured);
   if (9999 < DAT_801531d8) {
     DAT_801531d8 = 9999;
   }
-  DAT_801531dc = WORLD_GetScriptVar(NumInjured);
+  DAT_801531dc = WORLD_GetScriptVar(NumCasualties);
   if (9999 < DAT_801531dc) {
     DAT_801531dc = 9999;
   }
@@ -138593,7 +139395,7 @@ void FUN_WLDCORE__8008e540(void)
           DAT_WLDCORE__8009f260 = DAT_WLDCORE__800d0bb0;
           DAT_WLDCORE__8009f24c = DAT_WLDCORE__8009f24c | 3;
           DAT_WLDCORE__8009f254 = DAT_WLDCORE__800d0b90;
-          WORLD_SetScriptVar(0x31,DAT_WLDCORE__800d0b90);
+          WORLD_SetScriptVar(CurrentWorldLocation,DAT_WLDCORE__800d0b90);
           DAT_WLDCORE__800d0b7c = DAT_WLDCORE__800d0b7c + 1;
           iVar3 = FUN_WLDCORE__80091238(DAT_WLDCORE__8009f254,8);
           if (iVar3 == 0) {
@@ -138650,15 +139452,15 @@ void FUN_WLDCORE__8008e540(void)
             }
             DAT_8004d950 = DAT_8004d950 | 0x8000;
             DAT_WLDCORE__800bbc6c = DAT_WLDCORE__800d483c;
-            WORLD_SetScriptVar(0x32,DAT_WLDCORE__800d456c);
-            WORLD_SetScriptVar(0x34,1);
-            WORLD_SetScriptVar(0x35,DAT_WLDCORE__8009f248);
-            WORLD_SetScriptVar(0x27,0);
+            WORLD_SetScriptVar(CurrentENTD,DAT_WLDCORE__800d456c);
+            WORLD_SetScriptVar(NumberOfSquads,1);
+            WORLD_SetScriptVar(Squad1ID,DAT_WLDCORE__8009f248);
+            WORLD_SetScriptVar(CurrentEvent,0);
             uVar4 = 0;
           }
           else {
             DAT_WLDCORE__800bbc6c = 0;
-            WORLD_SetScriptVar(0x27,DAT_WLDCORE__800d4664);
+            WORLD_SetScriptVar(CurrentEvent,DAT_WLDCORE__800d4664);
             uVar4 = DAT_WLDCORE__800d4668;
           }
           FUN_WLDCORE__8008047c(uVar4);
@@ -139070,7 +139872,7 @@ void FUN_WLDCORE__8008f698(int param_1,undefined4 param_2,undefined4 param_3,int
 
 
 
-void FUN_WLDCORE__8008f72c(int param_1,u_long *param_2)
+void FUN_WLDCORE__8008f72c(int param_1,void *param_2)
 
 {
   int iVar1;
@@ -139089,7 +139891,7 @@ void FUN_WLDCORE__8008f72c(int param_1,u_long *param_2)
   }
   local_20[0].w = (short)(iVar1 >> 2);
   local_20[0].h = *(short *)(&DAT_WLDCORE__800bbc9e + iVar2);
-  LoadImage(local_20,param_2);
+  SYS_LoadImage(local_20,param_2);
   return;
 }
 
@@ -139652,7 +140454,7 @@ void FUN_WLDCORE__8009de1c(int param_1)
   iVar8 = param_1 % 0x16d;
   local_30 = WORLD_GetScriptVar(Month);
   local_2c[0] = WORLD_GetScriptVar(Day);
-  iVar1 = FUN_WLDCORE__8006a0ac(local_30,local_2c[0]);
+  iVar1 = WLDCORE_GetDayofYear(local_30,local_2c[0]);
   do {
     *(char *)puVar5 = *(char *)puVar5 + (char)(param_1 / 0x16d);
     if (iVar6 == 0) {
@@ -139663,7 +140465,7 @@ void FUN_WLDCORE__8009de1c(int param_1)
       local_30 = (uint)*pbVar7;
       local_2c[0] = (uint)pbVar7[1];
     }
-    iVar2 = FUN_WLDCORE__8006a0ac(local_30,local_2c[0]);
+    iVar2 = WLDCORE_GetDayofYear(local_30,local_2c[0]);
     if ((0 < iVar2 - iVar1) && (iVar2 - iVar1 <= iVar8)) {
       *(char *)puVar5 = *(char *)puVar5 + '\x01';
     }
@@ -139681,8 +140483,8 @@ void FUN_WLDCORE__8009de1c(int param_1)
     iVar1 = iVar1 + -0x16d;
   }
   FUN_WLDCORE__8006a0f8(iVar1,(int *)&local_30,(int *)local_2c);
-  WORLD_SetScriptVar(0x2e,local_30);
-  WORLD_SetScriptVar(0x2f,local_2c[0]);
+  WORLD_SetScriptVar(Month,local_30);
+  WORLD_SetScriptVar(Day,local_2c[0]);
   iVar1 = 0;
   if (DAT_80057ce8 != 0) {
     pbVar3 = &DAT_80057eec;
@@ -142251,7 +143053,7 @@ void WORLD_BuildDestroyEggPrompt(void)
   DAT_WORLD__8015328c = (int)local_28;
   FUN_WORLD__800fdb88(8,9);
   FUN_WORLD__800fe774();
-  LoadImage(&RStack_128,p);
+  SYS_LoadImage(&RStack_128,p);
   while( true ) {
     NextThreadWORLD();
     if (uVar5 == 0) {
@@ -142323,7 +143125,7 @@ int WORLD_GetScriptVar(EventVar EventVariableID)
   if (EventVariableID == MapStateAndWeather) {
     _dayNight = WORLD_GetScriptVar(DayNight);
     _weather = WORLD_GetScriptVar(Weather);
-    WORLD_SetScriptVar(0x22,(_dayNight & 1) << 0xf | (_weather & 7) << 0xc);
+    WORLD_SetScriptVar(MapStateAndWeather,(_dayNight & 1) << 0xf | (_weather & 7) << 0xc);
   }
   FUN_WORLD__800fd4a8(0xbe,0,0);
   FUN_WORLD__800fd4a8(0xb1,0,EventVariableID);
@@ -142334,13 +143136,13 @@ int WORLD_GetScriptVar(EventVar EventVariableID)
 
 
 
-void WORLD_SetScriptVar(uint param_1,uint param_2)
+void WORLD_SetScriptVar(EventVar param_1,uint param_2)
 
 {
   int iVar1;
   
   iVar1 = *Var_Temp_ptr;
-  if ((param_1 == 0x2c) && (99999999 < (int)param_2)) {
+  if ((param_1 == WarFunds) && (99999999 < (int)param_2)) {
     param_2 = 99999999;
   }
   FUN_WORLD__800fd4a8(0xbe,param_1,0);
@@ -142360,7 +143162,7 @@ void WORLD_SetScriptVar(uint param_1,uint param_2)
 void WORLD_CallFree(int param_1)
 
 {
-  SCUS_MRTA_free(param_1);
+  SCUS_MRTA_free((void *)param_1);
   return;
 }
 
@@ -142910,7 +143712,7 @@ u_long * FUN_WORLD__800ff9ac(uint param_1,int param_2,short *param_3,int param_4
           local_40.h = 0x60;
         }
         else {
-          LoadImage(&local_40,p);
+          SYS_LoadImage(&local_40,p);
           FUN_WORLD__800ffd28(1);
           local_40.y = local_40.y + 0x60;
           local_40.h = (short)param_2 - (short)uVar6;
@@ -142947,7 +143749,7 @@ LAB_WORLD__800ffb68:
     } while ((int)uVar6 < param_2);
   }
   if ((param_4 == 0) || (param_4 == 2)) {
-    LoadImage(&local_40,p);
+    SYS_LoadImage(&local_40,p);
     FUN_WORLD__800ffd28(1);
     FUN_WORLD__800e3298((undefined *)p);
   }
@@ -143396,14 +144198,14 @@ void FUN_WORLD__80106128(short param_1)
 void FUN_WORLD__80106140(void)
 
 {
-  u_long *p;
+  void *p;
   
   DAT_WORLD__801cd78c = Get_BIN_as_TIM;
-  p = (u_long *)FUN_WORLD__80100384();
-  LoadImage((RECT *)&DAT_WORLD__80189c4c,p);
-  LoadImage((RECT *)&DAT_WORLD__80189c54,p + 0x2000);
-  LoadImage((RECT *)&DAT_WORLD__80189c5c,p + 0x4000);
-  LoadImage((RECT *)&DAT_WORLD__80189c64,p + 0x6000);
+  p = (void *)FUN_WORLD__80100384();
+  SYS_LoadImage((RECT *)&DAT_WORLD__80189c4c,p);
+  SYS_LoadImage((RECT *)&DAT_WORLD__80189c54,(void *)((int)p + 0x8000));
+  SYS_LoadImage((RECT *)&DAT_WORLD__80189c5c,(void *)((int)p + 0x10000));
+  SYS_LoadImage((RECT *)&DAT_WORLD__80189c64,(void *)((int)p + 0x18000));
   DrawSync(0);
   Call_BIN_Free_FFT((int)p);
   return;
@@ -143414,35 +144216,35 @@ void FUN_WORLD__80106140(void)
 void FUN_WORLD__801061e0(int param_1)
 
 {
-  u_long *puVar1;
+  void *pvVar1;
   int iVar2;
   
   if (DAT_800473a8 == '\0') {
     DAT_WORLD__801cd78c = Get_BIN_as_TIM;
-    puVar1 = (u_long *)FUN_WORLD__80100384();
-    LoadImage((RECT *)&WORLD_menuArray[0x12].always0_3,puVar1);
-    LoadImage((RECT *)&DAT_WORLD__8016ed8c,puVar1 + 0x2000);
+    pvVar1 = (void *)FUN_WORLD__80100384();
+    SYS_LoadImage((RECT *)&WORLD_menuArray[0x12].always0_3,pvVar1);
+    SYS_LoadImage((RECT *)&DAT_WORLD__8016ed8c,(void *)((int)pvVar1 + 0x8000));
     DrawSync(0);
-    Call_BIN_Free_FFT((int)puVar1);
+    Call_BIN_Free_FFT((int)pvVar1);
     DAT_800473a8 = DAT_800473a8 + '\x01';
   }
-  LoadImage((RECT *)&DAT_WORLD__8016ed84,(u_long *)&DAT_WORLD__80189cac);
+  SYS_LoadImage((RECT *)&DAT_WORLD__8016ed84,&DAT_WORLD__80189cac);
   DrawSync(0);
   DAT_WORLD__801cd78c = Get_BIN_as_TIM;
   iVar2 = FUN_WORLD__80100384();
-  LoadImage((RECT *)&WORLD_menuArray[0x12].always0,(u_long *)(iVar2 + 0x1000));
-  LoadImage((RECT *)(WORLD_menuArray + 0x12),(u_long *)(iVar2 + 0x9000));
-  LoadImage((RECT *)&WORLD_menuArray[0x12].screenDraw_x,(u_long *)(iVar2 + 0x9200));
+  SYS_LoadImage((RECT *)&WORLD_menuArray[0x12].always0,(void *)(iVar2 + 0x1000));
+  SYS_LoadImage((RECT *)(WORLD_menuArray + 0x12),(void *)(iVar2 + 0x9000));
+  SYS_LoadImage((RECT *)&WORLD_menuArray[0x12].screenDraw_x,(void *)(iVar2 + 0x9200));
   FUN_WORLD__800f0520((undefined *)(DAT_WORLD__801cd830 + 0x1000));
   DrawSync(0);
   Call_BIN_Free_FFT(iVar2);
   if (param_1 != 0) {
     DAT_WORLD__801cd78c = Get_BIN_as_TIM;
-    puVar1 = (u_long *)FUN_WORLD__80100384();
-    LoadImage((RECT *)&DAT_WORLD__8016ed94,puVar1);
-    LoadImage((RECT *)&DAT_WORLD__8016ed9c,puVar1 + 0x2000);
+    pvVar1 = (void *)FUN_WORLD__80100384();
+    SYS_LoadImage((RECT *)&DAT_WORLD__8016ed94,pvVar1);
+    SYS_LoadImage((RECT *)&DAT_WORLD__8016ed9c,(void *)((int)pvVar1 + 0x8000));
     DrawSync(0);
-    Call_BIN_Free_FFT((int)puVar1);
+    Call_BIN_Free_FFT((int)pvVar1);
   }
   return;
 }
@@ -143464,7 +144266,7 @@ void FUN_WORLD__8010647c(void)
   DAT_WORLD__801cd78c = Get_DAT_BIN_as_File;
   FUN_WORLD__80100384();
   FUN_WORLD__800f2998();
-  WORLD_SetScriptVar(0x1fe,0);
+  WORLD_SetScriptVar(DebugBattleNext,0);
   iVar3 = 0;
   piVar2 = &DAT_WORLD__801cd8a4;
   DAT_WORLD__801cd7e0 = WORLD_menuArray;
@@ -143476,10 +144278,10 @@ void FUN_WORLD__8010647c(void)
     piVar2 = piVar2 + 1;
   } while (iVar3 < 0x20);
   DAT_WORLD__801cd8ec = &DAT_WORLD__8016e1a0;
-  WORLD_SetScriptVar(0x1ff,0);
-  WORLD_SetScriptVar(0x34,1);
-  WORLD_SetScriptVar(0x35,0);
-  WORLD_SetScriptVar(0x36,1);
+  WORLD_SetScriptVar(RamzaMandatory,0);
+  WORLD_SetScriptVar(NumberOfSquads,1);
+  WORLD_SetScriptVar(Squad1ID,0);
+  WORLD_SetScriptVar(Squad2ID,1);
   return;
 }
 
@@ -143500,7 +144302,7 @@ void FUN_WORLD__8010656c(void)
   DAT_WORLD__801cd78c = Get_DAT_BIN_as_File;
   FUN_WORLD__80100384();
   FUN_WORLD__800f2998();
-  WORLD_SetScriptVar(0x1fe,0);
+  WORLD_SetScriptVar(DebugBattleNext,0);
   iVar3 = 0;
   piVar2 = &DAT_WORLD__801cd8a4;
   DAT_WORLD__801cd7e0 = WORLD_menuArray;
@@ -143512,10 +144314,10 @@ void FUN_WORLD__8010656c(void)
     piVar2 = piVar2 + 1;
   } while (iVar3 < 0x20);
   DAT_WORLD__801cd8ec = &DAT_WORLD__8016e1a0;
-  WORLD_SetScriptVar(0x1ff,0);
-  WORLD_SetScriptVar(0x34,1);
-  WORLD_SetScriptVar(0x35,0);
-  WORLD_SetScriptVar(0x36,1);
+  WORLD_SetScriptVar(RamzaMandatory,0);
+  WORLD_SetScriptVar(NumberOfSquads,1);
+  WORLD_SetScriptVar(Squad1ID,0);
+  WORLD_SetScriptVar(Squad2ID,1);
   return;
 }
 
@@ -143537,7 +144339,7 @@ void FUN_WORLD__80106660(void)
   FUN_WORLD__80106998();
   DrawSync(0);
   VSync(0);
-  iVar2 = (DAT_800473ac >> 9 & 7) * 6;
+  iVar2 = (SCUS_Custom_Options >> 9 & 7) * 6;
   DAT_800473a1 = *(undefined *)(iVar2 + -0x7fe917ec);
   DAT_800473a2 = *(undefined *)(iVar2 + -0x7fe917eb);
   DAT_800473a3 = *(undefined *)(iVar2 + -0x7fe917ea);
@@ -143550,11 +144352,11 @@ void FUN_WORLD__80106660(void)
   ClearImage((RECT *)&DAT_WORLD__80189eac,'\0','\0','\0');
   DrawSync(0);
   uVar1 = WORLD_GetScriptVar(SaveToFormationVar);
-  WORLD_SetScriptVar(0x27,uVar1);
-  WORLD_SetScriptVar(0x55,0);
+  WORLD_SetScriptVar(CurrentEvent,uVar1);
+  WORLD_SetScriptVar(SaveToFormationVar,0);
   iVar2 = WORLD_GetScriptVar(NewScenario);
   if (iVar2 != 0) {
-    WORLD_SetScriptVar(100,0);
+    WORLD_SetScriptVar(NewScenario,0);
   }
   return;
 }
@@ -143906,7 +144708,7 @@ int FUN_WORLD__80107e10(undefined4 param_1,uint param_2)
   uint uVar3;
   int iVar4;
   
-  iVar4 = (DAT_800473ac >> 9 & 7) * 6;
+  iVar4 = (SCUS_Custom_Options >> 9 & 7) * 6;
   DAT_800473a1 = *(byte *)(iVar4 + -0x7fe917ec);
   DAT_800473a2 = *(byte *)(iVar4 + -0x7fe917eb);
   DAT_800473a3 = *(byte *)(iVar4 + -0x7fe917ea);
@@ -144035,7 +144837,7 @@ int FUN_WORLD__80107e10(undefined4 param_1,uint param_2)
     SCUS_MRTA_call_play_sound_find_channel(DAT_WORLD__80153298);
   }
   if (DAT_WORLD__801531c8 == 0) {
-    WORLD_SetScriptVar(0x33,(int)DAT_WORLD__801531ca);
+    WORLD_SetScriptVar(CurrentMap,(int)DAT_WORLD__801531ca);
     DAT_8004d950 = DAT_8004d950 | 0x4000;
   }
   if (DAT_WORLD__80153336 != 0) {
@@ -146863,7 +147665,7 @@ void WORLD_JobWheel_Func(void)
     DAT_WORLD__801c83c0 = (char)uVar4;
     if ((uVar4 & 0xff) == 0) {
       FUN_WORLD__801247e8(DAT_WORLD__8018ba20,(&DAT_WORLD__801c83f8)[DAT_WORLD__801c83f4],
-                          (uint)((DAT_800473ac & 0x60000000) == 0));
+                          (uint)((SCUS_Custom_Options & 0x60000000) == 0));
       FUN_WORLD__80114bc8();
       FUN_WORLD__8012257c((uint)(byte)DAT_WORLD__8018ba20,&DAT_WORLD__801c83f8,2);
       DAT_WORLD__8018ba25 = DAT_WORLD__8018bae9;
@@ -147204,7 +148006,8 @@ undefined4 FUN_WORLD__80119d60(short param_1)
   undefined4 uVar8;
   undefined2 *puVar9;
   int iVar10;
-  int iVar11;
+  undefined2 *puVar11;
+  int iVar12;
   short local_40;
   short local_3e;
   short local_3c;
@@ -147219,62 +148022,63 @@ undefined4 FUN_WORLD__80119d60(short param_1)
     DAT_WORLD__8018c92e = 0;
     DAT_WORLD__801c83ec = 0;
     FUN_WORLD__8012bd7c();
-    DAT_WORLD__801c83e0 = (u_long *)BIN_Malloc_FFT(0x1e0);
+    DAT_WORLD__801c83e0 = SCUS_MRTA_Malloc(0x1e0);
     FUN_WORLD__8012d70c((RECT *)&DAT_WORLD__8018c91c,DAT_WORLD__801c83e0);
-    DAT_WORLD__801c83e4 = (u_long *)BIN_Malloc_FFT(0x1e0);
-    memset((uchar *)DAT_WORLD__801c83e4,'\0',0x1e0);
+    DAT_WORLD__801c83e4 = (uchar *)SCUS_MRTA_Malloc(0x1e0);
+    memset(DAT_WORLD__801c83e4,'\0',0x1e0);
     FUN_WORLD__801247e8(0x14,param_1,0);
     FUN_WORLD__801256c8(0x14,&local_40);
-    DAT_WORLD__801c83e8 = BIN_Malloc_FFT(0x1e0);
+    DAT_WORLD__801c83e8 = SCUS_MRTA_Malloc(0x1e0);
     if (local_36 == 100) {
       local_30.x = (local_40 >> 2) + 0x100;
     }
     else {
       local_30.x = (local_40 >> 2) + 0x140;
     }
-    iVar11 = 0x1df;
+    iVar12 = 0x1df;
     local_30.y = local_3e;
     local_30.w = local_3c >> 2;
     DAT_WORLD__8018c8c0 = local_38;
     local_30.h = local_3a;
     FUN_WORLD__8012d70c(&local_30,DAT_WORLD__801c83e8);
-    DAT_WORLD__801c83dc = BIN_Malloc_FFT(0x3c0);
-    puVar9 = (undefined2 *)(DAT_WORLD__801c83dc + 0x3be);
+    DAT_WORLD__801c83dc = SCUS_MRTA_Malloc(0x3c0);
+    puVar9 = (undefined2 *)((int)DAT_WORLD__801c83dc + 0x3be);
     do {
-      *puVar9 = (short)iVar11;
-      iVar11 = iVar11 + -1;
+      *puVar9 = (short)iVar12;
+      iVar12 = iVar12 + -1;
       puVar9 = puVar9 + -1;
-    } while (-1 < iVar11);
-    iVar11 = 0;
+    } while (-1 < iVar12);
+    iVar12 = 0;
     do {
-      iVar11 = iVar11 + 1;
+      iVar12 = iVar12 + 1;
       iVar5 = rand();
       iVar6 = rand();
-      uVar1 = *(undefined2 *)(DAT_WORLD__801c83dc + (iVar5 % 0x1e0) * 2);
-      puVar9 = (undefined2 *)(DAT_WORLD__801c83dc + (iVar6 % 0x1e0) * 2);
-      *(undefined2 *)(DAT_WORLD__801c83dc + (iVar5 % 0x1e0) * 2) = *puVar9;
+      puVar11 = (undefined2 *)((iVar5 % 0x1e0) * 2 + (int)DAT_WORLD__801c83dc);
+      uVar1 = *puVar11;
+      puVar9 = (undefined2 *)((iVar6 % 0x1e0) * 2 + (int)DAT_WORLD__801c83dc);
+      *puVar11 = *puVar9;
       *puVar9 = uVar1;
-    } while (iVar11 < 300);
+    } while (iVar12 < 300);
   }
-  iVar11 = 0;
+  iVar12 = 0;
   do {
-    iVar5 = (int)*(short *)(DAT_WORLD__801c83dc + (DAT_WORLD__8018c92e * 2 + iVar11) * 2);
-    iVar11 = iVar11 + 1;
+    iVar5 = (int)*(short *)((DAT_WORLD__8018c92e * 2 + iVar12) * 2 + (int)DAT_WORLD__801c83dc);
+    iVar12 = iVar12 + 1;
     *(undefined *)((int)DAT_WORLD__801c83e0 + iVar5) = 0;
-    *(undefined *)((int)DAT_WORLD__801c83e4 + iVar5) = DAT_WORLD__801c83e8[iVar5];
-  } while (iVar11 < 2);
-  iVar11 = 0x14;
+    DAT_WORLD__801c83e4[iVar5] = *(uchar *)((int)DAT_WORLD__801c83e8 + iVar5);
+  } while (iVar12 < 2);
+  iVar12 = 0x14;
   sVar3 = 0;
-  LoadImage((RECT *)&DAT_WORLD__8018c91c,DAT_WORLD__801c83e0);
-  LoadImage((RECT *)&DAT_WORLD__8018c924,DAT_WORLD__801c83e4);
+  SYS_LoadImage((RECT *)&DAT_WORLD__8018c91c,DAT_WORLD__801c83e0);
+  SYS_LoadImage((RECT *)&DAT_WORLD__8018c924,DAT_WORLD__801c83e4);
   iVar5 = (int)DAT_WORLD__8018c92e;
   if (iVar5 < 0x14) {
     iVar6 = 0x14 - iVar5;
-    iVar11 = iVar5;
+    iVar12 = iVar5;
   }
   else {
     if (iVar5 < 0xdd) goto LAB_WORLD__8011a05c;
-    iVar11 = 0xf0 - iVar5;
+    iVar12 = 0xf0 - iVar5;
     iVar6 = iVar5 + -0xdc;
   }
   sVar3 = (short)(iVar6 << 3);
@@ -147290,7 +148094,7 @@ LAB_WORLD__8011a05c:
     }
     iVar10 = iVar10 + (iVar7 >> 0xc) * -0x1000;
     iVar7 = rcos(iVar10);
-    local_40 = (short)(iVar11 * iVar7 >> 0xc) + 0x80;
+    local_40 = (short)(iVar12 * iVar7 >> 0xc) + 0x80;
     local_3c = local_40;
     local_38 = local_40;
     iVar7 = rsin(iVar10);
@@ -147318,10 +148122,10 @@ LAB_WORLD__8011a05c:
   }
   uVar8 = 1;
   if ((0xdb < DAT_WORLD__8018c92e) && (uVar8 = 2, 0xef < DAT_WORLD__8018c92e)) {
-    SCUS_MRTA_free((int)DAT_WORLD__801c83e0);
-    SCUS_MRTA_free((int)DAT_WORLD__801c83e4);
-    SCUS_MRTA_free((int)DAT_WORLD__801c83e8);
-    SCUS_MRTA_free((int)DAT_WORLD__801c83dc);
+    SCUS_MRTA_free(DAT_WORLD__801c83e0);
+    SCUS_MRTA_free(DAT_WORLD__801c83e4);
+    SCUS_MRTA_free(DAT_WORLD__801c83e8);
+    SCUS_MRTA_free(DAT_WORLD__801c83dc);
     DAT_WORLD__8018c92c = '\0';
     uVar8 = 0;
   }
@@ -149335,7 +150139,7 @@ int FUN_WORLD__80124c54(short param_1,ushort param_2,char param_3,ushort *param_
   int iVar6;
   ushort *puVar7;
   
-  if ((param_5 == 1) && ((DAT_800473ac & 0x1800000) != 0)) {
+  if ((param_5 == 1) && ((SCUS_Custom_Options & 0x1800000) != 0)) {
     param_5 = 2;
   }
   iVar5 = 1;
@@ -152122,12 +152926,12 @@ bool FUN_WORLD__8012d5bc(void)
 
 
 
-void FUN_WORLD__8012d6dc(RECT *param_1,u_long *param_2)
+void FUN_WORLD__8012d6dc(RECT *param_1,void *param_2)
 
 {
   int iVar1;
   
-  LoadImage(param_1,param_2);
+  SYS_LoadImage(param_1,param_2);
   do {
     iVar1 = DrawSync(1);
   } while (iVar1 != 0);
@@ -152226,9 +153030,9 @@ void Open_Tutorial_Files(int Tutorial_ID,undefined4 param_2,undefined4 param_3,u
     Get_DAT_BIN_as_File(0x11a7f,0x2000,DAT_WORLD__801cd1ec);
     DAT_WORLD__801cd1ec[0x721] = DAT_WORLD__801cd1ec[0x721] & 0xfe7fffff;
     DAT_WORLD__801cd1ec[0x721] =
-         DAT_WORLD__801cd1ec[0x721] & 0x9fffffff | (DAT_800473ac >> 0x1d & 3) << 0x1d;
+         DAT_WORLD__801cd1ec[0x721] & 0x9fffffff | (SCUS_Custom_Options >> 0x1d & 3) << 0x1d;
     DAT_WORLD__801cd1ec[0x721] =
-         DAT_WORLD__801cd1ec[0x721] & 0xff9fffff | (DAT_800473ac >> 0x15 & 3) << 0x15;
+         DAT_WORLD__801cd1ec[0x721] & 0xff9fffff | (SCUS_Custom_Options >> 0x15 & 3) << 0x15;
     FUN_WORLD__80130338(1,0xff9fffff,puVar1,param_4);
     DAT_WORLD__801cc574 = 0;
     FUN_WORLD__80108920();
@@ -153252,7 +154056,7 @@ void FUN_WORLD__8012fdd8(int param_1)
   bcopy(&DAT_80059414,DAT_WORLD__801cd1ec + 0x1804,0x80);
   DAT_WORLD__801cd1ec[0x1c88] = DAT_80057b1c;
   bcopy((uchar *)EvtVarArr,DAT_WORLD__801cd1ec + 0x1884,0x400);
-  bcopy((uchar *)&DAT_800473ac,DAT_WORLD__801cd1ec + 0x1c84,4);
+  bcopy((uchar *)&SCUS_Custom_Options,DAT_WORLD__801cd1ec + 0x1c84,4);
   bcopy(&DAT_80057b20,DAT_WORLD__801cd1ec + 0x1c89,0xc);
   bcopy(&DAT_80057b2c,DAT_WORLD__801cd1ec + 0x1c96,8);
   bcopy(&DAT_80057b34,DAT_WORLD__801cd1ec + 0x1c9f,7);
@@ -153349,9 +154153,9 @@ LAB_WORLD__80130380:
     bcopy((uchar *)(DAT_WORLD__801cd1ec + 0x1804),&DAT_80059414,0x80);
     DAT_80057b1c = *(undefined *)(DAT_WORLD__801cd1ec + 0x1c88);
     bcopy((uchar *)(DAT_WORLD__801cd1ec + 0x1884),(uchar *)EvtVarArr,0x400);
-    bcopy((uchar *)(DAT_WORLD__801cd1ec + 0x1c84),(uchar *)&DAT_800473ac,4);
+    bcopy((uchar *)(DAT_WORLD__801cd1ec + 0x1c84),(uchar *)&SCUS_Custom_Options,4);
     bVar1 = false;
-    InitSoundType(DAT_800473ac >> 0x15 & 3);
+    InitSoundType(SCUS_Custom_Options >> 0x15 & 3);
     do {
       iVar5 = DAT_WORLD__801cd1ec + iVar8;
       iVar8 = iVar8 + 1;
@@ -153420,7 +154224,7 @@ void FUN_WORLD__80130898(void)
   DAT_WORLD__801cc80c = 0;
   DAT_WORLD__801cc808 = 0;
   DAT_WORLD__80193df0 = 0;
-  DAT_WORLD__801cd1ec = BIN_Malloc_FFT(0x2000);
+  DAT_WORLD__801cd1ec = (uchar *)SCUS_MRTA_Malloc(0x2000);
   memset(DAT_WORLD__801cd1ec,0xff,0x1e80);
   return;
 }
@@ -155106,8 +155910,8 @@ void FUN_ATTACK__801bf354
             *(ushort *)(puVar3 + 8) = *(ushort *)(puVar3 + 8) | 0x8000;
             puVar3 = (u_long *)((int)puVar3 + 2);
           } while (iVar2 < 0x10);
-          LoadImage(&local_28,param_5);
-          LoadImage(&local_30,param_5 + 8);
+          SYS_LoadImage(&local_28,param_5);
+          SYS_LoadImage(&local_30,param_5 + 8);
         }
         iVar2 = *param_2;
         FUN_ATTACK__801bf234(*param_4,param_6);
@@ -155180,17 +155984,16 @@ void FUN_ATTACK__801bf77c(void)
   short sVar13;
   int *iVar23;
   undefined *puVar14;
-  u_long *puVar15;
-  int iVar16;
-  short *psVar17;
+  int iVar15;
+  short *psVar16;
+  u_char *puVar17;
   u_char *puVar18;
-  u_char *puVar19;
-  byte *pbVar20;
+  byte *pbVar19;
   OTAG *OTAG_List_2;
-  TILE_1 *pTVar21;
-  short sVar22;
+  TILE_1 *pTVar20;
+  short sVar21;
   OTAG *OTAG_List_1;
-  uint *puVar23;
+  uint *puVar22;
   int iVar24;
   uint uVar25;
   RECT bars_vals_RECT;
@@ -155202,15 +156005,15 @@ void FUN_ATTACK__801bf77c(void)
   int local_b8;
   uint local_b4;
   uint local_b0 [2];
-  u_long *local_a8;
+  undefined4 *local_a8;
   OTAG *local_a0;
   ushort *local_98;
   undefined2 *local_90;
   int local_88;
   undefined *local_80;
   u_long *local_78;
-  u_long *local_70;
-  u_long *local_68;
+  undefined4 *local_70;
+  undefined4 *local_68;
   OTAG *local_60;
   short *local_58;
   short *local_50;
@@ -155227,9 +156030,9 @@ void FUN_ATTACK__801bf77c(void)
   if (DAT_80174038 == 8) {
     OTAG_List_1 = ATTACK_DefaultOTAG1;
     OTAG_List_2 = ATTACK_DefaultOTAG2;
-    local_a8 = (u_long *)&DAT_ATTACK__801d78f0;
-    local_70 = (u_long *)&DAT_ATTACK__801d8570;
-    local_68 = (u_long *)&DAT_ATTACK__801d7ff0;
+    local_a8 = (undefined4 *)&DAT_ATTACK__801d78f0;
+    local_70 = (undefined4 *)&DAT_ATTACK__801d8570;
+    local_68 = (undefined4 *)&DAT_ATTACK__801d7ff0;
     local_98 = (ushort *)&DAT_ATTACK__801ca218;
     local_90 = &DAT_ATTACK__801ca080;
     local_58 = &DAT_ATTACK__801ca0c8;
@@ -155240,9 +156043,9 @@ void FUN_ATTACK__801bf77c(void)
   else {
     OTAG_List_1 = ATTACK_DefaultOTAG3;
     OTAG_List_2 = ATTACK_DefaultOTAG4;
-    local_a8 = (u_long *)&DAT_ATTACK__801d8660;
-    local_70 = (u_long *)&DAT_ATTACK__801d8668;
-    local_68 = (u_long *)&DAT_ATTACK__801d8664;
+    local_a8 = (undefined4 *)&DAT_ATTACK__801d8660;
+    local_70 = (undefined4 *)&DAT_ATTACK__801d8668;
+    local_68 = (undefined4 *)&DAT_ATTACK__801d8664;
     local_98 = (ushort *)&DAT_ATTACK__801ca290;
     local_90 = (undefined2 *)&DAT_ATTACK__801ca0a4;
     local_58 = (short *)&DAT_ATTACK__801ca0d8;
@@ -155258,26 +156061,26 @@ void FUN_ATTACK__801bf77c(void)
   BATTLE_makeDefaultSprites_withCLUT((SPRT *)&(&OTAG_List_2->TILE_1)[0x1c].r0,7,0x7cbc);
   BATTLE_makeDefaultSprites_withCLUT((SPRT *)(&(&OTAG_List_2->TILE_1)[0x15].r0 + 4),4,0x7cbc);
   iVar24 = 0;
-  iVar16 = 0x24c;
+  iVar15 = 0x24c;
   do {
-    BATTLE_MakeDefault_FT4((POLY_FT4 *)(&(OTAG_List_2->POLY_F3).r0 + iVar16 + -4));
+    BATTLE_MakeDefault_FT4((POLY_FT4 *)(&(OTAG_List_2->POLY_F3).r0 + iVar15 + -4));
     iVar24 = iVar24 + 1;
-    iVar16 = iVar16 + 0x28;
+    iVar15 = iVar15 + 0x28;
   } while (iVar24 < 4);
   BATTLE_Deployment_AllocateStatusBannerSPRT
             (&bars_vals_RECT,0x38,0x28,(SPRT *)(&(&OTAG_List_2->TILE_1)[0x15].r0 + 4),2);
   BATTLE_Deployment_AllocateStatusBannerSPRT
             (&black_RECT,0x60,0x10,(SPRT *)&(&OTAG_List_2->TILE_1)[0x17].r0,2);
   iVar24 = 0;
-  psVar17 = (short *)0x801ca35c;
-  iVar16 = 0x104;
+  psVar16 = (short *)0x801ca35c;
+  iVar15 = 0x104;
   do {
     FUN_BATTLE_BIN__8014a834
-              ((POLY_FT4 *)(&(OTAG_List_2->POLY_F3).r0 + iVar16 + -4),(short *)&DAT_ATTACK__801ca1b8
-               ,&DAT_ATTACK__801ca1e0,psVar17);
-    psVar17 = psVar17 + 6;
+              ((POLY_FT4 *)(&(OTAG_List_2->POLY_F3).r0 + iVar15 + -4),(short *)&DAT_ATTACK__801ca1b8
+               ,&DAT_ATTACK__801ca1e0,psVar16);
+    psVar16 = psVar16 + 6;
     iVar24 = iVar24 + 1;
-    iVar16 = iVar16 + 0x14;
+    iVar15 = iVar15 + 0x14;
   } while (iVar24 < 4);
   if (3 < (short)local_90[1]) {
     local_90[1] = 0;
@@ -155288,12 +156091,12 @@ void FUN_ATTACK__801bf77c(void)
   else {
     puVar14 = (undefined *)0x801ca440;
   }
-  iVar16 = 0;
+  iVar15 = 0;
   BATTLE_copy_bytes(&DAT_ATTACK__801ca350,puVar14,0xc);
   do {
     FUN_8014a834();
-    iVar16 = iVar16 + 1;
-  } while (iVar16 < 7);
+    iVar15 = iVar15 + 1;
+  } while (iVar15 < 7);
   BATTLE_copy_bytes((undefined *)(&OTAG_List_2->TILE_1 + 0x41),(undefined *)OTAG_List_2,0x30c);
   BATTLE_MakeDefaultDR_MODE((DR_MODE *)&(&OTAG_List_1->TILE_1)[0x1f].r0,0);
   BATTLE_MakeDefaultDR_MODE((DR_MODE *)&(&OTAG_List_1->TILE_1)[0x20].r0,1);
@@ -155309,15 +156112,15 @@ void FUN_ATTACK__801bf77c(void)
   BATTLE_Deployment_AllocateStatusBannerSPRT
             (&RStack_c0,0x10,10,(SPRT *)(&(&OTAG_List_1->TILE_1)[0x18].r0 + 4),0);
   iVar24 = 0;
-  psVar17 = (short *)0x801ca394;
-  iVar16 = 0xec;
+  psVar16 = (short *)0x801ca394;
+  iVar15 = 0xec;
   do {
     FUN_BATTLE_BIN__8014a834
-              ((POLY_FT4 *)(&(OTAG_List_1->POLY_F3).r0 + iVar16 + -4),(short *)&DAT_ATTACK__801ca1b8
-               ,(short *)&DAT_ATTACK__801ca38c,psVar17);
-    psVar17 = psVar17 + 6;
+              ((POLY_FT4 *)(&(OTAG_List_1->POLY_F3).r0 + iVar15 + -4),(short *)&DAT_ATTACK__801ca1b8
+               ,(short *)&DAT_ATTACK__801ca38c,psVar16);
+    psVar16 = psVar16 + 6;
     iVar24 = iVar24 + 1;
-    iVar16 = iVar16 + 0x14;
+    iVar15 = iVar15 + 0x14;
   } while (iVar24 < 7);
   FUN_BATTLE_BIN__8014a834
             ((POLY_FT4 *)(&OTAG_List_1->TILE_1 + 0x24),(short *)&DAT_ATTACK__801ca1b8,
@@ -155335,8 +156138,8 @@ void FUN_ATTACK__801bf77c(void)
   uVar25 = 0;
   local_b8 = 0;
   do {
-    puVar23 = (uint *)((int)local_60 + (uVar25 & 1) * 0x1d8);
-    pTVar21 = &local_a0->TILE_1 + (uVar25 & 1) * 0x41;
+    puVar22 = (uint *)((int)local_60 + (uVar25 & 1) * 0x1d8);
+    pTVar20 = &local_a0->TILE_1 + (uVar25 & 1) * 0x41;
     if (100 < (short)local_90[0xc]) {
       local_90[0xc] = 100;
     }
@@ -155348,43 +156151,43 @@ void FUN_ATTACK__801bf77c(void)
     }
     BATTLE_copy_bytes(&DAT_ATTACK__801ca350,puVar14,0xc);
     FUN_BATTLE_BIN__8014a834
-              ((POLY_FT4 *)&pTVar21[0x26].r0,(short *)&DAT_ATTACK__801ca1b8,&DAT_ATTACK__801ca1e0,
+              ((POLY_FT4 *)&pTVar20[0x26].r0,(short *)&DAT_ATTACK__801ca1b8,&DAT_ATTACK__801ca1e0,
                (short *)&DAT_ATTACK__801ca350);
     uVar7 = 0x7fbd;
     if (local_90[1] == 1) {
       uVar7 = 0x7ffd;
     }
-    *(undefined2 *)((int)puVar23 + 0x1be) = uVar7;
+    *(undefined2 *)((int)puVar22 + 0x1be) = uVar7;
     local_40 = 0;
-    iVar16 = BATTLE_getThread_WithTask(0x3b);
-    if (iVar16 != 0) {
+    iVar15 = BATTLE_getThread_WithTask(0x3b);
+    if (iVar15 != 0) {
       local_40 = (uint)(DAT_80166028 != 0);
     }
-    iVar16 = 0;
+    iVar15 = 0;
     if (*(int *)(local_50 + 8) != 0) {
       local_40 = 1;
     }
     puVar14 = &DAT_ATTACK__801ca414;
-    pTVar11 = pTVar21;
+    pTVar11 = pTVar20;
     do {
-      psVar17 = (short *)(puVar14 + local_40 * 2);
+      psVar16 = (short *)(puVar14 + local_40 * 2);
       puVar14 = puVar14 + 4;
-      iVar16 = iVar16 + 1;
-      *(short *)(&pTVar11[0x16].r0 + 6) = *psVar17;
+      iVar15 = iVar15 + 1;
+      *(short *)(&pTVar11[0x16].r0 + 6) = *psVar16;
       pTVar11 = (TILE_1 *)(&pTVar11[1].r0 + 4);
-    } while (iVar16 < 4);
-    iVar16 = 0;
+    } while (iVar15 < 4);
+    iVar15 = 0;
     iVar23 = (int *)0x801ca424;
-    pTVar11 = pTVar21;
+    pTVar11 = pTVar20;
     do {
       puVar10 = (undefined2 *)(local_40 * 2 + (int)iVar23);
       iVar23 = iVar23 + 1;
-      iVar16 = iVar16 + 1;
+      iVar15 = iVar15 + 1;
       *(undefined2 *)(&pTVar11[0x1d].r0 + 2) = *puVar10;
       pTVar11 = (TILE_1 *)(&pTVar11[1].r0 + 4);
-    } while (iVar16 < 7);
-    iVar16 = 0;
-    puVar12 = puVar23;
+    } while (iVar15 < 7);
+    iVar15 = 0;
+    puVar12 = puVar22;
     do {
       if (local_40 == 0) {
         *(undefined2 *)((int)puVar12 + 0xfa) = 0x7c3c;
@@ -155392,65 +156195,65 @@ void FUN_ATTACK__801bf77c(void)
       else {
         *(undefined2 *)((int)puVar12 + 0xfa) = 0x7d3c;
       }
-      iVar16 = iVar16 + 1;
+      iVar15 = iVar15 + 1;
       puVar12 = puVar12 + 5;
-    } while (iVar16 < 7);
+    } while (iVar15 < 7);
     if (local_40 == 0) {
-      FUN_BATTLE_BIN__8012f3cc((int)pTVar21);
-      FUN_BATTLE_BIN__8012f3cc((int)puVar23);
+      FUN_BATTLE_BIN__8012f3cc((int)pTVar20);
+      FUN_BATTLE_BIN__8012f3cc((int)puVar22);
       uVar4 = '@';
       if (5 < local_b8 - 4U) {
         uVar4 = 0x80;
       }
-      pTVar21[0x31].r0 = uVar4;
-      (&pTVar21[0x31].r0)[1] = uVar4;
-      (&pTVar21[0x31].r0)[2] = uVar4;
+      pTVar20[0x31].r0 = uVar4;
+      (&pTVar20[0x31].r0)[1] = uVar4;
+      (&pTVar20[0x31].r0)[2] = uVar4;
       uVar4 = '@';
-      (&pTVar21[0x34].r0)[4] = 0x40;
-      (&pTVar21[0x34].r0)[5] = 0x40;
-      (&pTVar21[0x34].r0)[6] = 0x40;
-      *(undefined *)&pTVar21[0x38].tag = 0x40;
-      *(undefined *)((int)&pTVar21[0x38].tag + 1) = 0x40;
-      *(undefined *)((int)&pTVar21[0x38].tag + 2) = 0x40;
-      pTVar21[0x3b].r0 = '@';
-      (&pTVar21[0x3b].r0)[1] = '@';
+      (&pTVar20[0x34].r0)[4] = 0x40;
+      (&pTVar20[0x34].r0)[5] = 0x40;
+      (&pTVar20[0x34].r0)[6] = 0x40;
+      *(undefined *)&pTVar20[0x38].tag = 0x40;
+      *(undefined *)((int)&pTVar20[0x38].tag + 1) = 0x40;
+      *(undefined *)((int)&pTVar20[0x38].tag + 2) = 0x40;
+      pTVar20[0x3b].r0 = '@';
+      (&pTVar20[0x3b].r0)[1] = '@';
     }
     else {
-      FUN_BATTLE_BIN__8012f454((int)pTVar21);
-      FUN_BATTLE_BIN__8012f454((int)puVar23);
+      FUN_BATTLE_BIN__8012f454((int)pTVar20);
+      FUN_BATTLE_BIN__8012f454((int)puVar22);
       if (local_b8 - 4U < 6) {
-        pTVar21[0x31].r0 = ' ';
-        (&pTVar21[0x31].r0)[1] = '(';
+        pTVar20[0x31].r0 = ' ';
+        (&pTVar20[0x31].r0)[1] = '(';
         uVar4 = '8';
       }
       else {
-        pTVar21[0x31].r0 = '@';
-        (&pTVar21[0x31].r0)[1] = 'P';
+        pTVar20[0x31].r0 = '@';
+        (&pTVar20[0x31].r0)[1] = 'P';
         uVar4 = 'p';
       }
-      (&pTVar21[0x31].r0)[2] = uVar4;
+      (&pTVar20[0x31].r0)[2] = uVar4;
       uVar4 = '8';
-      (&pTVar21[0x34].r0)[4] = 0x20;
-      (&pTVar21[0x34].r0)[5] = 0x28;
-      (&pTVar21[0x34].r0)[6] = 0x38;
-      *(undefined *)&pTVar21[0x38].tag = 0x20;
-      *(undefined *)((int)&pTVar21[0x38].tag + 1) = 0x28;
-      *(undefined *)((int)&pTVar21[0x38].tag + 2) = 0x38;
-      pTVar21[0x3b].r0 = ' ';
-      (&pTVar21[0x3b].r0)[1] = '(';
+      (&pTVar20[0x34].r0)[4] = 0x20;
+      (&pTVar20[0x34].r0)[5] = 0x28;
+      (&pTVar20[0x34].r0)[6] = 0x38;
+      *(undefined *)&pTVar20[0x38].tag = 0x20;
+      *(undefined *)((int)&pTVar20[0x38].tag + 1) = 0x28;
+      *(undefined *)((int)&pTVar20[0x38].tag + 2) = 0x38;
+      pTVar20[0x3b].r0 = ' ';
+      (&pTVar20[0x3b].r0)[1] = '(';
     }
-    (&pTVar21[0x3b].r0)[2] = uVar4;
+    (&pTVar20[0x3b].r0)[2] = uVar4;
     if (local_40 == 0) {
       uVar5 = 0x80;
-      *(undefined *)(puVar23 + 0x6d) = 0x80;
-      *(undefined *)((int)puVar23 + 0x1b5) = 0x80;
+      *(undefined *)(puVar22 + 0x6d) = 0x80;
+      *(undefined *)((int)puVar22 + 0x1b5) = 0x80;
     }
     else {
-      *(undefined *)(puVar23 + 0x6d) = 0x40;
-      *(undefined *)((int)puVar23 + 0x1b5) = 0x40;
+      *(undefined *)(puVar22 + 0x6d) = 0x40;
+      *(undefined *)((int)puVar22 + 0x1b5) = 0x40;
       uVar5 = 0x60;
     }
-    *(undefined *)((int)puVar23 + 0x1b6) = uVar5;
+    *(undefined *)((int)puVar22 + 0x1b6) = uVar5;
     DAT_ATTACK__801d651c = -(ushort)(ScreenPolarity * 0xf0 != 0xf0) & 0xf0;
     if (((*(uint *)(local_50 + 4) & 0x20) != 0) && (local_48 == 0)) {
       local_48 = 1;
@@ -155487,21 +156290,21 @@ LAB_ATTACK__801bff90:
     }
 LAB_ATTACK__801c004c:
     uVar8 = DAT_ATTACK__801d651c;
-    *(short *)(puVar23 + 0x67) = *local_50 + -0x80;
-    *(ushort *)((int)puVar23 + 0x19e) = local_50[2] + uVar8;
-    SetDrawOffset((DR_OFFSET *)(puVar23 + 100),(u_short *)(puVar23 + 0x67));
+    *(short *)(puVar22 + 0x67) = *local_50 + -0x80;
+    *(ushort *)((int)puVar22 + 0x19e) = local_50[2] + uVar8;
+    SetDrawOffset((DR_OFFSET *)(puVar22 + 100),(u_short *)(puVar22 + 0x67));
     uVar8 = DAT_ATTACK__801d651c;
-    *(undefined2 *)(puVar23 + 0x6b) = 0xff80;
-    *(ushort *)((int)puVar23 + 0x1ae) = uVar8;
-    SetDrawOffset((DR_OFFSET *)(puVar23 + 0x68),(u_short *)(puVar23 + 0x6b));
+    *(undefined2 *)(puVar22 + 0x6b) = 0xff80;
+    *(ushort *)((int)puVar22 + 0x1ae) = uVar8;
+    SetDrawOffset((DR_OFFSET *)(puVar22 + 0x68),(u_short *)(puVar22 + 0x6b));
     uVar8 = DAT_ATTACK__801d651c;
-    *(short *)&pTVar21[0x3f].r0 = *local_50 + -0x80;
-    *(ushort *)(&pTVar21[0x3f].r0 + 2) = local_50[2] + uVar8;
-    SetDrawOffset((DR_OFFSET *)&pTVar21[0x3e].r0,(u_short *)&pTVar21[0x3f].r0);
+    *(short *)&pTVar20[0x3f].r0 = *local_50 + -0x80;
+    *(ushort *)(&pTVar20[0x3f].r0 + 2) = local_50[2] + uVar8;
+    SetDrawOffset((DR_OFFSET *)&pTVar20[0x3e].r0,(u_short *)&pTVar20[0x3f].r0);
     uVar8 = DAT_ATTACK__801d651c;
-    *(short *)(&pTVar21[0x40].r0 + 4) = -0x80;
-    *(ushort *)(&pTVar21[0x40].r0 + 6) = uVar8;
-    SetDrawOffset((DR_OFFSET *)(&pTVar21[0x3f].r0 + 4),(u_short *)(&pTVar21[0x40].r0 + 4));
+    *(short *)(&pTVar20[0x40].r0 + 4) = -0x80;
+    *(ushort *)(&pTVar20[0x40].r0 + 6) = uVar8;
+    SetDrawOffset((DR_OFFSET *)(&pTVar20[0x3f].r0 + 4),(u_short *)(&pTVar20[0x40].r0 + 4));
     if (9 < local_b8) {
       local_b8 = 0;
       local_b0[0] = local_b4;
@@ -155524,76 +156327,76 @@ LAB_ATTACK__801c004c:
       local_b8 = 2;
     }
     FUN_ATTACK__801bf354
-              (local_80,&local_b8,&local_b4,local_b0,local_78,(int)(pTVar21 + 0x31),local_88);
-    pbVar20 = &DAT_ATTACK__801ca1e8;
+              (local_80,&local_b8,&local_b4,local_b0,local_78,(int)(pTVar20 + 0x31),local_88);
+    pbVar19 = &DAT_ATTACK__801ca1e8;
     iVar24 = 0;
-    sVar22 = 0x18;
-    iVar16 = 0x1e0;
-    puVar18 = &DAT_ATTACK__801ca1ea;
-    pTVar11 = pTVar21;
+    sVar21 = 0x18;
+    iVar15 = 0x1e0;
+    puVar17 = &DAT_ATTACK__801ca1ea;
+    pTVar11 = pTVar20;
     do {
-      local_30 = iVar16;
-      SetPolyG4((POLY_G4 *)(&pTVar21->r0 + iVar16 + -4));
+      local_30 = iVar15;
+      SetPolyG4((POLY_G4 *)(&pTVar20->r0 + iVar15 + -4));
       sVar1 = DAT_ATTACK__801ca1e0;
       sVar13 = DAT_ATTACK__801ca1e0 + 0x2f;
       *(short *)(&pTVar11[0x28].r0 + 4) = sVar13;
       sVar2 = DAT_ATTACK__801ca1e2;
       *(short *)&pTVar11[0x29].r0 = sVar1 + 0x4f;
-      *(short *)(&pTVar11[0x28].r0 + 6) = sVar2 + sVar22;
+      *(short *)(&pTVar11[0x28].r0 + 6) = sVar2 + sVar21;
       sVar2 = DAT_ATTACK__801ca1e2;
       *(short *)&pTVar11[0x2a].tag = sVar13;
-      *(short *)(&pTVar11[0x29].r0 + 2) = sVar2 + sVar22;
+      *(short *)(&pTVar11[0x29].r0 + 2) = sVar2 + sVar21;
       sVar2 = DAT_ATTACK__801ca1e2;
       *(short *)(&pTVar11[0x2a].r0 + 4) = sVar1 + 0x4f;
       sVar1 = *(short *)(&pTVar11[0x2a].r0 + 4);
-      *(short *)((int)&pTVar11[0x2a].tag + 2) = sVar2 + sVar22 + 3;
+      *(short *)((int)&pTVar11[0x2a].tag + 2) = sVar2 + sVar21 + 3;
       sVar13 = DAT_ATTACK__801ca1e2;
       sVar2 = *(short *)&pTVar11[0x2a].tag;
       *(short *)(&pTVar11[0x2a].r0 + 4) = sVar1 + -3;
       *(short *)&pTVar11[0x2a].tag = sVar2 + -3;
-      *(short *)(&pTVar11[0x2a].r0 + 6) = sVar13 + sVar22 + 3;
+      *(short *)(&pTVar11[0x2a].r0 + 6) = sVar13 + sVar21 + 3;
       if (local_40 == 0) {
-        pTVar11[0x28].r0 = *pbVar20;
-        (&pTVar11[0x28].r0)[1] = puVar18[-1];
-        (&pTVar11[0x28].r0)[2] = *puVar18;
-        *(byte *)&pTVar11[0x29].tag = pbVar20[4];
-        *(u_char *)((int)&pTVar11[0x29].tag + 1) = puVar18[3];
-        *(u_char *)((int)&pTVar11[0x29].tag + 2) = puVar18[4];
-        (&pTVar11[0x29].r0)[4] = pbVar20[8];
-        (&pTVar11[0x29].r0)[5] = puVar18[7];
-        (&pTVar11[0x29].r0)[6] = puVar18[8];
-        pTVar11[0x2a].r0 = pbVar20[0xc];
-        bVar6 = puVar18[0xb];
+        pTVar11[0x28].r0 = *pbVar19;
+        (&pTVar11[0x28].r0)[1] = puVar17[-1];
+        (&pTVar11[0x28].r0)[2] = *puVar17;
+        *(byte *)&pTVar11[0x29].tag = pbVar19[4];
+        *(u_char *)((int)&pTVar11[0x29].tag + 1) = puVar17[3];
+        *(u_char *)((int)&pTVar11[0x29].tag + 2) = puVar17[4];
+        (&pTVar11[0x29].r0)[4] = pbVar19[8];
+        (&pTVar11[0x29].r0)[5] = puVar17[7];
+        (&pTVar11[0x29].r0)[6] = puVar17[8];
+        pTVar11[0x2a].r0 = pbVar19[0xc];
+        bVar6 = puVar17[0xb];
       }
       else {
-        pTVar11[0x28].r0 = *pbVar20 >> 1;
-        (&pTVar11[0x28].r0)[1] = puVar18[-1] >> 1;
-        (&pTVar11[0x28].r0)[2] = *puVar18;
-        *(byte *)&pTVar11[0x29].tag = pbVar20[4] >> 1;
-        *(u_char *)((int)&pTVar11[0x29].tag + 1) = puVar18[3] >> 1;
-        *(u_char *)((int)&pTVar11[0x29].tag + 2) = puVar18[4];
-        (&pTVar11[0x29].r0)[4] = pbVar20[8] >> 1;
-        (&pTVar11[0x29].r0)[5] = puVar18[7] >> 1;
-        (&pTVar11[0x29].r0)[6] = puVar18[8];
-        pTVar11[0x2a].r0 = pbVar20[0xc] >> 1;
-        bVar6 = puVar18[0xb] >> 1;
+        pTVar11[0x28].r0 = *pbVar19 >> 1;
+        (&pTVar11[0x28].r0)[1] = puVar17[-1] >> 1;
+        (&pTVar11[0x28].r0)[2] = *puVar17;
+        *(byte *)&pTVar11[0x29].tag = pbVar19[4] >> 1;
+        *(u_char *)((int)&pTVar11[0x29].tag + 1) = puVar17[3] >> 1;
+        *(u_char *)((int)&pTVar11[0x29].tag + 2) = puVar17[4];
+        (&pTVar11[0x29].r0)[4] = pbVar19[8] >> 1;
+        (&pTVar11[0x29].r0)[5] = puVar17[7] >> 1;
+        (&pTVar11[0x29].r0)[6] = puVar17[8];
+        pTVar11[0x2a].r0 = pbVar19[0xc] >> 1;
+        bVar6 = puVar17[0xb] >> 1;
       }
-      pbVar20 = pbVar20 + 0x10;
-      puVar19 = puVar18 + 0xc;
+      pbVar19 = pbVar19 + 0x10;
+      puVar18 = puVar17 + 0xc;
       (&pTVar11[0x2a].r0)[1] = bVar6;
-      puVar18 = puVar18 + 0x10;
-      (&pTVar11[0x2a].r0)[2] = *puVar19;
-      sVar22 = sVar22 + 0xb;
+      puVar17 = puVar17 + 0x10;
+      (&pTVar11[0x2a].r0)[2] = *puVar18;
+      sVar21 = sVar21 + 0xb;
       pTVar11 = pTVar11 + 3;
       iVar24 = iVar24 + 1;
-      iVar16 = local_30 + 0x24;
+      iVar15 = local_30 + 0x24;
     } while (iVar24 < 3);
-    *(char *)(puVar23 + 0x5c) = (char)((uint)(((int)local_58[4] % 7) * 0x10000) >> 0x10) * '\x18';
-    sVar22 = local_58[4];
-    *(undefined2 *)(puVar23 + 0x5d) = 0x18;
-    *(undefined2 *)((int)puVar23 + 0x176) = 0x14;
-    *(char *)((int)puVar23 + 0x171) =
-         (char)((uint)(((int)sVar22 / 7) * 0x10000) >> 0x10) * '\x14' + '*';
+    *(char *)(puVar22 + 0x5c) = (char)((uint)(((int)local_58[4] % 7) * 0x10000) >> 0x10) * '\x18';
+    sVar21 = local_58[4];
+    *(undefined2 *)(puVar22 + 0x5d) = 0x18;
+    *(undefined2 *)((int)puVar22 + 0x176) = 0x14;
+    *(char *)((int)puVar22 + 0x171) =
+         (char)((uint)(((int)sVar21 / 7) * 0x10000) >> 0x10) * '\x14' + '*';
     if ((uVar25 == 0) || (*(int *)(local_50 + 6) != 0)) {
       uVar8 = 2;
       if ((short)local_90[2] < 0) {
@@ -155603,11 +156406,11 @@ LAB_ATTACK__801c004c:
       FUN_BATTLE_BIN__8014bed8(local_a8,0x700);
       DAT_80165fa8 = 0x38;
       FUN_BATTLE_BIN__8014aa7c((int)local_a8,local_98,(ushort *)&DAT_80165fa0,6);
-      LoadImage(&bars_vals_RECT,local_a8);
-      puVar15 = local_a8 + 0x100;
+      SYS_LoadImage(&bars_vals_RECT,local_a8);
+      puVar9 = local_a8 + 0x100;
       DAT_80165fa8 = 0x60;
-      FUN_BATTLE_BIN__8014aa7c((int)puVar15,local_98 + 0x30,(ushort *)&DAT_80165fa0,2);
-      LoadImage(&black_RECT,puVar15);
+      FUN_BATTLE_BIN__8014aa7c((int)puVar9,local_98 + 0x30,(ushort *)&DAT_80165fa0,2);
+      SYS_LoadImage(&black_RECT,puVar9);
       *(undefined4 *)(local_50 + 6) = 0;
       FUN_BATTLE_BIN__8014bed8(local_68,0x580);
       DAT_80165fa8 = 0x58;
@@ -155615,84 +156418,84 @@ LAB_ATTACK__801c004c:
       FUN_BATTLE_BIN__8014b2f0(*local_58 + 0x5800,local_68,&DAT_80165fa0);
       FUN_BATTLE_BIN__8014a6cc(0,0x10);
       FUN_BATTLE_BIN__8014b2f0(local_58[1] + 0x3000,local_68,&DAT_80165fa0);
-      LoadImage(&RStack_d8,local_68);
+      SYS_LoadImage(&RStack_d8,local_68);
       FUN_BATTLE_BIN__8014bed8(local_70,0xf0);
       DAT_80165fa8 = 0x10;
       FUN_BATTLE_BIN__8014a6cc(0,0);
       FUN_BATTLE_BIN__8014aec0((int)local_58[2],0x202,(int)local_70,(ushort *)&DAT_80165fa0);
-      LoadImage(&RStack_d0,local_70);
+      SYS_LoadImage(&RStack_d0,local_70);
       FUN_BATTLE_BIN__8014a6cc(0,0);
-      puVar15 = local_70 + 0x14;
-      FUN_BATTLE_BIN__8014aec0((int)local_58[3],0x202,(int)puVar15,(ushort *)&DAT_80165fa0);
-      LoadImage(&RStack_c8,puVar15);
+      puVar9 = local_70 + 0x14;
+      FUN_BATTLE_BIN__8014aec0((int)local_58[3],0x202,(int)puVar9,(ushort *)&DAT_80165fa0);
+      SYS_LoadImage(&RStack_c8,puVar9);
       if (DAT_80165fc4 == 0) {
         FUN_BATTLE_BIN__8014a6cc(0,0);
-        puVar15 = local_70 + 0x28;
-        FUN_BATTLE_BIN__8014aec0(local_58[5] + 1,0x4002,(int)puVar15,(ushort *)&DAT_80165fa0);
+        puVar9 = local_70 + 0x28;
+        FUN_BATTLE_BIN__8014aec0(local_58[5] + 1,0x4002,(int)puVar9,(ushort *)&DAT_80165fa0);
       }
       else {
-        puVar15 = local_70 + 0x28;
+        puVar9 = local_70 + 0x28;
       }
-      LoadImage(&RStack_c0,puVar15);
+      SYS_LoadImage(&RStack_c0,puVar9);
     }
     if ((*(uint *)(local_50 + 4) & 0x80) == 0) {
-      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21[0x3f].r0 + 4));
-      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21[0x15].r0 + 4));
-      FUN_BATTLE_BIN__8014a5e8((uint *)&pTVar21[0x17].r0);
-      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21[0x13].r0 + 4));
+      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20[0x3f].r0 + 4));
+      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20[0x15].r0 + 4));
+      FUN_BATTLE_BIN__8014a5e8((uint *)&pTVar20[0x17].r0);
+      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20[0x13].r0 + 4));
       iVar24 = 0;
-      iVar16 = 0x1e0;
+      iVar15 = 0x1e0;
       do {
-        FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21->r0 + iVar16 + -4));
+        FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20->r0 + iVar15 + -4));
         iVar24 = iVar24 + 1;
-        iVar16 = iVar16 + 0x24;
+        iVar15 = iVar15 + 0x24;
       } while (iVar24 < 3);
-      FUN_BATTLE_BIN__8014a5e8(&pTVar21[0x19].tag);
-      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21[0x1a].r0 + 4));
+      FUN_BATTLE_BIN__8014a5e8(&pTVar20[0x19].tag);
+      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20[0x1a].r0 + 4));
       iVar24 = 0;
-      iVar16 = 0x154;
+      iVar15 = 0x154;
       do {
-        FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21->r0 + iVar16 + -4));
+        FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20->r0 + iVar15 + -4));
         iVar24 = iVar24 + 1;
-        iVar16 = iVar16 + 0x14;
+        iVar15 = iVar15 + 0x14;
       } while (iVar24 < 7);
-      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21[0x14].r0 + 4));
+      FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20[0x14].r0 + 4));
       if (local_38 == 0) {
         if (4 < local_b8) {
-          FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar21[0x37].r0 + 4));
-          FUN_BATTLE_BIN__8014a5e8(&pTVar21[0x3b].tag);
-          FUN_BATTLE_BIN__8014a5e8((uint *)&pTVar21[0x34].r0);
+          FUN_BATTLE_BIN__8014a5e8((uint *)(&pTVar20[0x37].r0 + 4));
+          FUN_BATTLE_BIN__8014a5e8(&pTVar20[0x3b].tag);
+          FUN_BATTLE_BIN__8014a5e8((uint *)&pTVar20[0x34].r0);
         }
-        FUN_BATTLE_BIN__8014a5e8(&pTVar21[0x31].tag);
+        FUN_BATTLE_BIN__8014a5e8(&pTVar20[0x31].tag);
       }
-      FUN_BATTLE_BIN__8012f360(&pTVar21->tag);
-      FUN_BATTLE_BIN__8014a5e8((uint *)&pTVar21[0x3e].r0);
-      FUN_BATTLE_BIN__8014a5e8(puVar23 + 0x68);
-      SetSemiTrans(puVar23 + 0x6c,1);
-      FUN_BATTLE_BIN__8014a5e8(puVar23 + 0x6c);
+      FUN_BATTLE_BIN__8012f360(&pTVar20->tag);
+      FUN_BATTLE_BIN__8014a5e8((uint *)&pTVar20[0x3e].r0);
+      FUN_BATTLE_BIN__8014a5e8(puVar22 + 0x68);
+      SetSemiTrans(puVar22 + 0x6c,1);
+      FUN_BATTLE_BIN__8014a5e8(puVar22 + 0x6c);
       iVar24 = 3;
-      iVar16 = 0x128;
+      iVar15 = 0x128;
       do {
-        FUN_BATTLE_BIN__8014a5e8((uint *)((int)puVar23 + iVar16));
+        FUN_BATTLE_BIN__8014a5e8((uint *)((int)puVar22 + iVar15));
         iVar24 = iVar24 + -1;
-        iVar16 = iVar16 + -0x14;
+        iVar15 = iVar15 + -0x14;
       } while (-1 < iVar24);
-      FUN_BATTLE_BIN__8014a5e8(puVar23 + 0x61);
+      FUN_BATTLE_BIN__8014a5e8(puVar22 + 0x61);
       iVar24 = 4;
-      iVar16 = 0x13c;
+      iVar15 = 0x13c;
       do {
-        FUN_BATTLE_BIN__8014a5e8((uint *)((int)puVar23 + iVar16));
+        FUN_BATTLE_BIN__8014a5e8((uint *)((int)puVar22 + iVar15));
         iVar24 = iVar24 + 1;
-        iVar16 = iVar16 + 0x14;
+        iVar15 = iVar15 + 0x14;
       } while (iVar24 < 7);
-      FUN_BATTLE_BIN__8014a5e8(puVar23 + 0x5e);
-      FUN_BATTLE_BIN__8012f360(puVar23);
-      FUN_BATTLE_BIN__8014a5e8(puVar23 + 100);
+      FUN_BATTLE_BIN__8014a5e8(puVar22 + 0x5e);
+      FUN_BATTLE_BIN__8012f360(puVar22);
+      FUN_BATTLE_BIN__8014a5e8(puVar22 + 100);
     }
     Thread_doNext();
-    iVar16 = Thread_getParam3();
+    iVar15 = Thread_getParam3();
     uVar25 = uVar25 + 1;
-    if (iVar16 != 0) {
+    if (iVar15 != 0) {
       Thread_doNext();
       FUN_BATTLE_BIN__8012ec90(&bars_vals_RECT.x);
       FUN_BATTLE_BIN__8012ec90(&black_RECT.x);
@@ -156480,7 +157283,7 @@ void ATTACK_Deployment_Entrypoint(void)
   _temp = 4;
   MoveImage(&ATTACK_tpage_6_RECT,(int)ATTACK_tpage_5_x,(int)ATTACK_tpage_5_y);
                     // move some palette to the bottom middle-left of tpage 5
-  LoadImage(&ATTACK_tpage_5_pal_RECT,(u_long *)ATTACK_tpage_5_pal);
+  SYS_LoadImage(&ATTACK_tpage_5_pal_RECT,ATTACK_tpage_5_pal);
   Thread_doNext();
   ATTACK_Squad_1_ID = BATTLE_get_script_variable(Squad1ID);
   ATTACK_fieldable_units_current_ptr = ATTACK_fieldable_units_ID0_ptr + ATTACK_Squad_1_ID * 0xc;
@@ -157526,7 +158329,7 @@ void FUN_ATTACK__801c67cc(void)
   ATTACK_Initialise_FRAME_FT4_Array();
   BATTLE_makeDefaultSprites_withCLUT(ATTACK_Portrait_Sprite_Array_0,0x19,0x7ebc);
                     // move image from 801c9fec into fame buffer tpage 0x10
-  LoadImage(&RECT_ATTACK__801cd0c4,&u_long_ATTACK__801c9fec);
+  SYS_LoadImage(&RECT_ATTACK__801cd0c4,&u_long_ATTACK__801c9fec);
   puVar8 = &u_long_ATTACK__801dcb3c;
   StoreImage(&RECT_ATTACK__801cd0c4,&u_long_ATTACK__801dcb3c);
   StoreImage(&RECT_ATTACK__801cd09c,(u_long *)&DAT_ATTACK__801dcb9c);
@@ -157538,7 +158341,7 @@ void FUN_ATTACK__801c67cc(void)
     *(ushort *)puVar8 = *(ushort *)puVar8 | 0x8000;
   } while (iVar7 < 0x30);
   u_long_ATTACK__801dcb3c._0_2_ = 0;
-  LoadImage(&RECT_ATTACK__801cd0cc,&u_long_ATTACK__801dcb3c);
+  SYS_LoadImage(&RECT_ATTACK__801cd0cc,&u_long_ATTACK__801dcb3c);
   iVar7 = 1;
   puVar6 = (ushort *)&DAT_ATTACK__801dcb9e;
   do {
@@ -157547,7 +158350,7 @@ void FUN_ATTACK__801c67cc(void)
     puVar6 = puVar6 + 1;
   } while (iVar7 < 0x10);
   _DAT_ATTACK__801dcb9c = 0;
-  LoadImage(&RECT_ATTACK__801cd0ac,(u_long *)&DAT_ATTACK__801dcb9c);
+  SYS_LoadImage(&RECT_ATTACK__801cd0ac,&DAT_ATTACK__801dcb9c);
   uVar3 = GetTPage(0,1,0x100,0);
   SetDrawMode(&DR_MODE_ATTACK__801dc014,0,0,(uint)uVar3,&RECT_ATTACK__801ca3f4);
   uVar3 = GetTPage(0,1,0x100,0);
@@ -157910,7 +158713,7 @@ void FUN_ATTACK__801c755c(void)
   int iVar2;
   int _i;
   
-  LoadImage(&RECT_ATTACK__801cd0a4,(u_long *)&DAT_ATTACK__801c9f8c);
+  SYS_LoadImage(&RECT_ATTACK__801cd0a4,&DAT_ATTACK__801c9f8c);
   iVar2 = 0;
   do {
     _i = 0;
@@ -157980,7 +158783,7 @@ void FUN_ATTACK__801c7720(int param_1,int param_2)
   *(int *)(iVar10 + 0x50) = *(int *)(iVar10 + 0x50) + DAT_80165f88;
   FUN_8014bf54();
   DAT_ATTACK__801dcb1c = 0;
-  LoadImage((RECT *)&DAT_ATTACK__801cd08c,(u_long *)&DAT_ATTACK__801dcb1c);
+  SYS_LoadImage((RECT *)&DAT_ATTACK__801cd08c,&DAT_ATTACK__801dcb1c);
   iVar10 = 0;
   iVar9 = 0;
   sVar7 = 0;
@@ -158206,7 +159009,7 @@ void FUN_ATTACK__801c80d0(void)
   int party_id;
   int iVar11;
   
-  p = (u_long *)BIN_Malloc_FFT(0x20000);
+  p = (u_long *)SCUS_MRTA_Malloc(0x20000);
   if (DAT_80165fda == 0) {
     StoreImage((RECT *)((int)&PTR_DAT_ATTACK__801d5d65 + 3),p);
     StoreImage((RECT *)&DAT_ATTACK__801d5d70,p + 0x2000);
@@ -158290,7 +159093,7 @@ void FUN_ATTACK__801c80d0(void)
     if (party_id == 0x14) {
       pRVar6 = (RECT *)&DAT_ATTACK__801d5d58;
     }
-    LoadImage(pRVar6,(u_long *)&DAT_ATTACK__801dd2e4);
+    SYS_LoadImage(pRVar6,&DAT_ATTACK__801dd2e4);
     DAT_ATTACK__801dd2e0 = 0x10;
     DAT_ATTACK__801dd2e2 = 1;
     DAT_ATTACK__801dd2de = (short)(party_id / 3);
@@ -158307,8 +159110,8 @@ void FUN_ATTACK__801c80d0(void)
     if (party_id == 0x14) {
       pRVar6 = (RECT *)&DAT_ATTACK__801d5d60;
     }
-    LoadImage(pRVar6,(u_long *)
-                     ((int)p + (iVar7 * 0x100 + iVar4 * 0x40 + 0xf000 >> 1) + uVar8 * 0x8000));
+    SYS_LoadImage(pRVar6,(void *)((int)p + (iVar7 * 0x100 + iVar4 * 0x40 + 0xf000 >> 1) +
+                                           uVar8 * 0x8000));
     if (DAT_80165fda == 2) {
       FUN_8014ca80();
     }
@@ -158343,7 +159146,7 @@ void FUN_ATTACK__801c8598(void)
   int iVar14;
   int party_id;
   
-  p = (u_long *)BIN_Malloc_FFT(0x10000);
+  p = (u_long *)SCUS_MRTA_Malloc(0x10000);
   if (DAT_80165fda == 0) {
     StoreImage((RECT *)(s_D>EG__FABCHIJKLMNOPQ_ATTACK__801d5da4 + 0x14),p);
     StoreImage((RECT *)&DAT_ATTACK__801d5dc0,p + 0x2000);
@@ -158356,7 +159159,7 @@ void FUN_ATTACK__801c8598(void)
     DAT_80173ca8 = Get_DAT_BIN_as_File;
     FUN_8014ceb4();
   }
-  LoadImage((RECT *)(s_D>EG__FABCHIJKLMNOPQ_ATTACK__801d5da4 + 0x14),p + 0x2000);
+  SYS_LoadImage((RECT *)(s_D>EG__FABCHIJKLMNOPQ_ATTACK__801d5da4 + 0x14),p + 0x2000);
   if (DAT_80165fda == 2) {
     FUN_8014ca80();
   }
@@ -158454,7 +159257,7 @@ void FUN_ATTACK__801c8598(void)
         iVar9 = iVar9 + 1;
         iVar12 = iVar12 + 0x18;
       } while (iVar9 < 0x30);
-      LoadImage((RECT *)&DAT_ATTACK__801dd2d4,(u_long *)&DAT_ATTACK__801dd5e4);
+      SYS_LoadImage((RECT *)&DAT_ATTACK__801dd2d4,&DAT_ATTACK__801dd5e4);
       (&DAT_ATTACK__801cd014)[party_id] = 1;
     }
     else {
@@ -158476,7 +159279,7 @@ void FUN_ATTACK__801c8598(void)
         iVar12 = iVar12 + 1;
         iVar10 = iVar10 + 0x18;
       } while (iVar12 < 0x30);
-      LoadImage((RECT *)&DAT_ATTACK__801dd2d4,(u_long *)&DAT_ATTACK__801dd5e4);
+      SYS_LoadImage((RECT *)&DAT_ATTACK__801dd2d4,&DAT_ATTACK__801dd5e4);
       (&DAT_ATTACK__801cd014)[party_id] = 0;
     }
     if (uVar13 == 0xffffffff) {
@@ -158494,8 +159297,8 @@ void FUN_ATTACK__801c8598(void)
     DAT_ATTACK__801dd2de = sVar2 + 0xe0;
     DAT_ATTACK__801dd2e0 = 0x10;
     DAT_ATTACK__801dd2e2 = 1;
-    LoadImage((RECT *)&DAT_ATTACK__801dd2dc,
-              (u_long *)((int)p + ((int)(uVar13 * 0x40) >> 1) + 0xf000));
+    SYS_LoadImage((RECT *)&DAT_ATTACK__801dd2dc,
+                  (void *)((int)p + ((int)(uVar13 * 0x40) >> 1) + 0xf000));
     if (DAT_80165fda == 2) {
       FUN_8014ca80();
     }
@@ -158845,7 +159648,7 @@ void Save_deployment_textdata(void)
   int iVar12;
   
   pbVar9 = &DAT_ATTACK__801cf938;
-  piVar3 = (int *)BIN_Malloc_FFT(0x18000);
+  piVar3 = (int *)SCUS_MRTA_Malloc(0x18000);
   DAT_80173ca8 = Get_DAT_BIN_as_File;
   BATTLE_call_inner_subroutine(0x1a3a,0x16800,piVar3);
   iVar12 = 0;
@@ -164053,12 +164856,12 @@ bool FUN_BUNIT__801ce734(void)
 
 
 
-void FUN_BUNIT__801ce82c(RECT *param_1,u_long *param_2)
+void FUN_BUNIT__801ce82c(RECT *param_1,void *param_2)
 
 {
   int iVar1;
   
-  LoadImage(param_1,param_2);
+  SYS_LoadImage(param_1,param_2);
   do {
     iVar1 = DrawSync(1);
   } while (iVar1 != 0);
@@ -164087,7 +164890,7 @@ void FUN_HELPMENU__801df000(void)
 
 {
   FUN_8014bf54();
-  SCUS_MRTA_free((int)exe_dest_ptr_arr[4]);
+  SCUS_MRTA_free(exe_dest_ptr_arr[4]);
   DAT_8016602c = 0;
   FUN_8014c958();
   return;
@@ -165948,12 +166751,12 @@ void FUN_JOBSTTS__801e15d4
 
 
 
-void FUN_JOBSTTS__801e1ff0(RECT *param_1,u_long *param_2)
+void FUN_JOBSTTS__801e1ff0(RECT *param_1,void *param_2)
 
 {
   int iVar1;
   
-  LoadImage(param_1,param_2);
+  SYS_LoadImage(param_1,param_2);
   do {
     iVar1 = DrawSync(1);
   } while (iVar1 != 0);
